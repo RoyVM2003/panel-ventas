@@ -1,0 +1,341 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0b1e33 0%, #1a3a5f 40%, #264e7b 100%);
+  color: #1a1a1a;
+  padding: 1rem;
+}
+
+.wrap {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.panel {
+  background: linear-gradient(145deg, #e2eef8 0%, #e8f2fa 100%);
+  border-radius: 24px;
+  padding: 1.75rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #b8d4eb;
+  box-shadow: 0 12px 30px rgba(11, 30, 51, 0.15);
+}
+
+.panel h2 {
+  margin: 0 0 1rem;
+  font-size: 1.35rem;
+  color: #0b1e33;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.panel h2 i {
+  color: #ffd966;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  color: #0b1e33;
+  margin-bottom: 0.35rem;
+  font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 16px;
+  border: 1px solid #b8d4eb;
+  background: #fff;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #ffd966;
+  box-shadow: 0 0 0 3px rgba(255, 217, 102, 0.25);
+}
+
+.form-group textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.form-group .hint {
+  font-size: 0.8rem;
+  color: #1e4a76;
+  margin-top: 0.25rem;
+}
+
+.btn {
+  background: #ffd966;
+  color: #0b1e33;
+  border: none;
+  padding: 0.85rem 1.5rem;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn:hover {
+  background: #ffcd4f;
+  transform: scale(1.02);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary {
+  background: #1e4a76;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background: #2b5f8a;
+}
+
+.btn-danger {
+  background: #c83e33;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background: #a6352b;
+}
+
+.header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.header-bar h1 {
+  margin: 0;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.header-bar h1 i {
+  color: #5fc2e6;
+}
+
+.user-info {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.user-info span {
+  margin-right: 0.75rem;
+}
+
+.logout-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.logout-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.login-page {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.login-section {
+  background: linear-gradient(145deg, #e2eef8 0%, #e8f2fa 100%);
+  border-radius: 24px;
+  padding: 2rem;
+  max-width: 400px;
+  margin: 2rem auto;
+  border: 1px solid #b8d4eb;
+}
+
+.login-section h2 {
+  color: #0b1e33;
+  margin-top: 0;
+}
+
+.register-title {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #0b1e33;
+}
+
+.msg {
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.msg.ok {
+  background: #d4edda;
+  border: 1px solid #6fc2a9;
+  color: #155724;
+}
+
+.msg.err {
+  background: #f8d7da;
+  border: 1px solid #fbb4ae;
+  color: #721c24;
+}
+
+.msg.info {
+  background: #dceaf5;
+  border: 1px solid #b8d4eb;
+  color: #0b1e33;
+}
+
+.file-name {
+  font-size: 0.9rem;
+  color: #1e4a76;
+  margin-top: 0.35rem;
+}
+
+.ai-output {
+  background: #0d1b3e;
+  color: #e0f3ff;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  white-space: pre-wrap;
+  border: 1px solid #333;
+}
+
+.mt-1 {
+  margin-top: 0.5rem;
+}
+
+.divider {
+  height: 1px;
+  background: #b8d4eb;
+  margin: 1.25rem 0;
+}
+
+/* Crear cuenta: botón que abre modal */
+.register-cta {
+  margin-top: 1.25rem;
+  margin-bottom: 0;
+  font-size: 0.95rem;
+  color: #0b1e33;
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+  font-weight: 600;
+  color: #1e4a76;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.btn-link:hover {
+  color: #0b1e33;
+}
+
+/* Modal ventana Crear cuenta */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 30, 51, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-box {
+  max-width: 420px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.modal-header h2 {
+  margin: 0;
+}
+
+.modal-close {
+  background: rgba(11, 30, 51, 0.1);
+  border: 1px solid #b8d4eb;
+  color: #0b1e33;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.modal-close:hover {
+  background: rgba(11, 30, 51, 0.15);
+}
+
+.modal-back {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+@media (max-width: 600px) {
+  .panel {
+    padding: 1.25rem;
+  }
+
+  .header-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
