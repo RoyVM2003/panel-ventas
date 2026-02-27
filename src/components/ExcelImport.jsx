@@ -51,7 +51,7 @@ export function ExcelImport({ onImportSuccess }) {
   return (
     <Panel title="Paso 1 · Base de datos (Excel)" icon="fas fa-file-excel">
       <p className="form-group hint">
-        Sube un archivo .xlsx para importar contactos. La API espera columnas según la documentación (ej. email, nombre).
+        Sube un archivo .xlsx para importar contactos con columnas como email y nombre.
       </p>
       <FormGroup label="Seleccionar archivo Excel" id="fileExcel">
         <input

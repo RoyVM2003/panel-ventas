@@ -158,7 +158,7 @@ export function LoginPage() {
                 <i className="fas fa-times"></i>
               </button>
             </div>
-            <p className="msg info">Completa los datos. La cuenta se crea con la API de registro.</p>
+            <p className="msg info">Completa los datos para crear tu cuenta.</p>
             <Message text={regMsg.text} type={regMsg.type} />
             <form id="formRegister" onSubmit={handleRegister}>
               <FormGroup label="Correo" id="regEmail">
