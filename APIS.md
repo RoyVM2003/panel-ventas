@@ -10,6 +10,9 @@ Base del backend: **`https://osdemsventas.site`** (configurable con `VITE_API_BA
 |--------|----------|----------|
 | POST | `/api/v1/auth/register` | **Crear cuenta.** Body: `FormData` con `email`, `password`, `first_name`, `last_name`. No requiere token. |
 | POST | `/api/v1/auth/login` | **Iniciar sesión.** Body: `{ "email", "password" }`. Devuelve un token (Bearer) que el front guarda y envía en el resto de peticiones. |
+| POST | `/api/v1/auth/forgot-password` | **Solicitar restablecimiento de contraseña.** Envía un correo con enlace a `/reset-password?token=...`. |
+| POST | `/api/v1/auth/reset-password` | **Restablecer contraseña.** El front envía `{ "token", "password" }` usando el token recibido por correo. |
+| GET | `/api/v1/auth/verify-reset-token/{token}` | Verificar si un token de restablecimiento es válido o ha expirado. |
 
 **En el panel:** Login con correo/contraseña; botón "Crear cuenta" abre el modal de registro.
 
@@ -20,7 +23,7 @@ Base del backend: **`https://osdemsventas.site`** (configurable con `VITE_API_BA
 | Método | Endpoint | Qué hace |
 |--------|----------|----------|
 | POST | `/api/v1/excel/import` | **Importar contactos.** Body: `FormData` con campo `file` (archivo .xlsx). Requiere token. Las columnas deben coincidir con lo que documente el backend (ej. email, nombre). |
-| GET | `/api/v1/excel/campaigns` | **Listar campañas** del usuario. Requiere token. Devuelve array de campañas (con `id`/`campaign_id`, `name`/`subject`, etc.). |
+| GET | `/api/v1/excel/campaigns` | **Listar campañas/contactos** con paginación. Query: `page`, `limit`, `search`. Requiere token. Respuesta: `{ success, data: [...] }`. |
 
 **En el panel:** Paso 1 — subir Excel e importar; el desplegable de campañas se rellena con esta lista.
 
@@ -31,7 +34,7 @@ Base del backend: **`https://osdemsventas.site`** (configurable con `VITE_API_BA
 | Método | Endpoint | Qué hace |
 |--------|----------|----------|
 | POST | `/api/v1/excel/campaigns` | **Crear campaña.** Body: `{ "name", "subject", "body" }`. Requiere token. Devuelve la campaña creada (con `id` o `campaign_id`). |
-| POST | `/api/v1/campaigns/send` | **Enviar campaña.** Body: `{ "campaign_id": number }`. Requiere token. Dispara el envío de la campaña a la base asociada. |
+| POST | `/api/v1/campaigns/send` | **Enviar campaña.** Body: `{ "subject", "message" }` (asunto y cuerpo del correo). Envía a todos los registros activos en `email_campaigns`. Requiere token. |
 
 **En el panel:** Paso 2 — elegir campaña existente o crear una (asunto + cuerpo); Paso 3 — botón "Enviar campaña" con la campaña seleccionada.
 
@@ -39,17 +42,12 @@ Base del backend: **`https://osdemsventas.site`** (configurable con `VITE_API_BA
 
 ## 4. IA (generar texto)
 
-Todos **POST**, body: `{ "prompt": "..." }`. Requieren token (según backend).
+- **POST `/api/v1/ai/campaign-suggestion`**  
+  - Body básico: `{ "prompt": "..." }` (según esquema `CampaignSuggestionRequest` se pueden añadir más campos opcionales cuando el backend los exponga).  
+  - Respuesta tipo `CampaignSuggestionResponse` (normalmente asunto + cuerpo sugeridos).  
+  - Requiere token.
 
-| Endpoint | Qué hace |
-|----------|----------|
-| `/api/v1/generate` | Generación automática (modelo por defecto del backend). |
-| `/api/v1/ollama/qwen2-5-0-5b` | Ollama — modelo qwen2.5 0.5B. |
-| `/api/v1/ollama/qwen2-5-1-5b` | Ollama — modelo qwen2.5 1.5B. |
-| `/api/v1/mistral/mistral-tiny` | Mistral — mistral-tiny. |
-| `/api/v1/gemini/gemini-pro` | Google — Gemini Pro. |
-
-**En el panel:** Paso 2B — describes la promoción o público; eliges proveedor/modelo; "Sugerir asunto y texto" rellena el cuerpo del correo (y puedes editarlo antes de guardar/enviar).
+**En el panel:** Paso 2B — describes la promoción o público; el front llama a `/api/v1/ai/campaign-suggestion` y la respuesta se agrega al cuerpo del correo (puedes editarlo antes de guardar/enviar).
 
 ---
 

@@ -4,17 +4,8 @@ import { FormGroup } from './FormGroup'
 import { Message } from './Message'
 import { generateText, extractTextFromAIResponse } from '../services/aiService'
 
-const AI_MODELS = [
-  { value: 'generate', label: 'Automático (API /api/v1/generate)' },
-  { value: 'ollama-0-5b', label: 'Ollama · qwen2.5 0.5B' },
-  { value: 'ollama-1-5b', label: 'Ollama · qwen2.5 1.5B' },
-  { value: 'mistral-tiny', label: 'Mistral · mistral-tiny' },
-  { value: 'gemini-pro', label: 'Gemini · gemini-pro' },
-]
-
 export function AIAssistant({ body, onBodyAppend }) {
   const [prompt, setPrompt] = useState('')
-  const [model, setModel] = useState('generate')
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState({ text: '', type: 'info' })
   const [output, setOutput] = useState('')
@@ -32,7 +23,8 @@ export function AIAssistant({ body, onBodyAppend }) {
     setOutput('')
     setMessage({ text: 'Pidiendo sugerencia a la IA...', type: 'info' })
     try {
-      const data = await generateText(p, model)
+      // Llama al backend real: POST /api/v1/ai/campaign-suggestion
+      const data = await generateText(p)
       const text = extractTextFromAIResponse(data)
       setOutput(text)
       const currentBody = typeof body === 'string' ? body : ''
@@ -64,19 +56,6 @@ export function AIAssistant({ body, onBodyAppend }) {
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
         />
-      </FormGroup>
-      <FormGroup
-        label="Proveedor / modelo"
-        id="aiModel"
-        hint="La IA te puede proponer asunto y cuerpo; luego los puedes ajustar antes de guardar/enviar."
-      >
-        <select id="aiModel" value={model} onChange={(e) => setModel(e.target.value)}>
-          {AI_MODELS.map((m) => (
-            <option key={m.value} value={m.value}>
-              {m.label}
-            </option>
-          ))}
-        </select>
       </FormGroup>
       <button
         type="button"

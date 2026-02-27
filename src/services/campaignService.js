@@ -7,9 +7,13 @@ export async function createCampaign({ name, subject, body }) {
   })
 }
 
-export async function sendCampaign(campaignId) {
+/**
+ * Envía campaña según la API: POST /api/v1/campaigns/send
+ * Body: { subject, message } — asunto y cuerpo del correo.
+ */
+export async function sendCampaign(subject, message) {
   return apiEmail('/api/v1/campaigns/send', {
     method: 'POST',
-    body: { campaign_id: parseInt(campaignId, 10) },
+    body: { subject, message },
   })
 }

@@ -27,8 +27,13 @@ export function ExcelImport({ onImportSuccess }) {
     setMessage({ text: 'Importando...', type: 'info' })
     try {
       const data = await importExcel(file)
+      // Doc: respuesta { success, message, insertedCount, duplicateCount, internalDuplicateCount, errorCount }
+      const parts = [data.message || 'Importación correcta.']
+      if (data.insertedCount != null) parts.push(`Insertados: ${data.insertedCount}`)
+      if (data.duplicateCount != null && data.duplicateCount > 0) parts.push(`Duplicados: ${data.duplicateCount}`)
+      if (data.errorCount != null && data.errorCount > 0) parts.push(`Errores: ${data.errorCount}`)
       setMessage({
-        text: 'Importación correcta. ' + (data.message || JSON.stringify(data)),
+        text: parts.join(' · '),
         type: 'ok',
       })
       onImportSuccess?.()

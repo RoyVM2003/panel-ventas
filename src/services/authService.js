@@ -27,12 +27,35 @@ export async function login(email, password) {
 }
 
 export async function register({ email, password, first_name, last_name }) {
+  // El backend espera multipart/form-data con:
+  // email, password, first_name, last_name, imagen (opcional)
   const fd = new FormData()
   fd.append('email', email)
   fd.append('password', password)
   fd.append('first_name', first_name)
   fd.append('last_name', last_name)
-  const res = await fetch(API_BASE + '/api/v1/auth/register', { method: 'POST', body: fd })
+
+  const res = await fetch(API_BASE + '/api/v1/auth/register', {
+    method: 'POST',
+    body: fd,
+  })
+  const text = await res.text()
+  let data
+  try { data = JSON.parse(text) } catch (_) { data = text }
+  if (!res.ok) throw { status: res.status, data }
+  return data
+}
+
+/**
+ * Solicita restablecimiento de contraseña.
+ * Usa POST /api/v1/auth/forgot-password del backend.
+ */
+export async function forgotPassword(email) {
+  const res = await fetch(API_BASE + '/api/v1/auth/forgot-password', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email }),
+  })
   const text = await res.text()
   let data
   try { data = JSON.parse(text) } catch (_) { data = text }

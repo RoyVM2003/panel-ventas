@@ -3,15 +3,16 @@ import { Panel } from './Panel'
 import { Message } from './Message'
 import { sendCampaign } from '../services/campaignService'
 
-export function SendCampaign({ campaignId }) {
+export function SendCampaign({ subject, message: body }) {
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState({ text: '', type: 'info' })
 
   const handleSend = async () => {
-    const id = typeof campaignId === 'string' ? campaignId : campaignId?.value ?? ''
-    if (!id) {
+    const sub = (typeof subject === 'string' ? subject : '').trim()
+    const msg = (typeof body === 'string' ? body : '').trim()
+    if (!sub || !msg) {
       setMessage({
-        text: 'Selecciona una campaña existente o crea una nueva y guárdala antes de enviar.',
+        text: 'Escribe asunto y mensaje en el Paso 2 antes de enviar.',
         type: 'err',
       })
       return
@@ -19,7 +20,7 @@ export function SendCampaign({ campaignId }) {
     setLoading(true)
     setMessage({ text: 'Enviando...', type: 'info' })
     try {
-      await sendCampaign(id)
+      await sendCampaign(sub, msg)
       setMessage({ text: 'Envío solicitado correctamente.', type: 'ok' })
     } catch (err) {
       const msg =
@@ -35,7 +36,7 @@ export function SendCampaign({ campaignId }) {
   return (
     <Panel title="Paso 3 · Enviar campaña" icon="fas fa-paper-plane">
       <p className="form-group hint">
-        Se enviará la campaña seleccionada (o la que acabas de crear) a la base asociada. Revisa asunto y mensaje antes.
+        Se enviará el asunto y mensaje que escribiste en el Paso 2 a todos los contactos activos. Revisa antes de enviar.
       </p>
       <button
         type="button"

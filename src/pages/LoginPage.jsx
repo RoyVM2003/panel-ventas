@@ -2,11 +2,12 @@ import { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { FormGroup } from '../components/FormGroup'
 import { Message } from '../components/Message'
-import { register } from '../services/authService'
+import { register, forgotPassword } from '../services/authService'
 
 export function LoginPage() {
   const { login } = useAuth()
   const [showRegister, setShowRegister] = useState(false)
+  const [showForgot, setShowForgot] = useState(false)
 
   const [loginEmail, setLoginEmail] = useState('')
   const [loginPassword, setLoginPassword] = useState('')
@@ -15,10 +16,15 @@ export function LoginPage() {
 
   const [regEmail, setRegEmail] = useState('')
   const [regPassword, setRegPassword] = useState('')
+  const [regConfirmPassword, setRegConfirmPassword] = useState('')
   const [regFirstName, setRegFirstName] = useState('')
   const [regLastName, setRegLastName] = useState('')
   const [regLoading, setRegLoading] = useState(false)
   const [regMsg, setRegMsg] = useState({ text: '', type: 'info' })
+
+  const [forgotEmail, setForgotEmail] = useState('')
+  const [forgotLoading, setForgotLoading] = useState(false)
+  const [forgotMsg, setForgotMsg] = useState({ text: '', type: 'info' })
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -45,9 +51,14 @@ export function LoginPage() {
     e.preventDefault()
     const email = regEmail.trim()
     const password = regPassword
+    const confirmPassword = regConfirmPassword
     const first_name = regFirstName.trim()
     const last_name = regLastName.trim()
     if (!email || !password || !first_name || !last_name) return
+    if (password !== confirmPassword) {
+      setRegMsg({ text: 'Las contraseñas no coinciden.', type: 'err' })
+      return
+    }
     setRegLoading(true)
     setRegMsg({ text: 'Creando cuenta...', type: 'info' })
     try {
@@ -56,6 +67,7 @@ export function LoginPage() {
       setLoginPassword('')
       setRegEmail('')
       setRegPassword('')
+      setRegConfirmPassword('')
       setRegFirstName('')
       setRegLastName('')
       setShowRegister(false)
@@ -107,6 +119,17 @@ export function LoginPage() {
             Entrar
           </button>
         </form>
+        <button
+          type="button"
+          className="btn-link forgot-link"
+          onClick={() => {
+            setForgotEmail(loginEmail)
+            setForgotMsg({ text: '', type: 'info' })
+            setShowForgot(true)
+          }}
+        >
+          ¿Olvidaste tu contraseña?
+        </button>
         <p className="register-cta">
           ¿No tienes cuenta?{' '}
           <button
@@ -159,6 +182,17 @@ export function LoginPage() {
                   placeholder="••••••••"
                 />
               </FormGroup>
+              <FormGroup label="Confirmar contraseña" id="regConfirmPassword">
+                <input
+                  type="password"
+                  id="regConfirmPassword"
+                  value={regConfirmPassword}
+                  onChange={(e) => setRegConfirmPassword(e.target.value)}
+                  required
+                  minLength={6}
+                  placeholder="Repite la contraseña"
+                />
+              </FormGroup>
               <FormGroup label="Nombre" id="regFirstName">
                 <input
                   type="text"
@@ -187,6 +221,76 @@ export function LoginPage() {
               type="button"
               className="btn btn-secondary modal-back"
               onClick={() => setShowRegister(false)}
+            >
+              Volver a iniciar sesión
+            </button>
+          </div>
+        </div>
+      )}
+
+      {showForgot && (
+        <div className="modal-overlay" onClick={() => setShowForgot(false)}>
+          <div className="modal-box login-section" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2>
+                <i className="fas fa-key"></i> Restablecer contraseña
+              </h2>
+              <button
+                type="button"
+                className="modal-close"
+                onClick={() => setShowForgot(false)}
+                aria-label="Cerrar"
+              >
+                <i className="fas fa-times"></i>
+              </button>
+            </div>
+            <p className="msg info">
+              Ingresa el correo con el que te registraste. Te enviaremos un enlace para restablecer tu contraseña.
+            </p>
+            <Message text={forgotMsg.text} type={forgotMsg.type} />
+            <form
+              id="formForgotPassword"
+              onSubmit={async (e) => {
+                e.preventDefault()
+                const email = forgotEmail.trim()
+                if (!email) return
+                setForgotLoading(true)
+                setForgotMsg({ text: 'Enviando instrucciones...', type: 'info' })
+                try {
+                  await forgotPassword(email)
+                  setForgotMsg({
+                    text: 'Si el correo existe, se enviaron las instrucciones para restablecer tu contraseña.',
+                    type: 'ok',
+                  })
+                } catch (err) {
+                  const msg =
+                    err.data?.message ||
+                    err.data?.error ||
+                    (err.data && typeof err.data === 'object' ? JSON.stringify(err.data) : err.message)
+                  setForgotMsg({ text: 'Error al solicitar restablecimiento: ' + msg, type: 'err' })
+                } finally {
+                  setForgotLoading(false)
+                }
+              }}
+            >
+              <FormGroup label="Correo" id="forgotEmail">
+                <input
+                  type="email"
+                  id="forgotEmail"
+                  value={forgotEmail}
+                  onChange={(e) => setForgotEmail(e.target.value)}
+                  required
+                  placeholder="tucorreo@ejemplo.com"
+                />
+              </FormGroup>
+              <button type="submit" className="btn btn-secondary" disabled={forgotLoading}>
+                Enviar enlace
+              </button>
+            </form>
+            <button
+              type="button"
+              className="btn btn-secondary modal-back"
+              onClick={() => setShowForgot(false)}
             >
               Volver a iniciar sesión
             </button>
