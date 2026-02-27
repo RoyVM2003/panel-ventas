@@ -91,7 +91,7 @@ export function LoginPage() {
           <i className="fas fa-lock"></i> Paso 0 · Iniciar sesión
         </h2>
         <p className="msg info">
-          Front en React. APIs en el dominio del backend (cuando esté activo tras ~24h). Inicia sesión con tu cuenta.
+          Inicia sesión con tu cuenta.
         </p>
         <Message text={loginMsg.text} type={loginMsg.type} />
         <form id="formLogin" onSubmit={handleLogin}>
