@@ -23,21 +23,27 @@ Base del backend: **`https://osdemsventas.site`** (configurable con `VITE_API_BA
 
 | Método | Endpoint | Qué hace |
 |--------|----------|----------|
-| POST | `/api/v1/excel/import` | **Importar contactos.** Body: `FormData` con campo `file` (archivo .xlsx). Requiere token. Las columnas deben coincidir con lo que documente el backend (ej. email, nombre). |
-| GET | `/api/v1/excel/campaigns` | **Listar campañas/contactos** con paginación. Query: `page`, `limit`, `search`. Requiere token. Respuesta: `{ success, data: [...] }`. |
+| POST | `/api/v1/excel/import` | **Importar contactos.** Body: `FormData` con campo `file` (archivo .xlsx). Requiere token. Las columnas deben coincidir con lo que documente el backend (ej. email, nombre). Respuesta puede incluir `insertedCount`, `duplicateCount`, `internalDuplicateCount`, `errorCount`. Si 0 insertados y hay duplicados, esos contactos ya están en la BD y se pueden usar para enviar en el Paso 3. |
+| GET | `/api/v1/excel/campaigns` | **Listar campañas** con paginación. Query: `page`, `limit`, `search`. Requiere token. |
 
 **En el panel:** Paso 1 — subir Excel e importar; el desplegable de campañas se rellena con esta lista.
 
 ---
 
-## 3. Campañas (crear y enviar)
+## 3. Campañas (CRUD y envío)
 
-| Método | Endpoint | Qué hace |
-|--------|----------|----------|
-| POST | `/api/v1/excel/campaigns` | **Crear campaña.** Body: `{ "name", "subject", "body" }`. Requiere token. Devuelve la campaña creada (con `id` o `campaign_id`). |
-| POST | `/api/v1/campaigns/send` | **Enviar campaña.** Body: `{ "subject", "message" }` (asunto y cuerpo del correo). Envía a todos los registros activos en `email_campaigns`. Requiere token. |
+Todas requieren token. Documentación completa: **https://osdemsventas.site/api-docs**
 
-**En el panel:** Paso 2 — elegir campaña existente o crear una (asunto + cuerpo); Paso 3 — botón "Enviar campaña" con la campaña seleccionada.
+| Método | Endpoint | Qué hace | Uso en el panel |
+|--------|----------|----------|------------------|
+| POST | `/api/v1/excel/campaigns` | **Crear campaña.** Body: `{ "name", "subject", "body" }`. | Paso 2 — botón "Crear campaña" cuando no hay ninguna seleccionada. |
+| GET | `/api/v1/excel/campaigns` | **Listar campañas** (paginación, búsqueda). | Rellena el desplegable "Usar campaña existente". |
+| GET | `/api/v1/excel/campaigns/{id}` | **Obtener una campaña** por ID. | Al elegir una campaña en el desplegable, se cargan asunto y cuerpo. |
+| PUT | `/api/v1/excel/campaigns/{id}` | **Actualizar campaña.** Body: `{ "name", "subject", "body" }`. | Paso 2 — botón "Actualizar campaña" cuando hay una seleccionada. |
+| DELETE | `/api/v1/excel/campaigns/{id}` | **Eliminar campaña.** | Paso 2 — botón "Eliminar campaña" (solo si hay campaña seleccionada). |
+| POST | `/api/v1/campaigns/send` | **Enviar campaña.** Body: `{ "subject", "message" }`. Envía a todos los contactos activos (importados en Paso 1). | Paso 3 — botón "Enviar campaña". |
+
+**Nota:** Si al crear/actualizar campaña el backend devuelve "Email, nombre y compañía son campos requeridos", el backend puede estar esperando otro contrato o contactos importados primero. Revisar la documentación del backend (api-docs).
 
 ---
 

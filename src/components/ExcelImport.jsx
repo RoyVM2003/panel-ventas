@@ -27,11 +27,21 @@ export function ExcelImport({ onImportSuccess }) {
     setMessage({ text: 'Importando...', type: 'info' })
     try {
       const data = await importExcel(file)
-      // Doc: respuesta { success, message, insertedCount, duplicateCount, internalDuplicateCount, errorCount }
+      // Doc: respuesta { success, message, insertedCount, duplicateCount, internalDuplicateCount, errorCount, ... }
       const parts = [data.message || 'Importación correcta.']
-      if (data.insertedCount != null) parts.push(`Insertados: ${data.insertedCount}`)
-      if (data.duplicateCount != null && data.duplicateCount > 0) parts.push(`Duplicados: ${data.duplicateCount}`)
-      if (data.errorCount != null && data.errorCount > 0) parts.push(`Errores: ${data.errorCount}`)
+      if (data.insertedCount != null) parts.push(`${data.insertedCount} registros insertados`)
+      if (data.duplicateCount != null && data.duplicateCount > 0) {
+        parts.push(`${data.duplicateCount} emails ya existían en la BD (omitidos)`)
+      }
+      if (data.internalDuplicateCount != null && data.internalDuplicateCount > 0) {
+        parts.push(`${data.internalDuplicateCount} duplicados dentro del archivo (omitidos)`)
+      }
+      if (data.errorCount != null && data.errorCount > 0) parts.push(`${data.errorCount} con error`)
+      const inserted = data.insertedCount ?? 0
+      const duplicates = (data.duplicateCount ?? 0) + (data.internalDuplicateCount ?? 0)
+      if (inserted === 0 && duplicates > 0) {
+        parts.push('Esos contactos ya están en la base: puedes usarlos para enviar campañas en el Paso 3.')
+      }
       setMessage({
         text: parts.join(' · '),
         type: 'ok',

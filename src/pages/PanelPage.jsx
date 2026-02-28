@@ -6,6 +6,7 @@ import { AIAssistant } from '../components/AIAssistant'
 import { SendCampaign } from '../components/SendCampaign'
 import { Message } from '../components/Message'
 import { listCampaigns } from '../services/excelService'
+import { getCampaign } from '../services/campaignService'
 
 export function PanelPage() {
   const [campaigns, setCampaigns] = useState([])
@@ -26,6 +27,27 @@ export function PanelPage() {
   useEffect(() => {
     loadCampaigns()
   }, [loadCampaigns])
+
+  // Al elegir una campaña existente, cargar su asunto y cuerpo
+  useEffect(() => {
+    if (!selectedCampaignId) return
+    let cancelled = false
+    getCampaign(selectedCampaignId)
+      .then((c) => {
+        if (cancelled) return
+        const s = c.subject ?? c.name ?? ''
+        const b = c.body ?? c.message ?? ''
+        setSubject(typeof s === 'string' ? s : '')
+        setBody(typeof b === 'string' ? b : '')
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setSubject('')
+          setBody('')
+        }
+      })
+    return () => { cancelled = true }
+  }, [selectedCampaignId])
 
   const handleBodyAppend = useCallback((newBody) => {
     setBody(newBody)
