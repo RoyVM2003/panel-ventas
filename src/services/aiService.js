@@ -67,3 +67,32 @@ export function extractTextFromAIResponse(data) {
   // No rellenar el cuerpo con JSON crudo (success, metadata, etc.)
   return ''
 }
+
+/**
+ * Devuelve asunto y cuerpo por separado para rellenar "Asunto del correo" y "Mensaje (cuerpo del correo)".
+ */
+export function getSubjectAndBodyFromAIResponse(data) {
+  if (!data) return { subject: '', body: '' }
+  if (typeof data === 'string') return { subject: '', body: data }
+
+  const subject = (data.subject ?? data.asunto ?? '').trim()
+  const bodyText = (
+    data.body ?? data.content ?? data.generated_content ?? data.generated_text ?? ''
+  ).trim()
+  const cta = (data.callToAction ?? data.call_to_action ?? '').trim()
+  const body = [bodyText, cta].filter(Boolean).join('\n\n')
+
+  if (body) return { subject, body }
+
+  const statusMsg = (data?.message && typeof data.message === 'string')
+    ? data.message.trim() : ''
+  const ctaFallback = (data?.call_to_action ?? data?.callToAction ?? '').trim()
+  const fallbackBody = [statusMsg, ctaFallback].filter(Boolean).join('\n\n')
+  if (fallbackBody) return { subject, body: fallbackBody }
+
+  if (data?.text) return { subject, body: data.text }
+  if (Array.isArray(data?.choices) && data.choices[0]?.message?.content) {
+    return { subject, body: data.choices[0].message.content }
+  }
+  return { subject: '', body: '' }
+}

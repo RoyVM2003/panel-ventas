@@ -46,7 +46,7 @@ export function PanelPage() {
         onSubjectChange={setSubject}
         onBodyChange={setBody}
       />
-      <AIAssistant body={body} onBodyAppend={handleBodyAppend} />
+      <AIAssistant body={body} onBodyAppend={handleBodyAppend} onSubjectChange={setSubject} />
       <SendCampaign subject={subject} message={body} />
     </div>
   )

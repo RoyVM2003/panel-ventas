@@ -39,7 +39,13 @@ export function CampaignForm({
         err.data?.message ||
         err.data?.error ||
         (err.data && typeof err.data === 'object' ? JSON.stringify(err.data) : err.message)
-      setMessage({ text: 'Error al crear campaña: ' + msg, type: 'err' })
+      const fullMsg = String(msg ?? '')
+      const isBackendRequiredFields =
+        /email|nombre|compañía|compania/i.test(fullMsg) && /requerido|required|campo/i.test(fullMsg)
+      const text = isBackendRequiredFields
+        ? `Error al crear campaña: ${fullMsg} Este endpoint del backend puede estar esperando otros datos (p. ej. de contactos). Revisa la documentación del backend (api-docs) o contacta al equipo del backend.`
+        : 'Error al crear campaña: ' + fullMsg
+      setMessage({ text, type: 'err' })
     } finally {
       setLoading(false)
     }

@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { Panel } from './Panel'
 import { FormGroup } from './FormGroup'
 import { Message } from './Message'
-import { generateText, extractTextFromAIResponse } from '../services/aiService'
+import { generateText, getSubjectAndBodyFromAIResponse } from '../services/aiService'
 
-export function AIAssistant({ body, onBodyAppend }) {
+export function AIAssistant({ body, onBodyAppend, onSubjectChange }) {
   const [prompt, setPrompt] = useState('')
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState({ text: '', type: 'info' })
@@ -25,18 +25,22 @@ export function AIAssistant({ body, onBodyAppend }) {
     try {
       // Llama al backend real: POST /api/v1/ai/campaign-suggestion
       const data = await generateText(p)
-      const text = extractTextFromAIResponse(data)
-      setOutput(text)
-      const currentBody = typeof body === 'string' ? body : ''
-      if (text) {
-        onBodyAppend?.(currentBody ? currentBody + '\n\n' + text : text)
+      const { subject: suggestedSubject, body: suggestedBody } = getSubjectAndBodyFromAIResponse(data)
+      const textForPreview = suggestedBody || suggestedSubject
+      setOutput(suggestedSubject ? `Asunto: ${suggestedSubject}\n\n${suggestedBody}` : suggestedBody)
+      if (suggestedSubject) onSubjectChange?.(suggestedSubject)
+      if (suggestedBody) {
+        const currentBody = typeof body === 'string' ? body : ''
+        onBodyAppend?.(currentBody ? currentBody + '\n\n' + suggestedBody : suggestedBody)
+      }
+      if (suggestedSubject || suggestedBody) {
         setMessage({
-          text: 'Sugerencia recibida. Revisa y ajusta el texto antes de guardar/enviar.',
+          text: 'Sugerencia recibida. Se ha rellenado el asunto y/o el mensaje del correo arriba. Revisa y ajusta antes de guardar/enviar.',
           type: 'ok',
         })
       } else {
         setMessage({
-          text: 'El servidor respondió pero no se pudo extraer texto para el cuerpo. Escribe el mensaje manualmente en el Paso 2 o revisa el formato de respuesta del backend.',
+          text: 'El servidor respondió pero no se pudo extraer asunto ni mensaje. Escribe el texto manualmente en el Paso 2 o revisa el formato de respuesta del backend.',
           type: 'err',
         })
       }
