@@ -35,7 +35,7 @@ export function ResetPasswordPage() {
     setLoading(true)
     setMsg({ text: 'Actualizando contraseña...', type: 'info' })
     try {
-      // Doc: body solo { token, newPassword }
+      // Swagger: { token, newPassword }. Si el backend devuelve 400, puede esperar "password" en lugar de "newPassword".
       const res = await fetch(API_BASE + '/api/v1/auth/reset-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -50,7 +50,7 @@ export function ResetPasswordPage() {
       }
       if (!res.ok) {
         const errMsg =
-          data?.message || data?.error || (data && typeof data === 'object' ? JSON.stringify(data) : String(data))
+          data?.errors?.[0]?.msg || data?.message || data?.error || (data && typeof data === 'object' ? JSON.stringify(data) : String(data))
         throw new Error(errMsg)
       }
       setMsg({
@@ -75,6 +75,9 @@ export function ResetPasswordPage() {
         <h2>
           <i className="fas fa-key"></i> Restablecer contraseña
         </h2>
+        <p className="msg info" style={{ marginBottom: '1rem' }}>
+          La contraseña debe contener al menos una mayúscula, una minúscula y un número.
+        </p>
         <Message text={msg.text} type={msg.type} />
         <form onSubmit={handleSubmit}>
           <FormGroup label="Nueva contraseña" id="newPassword">

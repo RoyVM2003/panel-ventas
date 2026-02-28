@@ -75,6 +75,7 @@ export function LoginPage() {
       setRegMsg({ text: '', type: 'info' })
     } catch (err) {
       const msg =
+        err.data?.errors?.[0]?.msg ||
         err.data?.message ||
         err.data?.error ||
         (err.data && typeof err.data === 'object' ? JSON.stringify(err.data) : err.message)
@@ -158,7 +159,7 @@ export function LoginPage() {
                 <i className="fas fa-times"></i>
               </button>
             </div>
-            <p className="msg info">Completa los datos para crear tu cuenta.</p>
+            <p className="msg info">Completa los datos para crear tu cuenta. La contraseña debe tener al menos una mayúscula, una minúscula y un número.</p>
             <Message text={regMsg.text} type={regMsg.type} />
             <form id="formRegister" onSubmit={handleRegister}>
               <FormGroup label="Correo" id="regEmail">
