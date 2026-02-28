@@ -68,31 +68,70 @@ export function extractTextFromAIResponse(data) {
   return ''
 }
 
+// Mensaje de estado del backend: no usarlo como cuerpo del correo
+const STATUS_ONLY_MESSAGES = [
+  'contenido de campaña generado exitosamente',
+  'campaign content generated successfully',
+]
+
+function isStatusOnlyMessage(text) {
+  if (!text || typeof text !== 'string') return true
+  const t = text.trim().toLowerCase()
+  return STATUS_ONLY_MESSAGES.some((m) => t === m || t.startsWith(m))
+}
+
+/** Busca el texto real del cuerpo en la respuesta (incluye datos anidados). */
+function findRealBody(data) {
+  if (!data) return ''
+  const candidates = [
+    data.body,
+    data.content,
+    data.generated_content,
+    data.generated_text,
+    data.email_body,
+    data.campaign_body,
+    data.campaign_content,
+    data.text,
+    data.message,
+    data.data?.body,
+    data.data?.content,
+    data.data?.generated_content,
+    data.data?.message,
+    data.result?.body ?? data.result?.content,
+    typeof data.result === 'string' ? data.result : '',
+    data.metadata?.body ?? data.metadata?.content ?? data.metadata?.generated_content,
+  ]
+  for (const c of candidates) {
+    if (c && typeof c === 'string' && c.trim() && !isStatusOnlyMessage(c)) return c.trim()
+  }
+  return ''
+}
+
 /**
  * Devuelve asunto y cuerpo por separado para rellenar "Asunto del correo" y "Mensaje (cuerpo del correo)".
  */
 export function getSubjectAndBodyFromAIResponse(data) {
   if (!data) return { subject: '', body: '' }
-  if (typeof data === 'string') return { subject: '', body: data }
+  if (typeof data === 'string') return { subject: '', body: isStatusOnlyMessage(data) ? '' : data }
 
-  const subject = (data.subject ?? data.asunto ?? '').trim()
-  const bodyText = (
-    data.body ?? data.content ?? data.generated_content ?? data.generated_text ?? ''
-  ).trim()
+  const subject = (data.subject ?? data.asunto ?? data.data?.subject ?? '').trim()
+  const bodyText = findRealBody(data)
   const cta = (data.callToAction ?? data.call_to_action ?? '').trim()
   const body = [bodyText, cta].filter(Boolean).join('\n\n')
 
   if (body) return { subject, body }
 
+  // Solo si no hay cuerpo real: usar message + CTA solo si message no es solo un estado
   const statusMsg = (data?.message && typeof data.message === 'string')
     ? data.message.trim() : ''
   const ctaFallback = (data?.call_to_action ?? data?.callToAction ?? '').trim()
-  const fallbackBody = [statusMsg, ctaFallback].filter(Boolean).join('\n\n')
-  if (fallbackBody) return { subject, body: fallbackBody }
+  if (ctaFallback) return { subject, body: ctaFallback }
+  if (statusMsg && !isStatusOnlyMessage(statusMsg)) return { subject, body: statusMsg }
 
-  if (data?.text) return { subject, body: data.text }
+  if (data?.text && !isStatusOnlyMessage(data.text)) return { subject, body: data.text }
   if (Array.isArray(data?.choices) && data.choices[0]?.message?.content) {
-    return { subject, body: data.choices[0].message.content }
+    const c = data.choices[0].message.content
+    return { subject, body: isStatusOnlyMessage(c) ? '' : c }
   }
   return { subject: '', body: '' }
 }
