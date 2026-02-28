@@ -133,5 +133,16 @@ export function getSubjectAndBodyFromAIResponse(data) {
     const c = data.choices[0].message.content
     return { subject, body: isStatusOnlyMessage(c) ? '' : c }
   }
+
+  // Fallback: si no pudimos extraer texto legible, mostrar toda la respuesta (JSON + body) como al principio
+  const parts = []
+  if (data?.message && typeof data.message === 'string') parts.push(data.message.trim())
+  if (data?.call_to_action ?? data?.callToAction) parts.push(String((data.call_to_action ?? data.callToAction)).trim())
+  if (data?.body && typeof data.body === 'string') parts.push(data.body.trim())
+  if (data?.content && typeof data.content === 'string') parts.push(data.content.trim())
+  if (parts.length) return { subject, body: parts.join('\n\n') }
+  if (typeof data === 'object' && data !== null) {
+    return { subject, body: JSON.stringify(data, null, 2) }
+  }
   return { subject: '', body: '' }
 }
