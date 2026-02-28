@@ -49,7 +49,11 @@ export function LoginPage() {
         (err.data && typeof err.data === 'object' ? JSON.stringify(err.data) : err.message)
       setLoginMsg({ text: 'Error: ' + msg, type: 'err' })
       const msgLower = (msg || '').toLowerCase()
-      if (msgLower.includes('no verificada') || msgLower.includes('verifica tu cuenta') || msgLower.includes('verificación')) {
+      const isUnverified =
+        msgLower.includes('no verificada') ||
+        msgLower.includes('verifica tu cuenta') ||
+        msgLower.includes('verificación')
+      if (isUnverified || err.status === 401) {
         setShowVerify(true)
       }
     } finally {
