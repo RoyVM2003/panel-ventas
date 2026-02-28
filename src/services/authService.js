@@ -1,5 +1,5 @@
 import { apiEmail } from './api'
-import { API_BASE, TOKEN_KEY, EMAIL_KEY } from '../config/api'
+import { API_BASE, AUTH_VERIFY_PATH, TOKEN_KEY, EMAIL_KEY } from '../config/api'
 
 export function getStoredToken() {
   return sessionStorage.getItem(TOKEN_KEY)
@@ -48,13 +48,30 @@ export async function register({ email, password, first_name, last_name }) {
 
 /**
  * Verificar cuenta con el código enviado por correo.
- * POST /api/v1/auth/verify-email (o el endpoint que use el backend).
+ * POST /api/v1/auth/verify — Body: { email, code }
  */
 export async function verifyEmail(email, code) {
-  const res = await fetch(API_BASE + '/api/v1/auth/verify-email', {
+  const res = await fetch(API_BASE + AUTH_VERIFY_PATH, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, code: String(code).trim() }),
+  })
+  const text = await res.text()
+  let data
+  try { data = JSON.parse(text) } catch (_) { data = text }
+  if (!res.ok) throw { status: res.status, data }
+  return data
+}
+
+/**
+ * Reenviar correo de verificación.
+ * POST /api/v1/auth/resend-verification — Body: { email }
+ */
+export async function resendVerification(email) {
+  const res = await fetch(API_BASE + '/api/v1/auth/resend-verification', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: String(email).trim() }),
   })
   const text = await res.text()
   let data

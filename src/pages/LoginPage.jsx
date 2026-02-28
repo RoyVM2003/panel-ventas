@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { FormGroup } from '../components/FormGroup'
 import { Message } from '../components/Message'
-import { register, forgotPassword, verifyEmail } from '../services/authService'
+import { register, forgotPassword, verifyEmail, resendVerification } from '../services/authService'
 
 export function LoginPage() {
   const { login } = useAuth()
@@ -30,6 +30,7 @@ export function LoginPage() {
   const [verifyCode, setVerifyCode] = useState('')
   const [verifyLoading, setVerifyLoading] = useState(false)
   const [verifyMsg, setVerifyMsg] = useState({ text: '', type: 'info' })
+  const [resendLoading, setResendLoading] = useState(false)
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -69,14 +70,33 @@ export function LoginPage() {
       setVerifyCode('')
       setLoginMsg({ text: 'Cuenta verificada. Vuelve a pulsar Entrar para iniciar sesión.', type: 'ok' })
     } catch (err) {
-      const msg =
+      let msg =
         err.data?.errors?.[0]?.msg ||
         err.data?.message ||
         err.data?.error ||
-        (err.data && typeof err.data === 'object' ? JSON.stringify(err.data) : err.message)
+        err.message
+      if (err.status === 404 || (typeof msg === 'undefined' && err.data)) {
+        msg = 'Ruta de verificación no encontrada (404). El backend puede usar otro endpoint; pide al administrador la URL correcta para verificar el correo.'
+      }
+      if (!msg) msg = 'Error al verificar. Intenta de nuevo o contacta al administrador.'
       setVerifyMsg({ text: 'Error: ' + msg, type: 'err' })
     } finally {
       setVerifyLoading(false)
+    }
+  }
+
+  const handleResendCode = async () => {
+    if (!loginEmail.trim()) return
+    setResendLoading(true)
+    setVerifyMsg({ text: '', type: 'info' })
+    try {
+      await resendVerification(loginEmail.trim())
+      setVerifyMsg({ text: 'Código reenviado. Revisa tu correo.', type: 'ok' })
+    } catch (err) {
+      const msg = err.data?.message || err.data?.error || err.message
+      setVerifyMsg({ text: msg ? 'Error: ' + msg : 'No se pudo reenviar. Intenta más tarde.', type: 'err' })
+    } finally {
+      setResendLoading(false)
     }
   }
 
@@ -207,6 +227,16 @@ export function LoginPage() {
               >
                 Cancelar
               </button>
+              <p style={{ marginTop: '0.75rem', fontSize: '0.9rem' }}>
+                <button
+                  type="button"
+                  className="btn-link"
+                  onClick={handleResendCode}
+                  disabled={resendLoading}
+                >
+                  {resendLoading ? 'Enviando...' : 'Reenviar código por correo'}
+                </button>
+              </p>
             </form>
           </div>
         )}
