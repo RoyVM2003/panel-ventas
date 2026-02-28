@@ -1,10 +1,20 @@
 import { apiEmail } from './api'
 
-/** POST /api/v1/excel/campaigns — Crear campaña. Body: { name, subject, body }. */
+/** POST /api/v1/excel/campaigns — Crear campaña. El backend exige también email, nombre, compañía; se envían valores de plantilla. */
 export async function createCampaign({ name, subject, body }) {
+  const n = name || subject || 'Campaña'
   return apiEmail('/api/v1/excel/campaigns', {
     method: 'POST',
-    body: { name: name || subject, subject, body },
+    body: {
+      name: n,
+      subject: subject || n,
+      body: body || '',
+      email: 'plantilla-campana@noreply.local',
+      nombre: n,
+      compañía: n,
+      compania: n,
+      company: n,
+    },
   })
 }
 
@@ -13,11 +23,21 @@ export async function getCampaign(id) {
   return apiEmail(`/api/v1/excel/campaigns/${encodeURIComponent(id)}`)
 }
 
-/** PUT /api/v1/excel/campaigns/{id} — Actualizar campaña. Body: { name?, subject?, body? }. */
+/** PUT /api/v1/excel/campaigns/{id} — Actualizar campaña. Incluye email, nombre, compañía por si el backend los exige. */
 export async function updateCampaign(id, { name, subject, body }) {
+  const n = name || subject || 'Campaña'
   return apiEmail(`/api/v1/excel/campaigns/${encodeURIComponent(id)}`, {
     method: 'PUT',
-    body: { name, subject, body },
+    body: {
+      name: n,
+      subject: subject || n,
+      body: body || '',
+      email: 'plantilla-campana@noreply.local',
+      nombre: n,
+      compañía: n,
+      compania: n,
+      company: n,
+    },
   })
 }
 
