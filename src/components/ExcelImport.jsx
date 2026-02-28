@@ -53,6 +53,15 @@ export function ExcelImport({ onImportSuccess }) {
       <p className="form-group hint">
         Sube un archivo .xlsx para importar contactos con columnas como email y nombre.
       </p>
+      <details className="form-group hint" style={{ marginBottom: '0.75rem', fontSize: '0.9rem' }}>
+        <summary style={{ cursor: 'pointer' }}>¿Qué formato debe tener el Excel?</summary>
+        <ul style={{ marginTop: '0.5rem', paddingLeft: '1.25rem' }}>
+          <li>Primera fila: nombres de columnas (encabezados).</li>
+          <li>El backend suele esperar al menos una columna <strong>email</strong> (obligatoria) y opcionalmente <strong>nombre</strong>. Los nombres exactos los define el backend.</li>
+          <li>Emails válidos y únicos (no duplicados en el archivo ni ya existentes en la base).</li>
+          <li>Puedes consultar el formato exacto en la documentación del API: <a href="https://osdemsventas.site/api-docs" target="_blank" rel="noopener noreferrer">osdemsventas.site/api-docs</a> (busca el endpoint de import) o pide al administrador la especificación.</li>
+        </ul>
+      </details>
       <FormGroup label="Seleccionar archivo Excel" id="fileExcel">
         <input
           ref={inputRef}
