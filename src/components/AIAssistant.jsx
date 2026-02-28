@@ -28,11 +28,18 @@ export function AIAssistant({ body, onBodyAppend }) {
       const text = extractTextFromAIResponse(data)
       setOutput(text)
       const currentBody = typeof body === 'string' ? body : ''
-      onBodyAppend?.(currentBody ? currentBody + '\n\n' + text : text)
-      setMessage({
-        text: 'Sugerencia recibida. Revisa y ajusta el texto antes de guardar/enviar.',
-        type: 'ok',
-      })
+      if (text) {
+        onBodyAppend?.(currentBody ? currentBody + '\n\n' + text : text)
+        setMessage({
+          text: 'Sugerencia recibida. Revisa y ajusta el texto antes de guardar/enviar.',
+          type: 'ok',
+        })
+      } else {
+        setMessage({
+          text: 'El servidor respondió pero no se pudo extraer texto para el cuerpo. Escribe el mensaje manualmente en el Paso 2 o revisa el formato de respuesta del backend.',
+          type: 'err',
+        })
+      }
     } catch (err) {
       const msg =
         err.data?.message ||

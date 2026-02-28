@@ -34,23 +34,36 @@ export function extractTextFromAIResponse(data) {
   // Si el backend devuelve texto plano
   if (typeof data === 'string') return data
 
-  // Doc: genera asunto, cuerpo y llamada a la acción (Mistral AI)
-  if (data.subject || data.body || data.callToAction) {
-    const subject = data.subject ? String(data.subject).trim() : ''
-    const body = data.body ? String(data.body).trim() : ''
-    const cta = data.callToAction ? String(data.callToAction).trim() : ''
-    const parts = []
-    if (subject) parts.push(subject)
-    if (body) parts.push(body)
-    if (cta) parts.push(cta)
-    if (parts.length) return parts.join('\n\n')
+  // Backend puede devolver body/callToAction (camelCase) o body/call_to_action (snake_case)
+  const bodyText =
+    data.body ?? data.content ?? data.generated_content ?? data.generated_text ?? ''
+  const cta =
+    data.callToAction ?? data.call_to_action ?? ''
+  const subject = data.subject ?? data.asunto ?? ''
+
+  const parts = []
+  if (subject && typeof subject === 'string') parts.push(subject.trim())
+  if (bodyText && typeof bodyText === 'string') parts.push(bodyText.trim())
+  if (cta && typeof cta === 'string') parts.push(cta.trim())
+
+  if (parts.length) return parts.join('\n\n')
+
+  // Fallback: backend solo devuelve message + call_to_action (sin body)
+  const statusMsg = data?.message && typeof data.message === 'string' ? data.message.trim() : ''
+  const ctaFallback = data?.call_to_action ?? data?.callToAction
+  const ctaStr = ctaFallback && typeof ctaFallback === 'string' ? ctaFallback.trim() : ''
+  if (statusMsg || ctaStr) {
+    const fallbackParts = []
+    if (statusMsg) fallbackParts.push(statusMsg)
+    if (ctaStr) fallbackParts.push(ctaStr)
+    if (fallbackParts.length) return fallbackParts.join('\n\n')
   }
 
-  // Compatibilidad con otros formatos de IA (por si se reutiliza backend)
   if (data?.text) return data.text
   if (Array.isArray(data?.choices) && data.choices[0]?.message?.content) {
     return data.choices[0].message.content
   }
 
-  return JSON.stringify(data, null, 2)
+  // No rellenar el cuerpo con JSON crudo (success, metadata, etc.)
+  return ''
 }
