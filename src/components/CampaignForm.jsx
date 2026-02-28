@@ -99,7 +99,7 @@ export function CampaignForm({
           <option value="">— Crear nueva campaña (rellena abajo) —</option>
           {list.map((c) => {
             const cid = c.id ?? c.campaign_id
-            const name = (c.name ?? c.subject || 'Campaña').slice(0, 60) || 'Campaña #' + cid
+            const name = ((c.name ?? c.subject) || 'Campaña').slice(0, 60) || 'Campaña #' + cid
             return (
               <option key={cid} value={cid}>
                 {name}

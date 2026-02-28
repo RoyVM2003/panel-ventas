@@ -1,20 +1,23 @@
 import { apiEmail } from './api'
 
-/** POST /api/v1/excel/campaigns — Crear campaña. El backend exige también email, nombre, compañía; se envían valores de plantilla. */
+/** POST /api/v1/excel/campaigns — Crear campaña. El backend exige email, nombre, compañía; se envían en raíz y en data. */
 export async function createCampaign({ name, subject, body }) {
   const n = name || subject || 'Campaña'
+  const email = `plantilla-${Date.now()}@noreply.local`
+  const payload = {
+    name: n,
+    subject: subject || n,
+    body: body || '',
+    email,
+    nombre: n,
+    compañía: n,
+    compania: n,
+    company: n,
+    data: { email, nombre: n, compañía: n },
+  }
   return apiEmail('/api/v1/excel/campaigns', {
     method: 'POST',
-    body: {
-      name: n,
-      subject: subject || n,
-      body: body || '',
-      email: 'plantilla-campana@noreply.local',
-      nombre: n,
-      compañía: n,
-      compania: n,
-      company: n,
-    },
+    body: payload,
   })
 }
 

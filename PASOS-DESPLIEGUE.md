@@ -4,6 +4,46 @@ Objetivo: que cualquier persona entre a **https://osdemsventas.com** y vea el pa
 
 ---
 
+## 📋 Todo en orden — checklist rápido
+
+Si los despliegues dan **Error** o no sabes por dónde seguir, haz esto **en orden**:
+
+### 1. Ver por qué falla el deploy
+- En Dokploy: **Deployments** → en el deploy con **Error** pulsa **View**.
+- Revisa los **logs de build**: suele salir si falló `npm ci`, `npm run build`, o el Dockerfile (falta `nginx.conf`, etc.).
+- Anota la última línea de error (ej: "npm ERR!", "COPY failed", "no such file").
+
+### 2. Dejar el build estable (si falla el deploy)
+- **Repositorio:** el código que está en **GitHub** (RoyVM2003/panel-ventas) debe tener en la raíz:
+  - `Dockerfile`
+  - `nginx.conf`
+  - `package.json` y `package-lock.json`
+  - carpeta `src/` y el resto del front.
+- En Dokploy, en el servicio **front**:
+  - **Build:** tipo **Dockerfile** (no Nixpacks), ruta `Dockerfile`.
+  - **Puerto del contenedor:** **80** (el Dockerfile hace `EXPOSE 80`). Si Dokploy te pide "Container port" o "Preview port", pon **80**; si ya usas 3000 y funciona, no lo cambies.
+- Si usas **Nixpacks** en vez de Dockerfile: Build Command `npm install && npm run build`, Publish directory `dist`.
+
+### 3. Hacer un deploy que funcione
+- Sube los últimos cambios a GitHub (commit + push a la rama que use Dokploy, ej. `main`).
+- En Dokploy: **Deploy** o **Redeploy**.
+- Espera a que termine; si sale **Done**, el front está desplegado.
+
+### 4. Comprobar que todo va bien
+- Abre **https://osdemsventas.com**: debe cargar el login del panel.
+- Prueba: **Login** → **Paso 1** (importar Excel) → **Paso 2** (asunto y mensaje, Crear campaña) → **Paso 3** (Enviar campaña).
+- Si "Crear campaña" da *"Email, nombre y compañía son campos requeridos"*, el front ya envía esos campos; si sigue fallando, el backend debe aceptarlos (revisar api-docs en osdemsventas.site).
+
+### 5. Resumen
+| Qué quieres | Dónde |
+|-------------|--------|
+| Ver por qué falla un deploy | Dokploy → Deployments → View (del que pone Error) |
+| Que el build use Dockerfile | Servicio front → Build → Dockerfile |
+| Que se use el código nuevo | Push a GitHub + Redeploy en Dokploy |
+| Probar el panel | https://osdemsventas.com |
+
+---
+
 ## ✅ Ya tienes hecho
 
 - Código del frontend en GitHub: **https://github.com/RoyVM2003/panel-ventas**
