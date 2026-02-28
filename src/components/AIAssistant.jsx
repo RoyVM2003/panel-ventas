@@ -35,7 +35,7 @@ export function AIAssistant({ body, onBodyAppend, onSubjectChange }) {
       }
       if (suggestedSubject || suggestedBody) {
         setMessage({
-          text: 'Sugerencia recibida. Se ha rellenado el asunto y/o el mensaje del correo arriba. Revisa y ajusta antes de guardar/enviar.',
+          text: 'Sugerencia aplicada en el Paso 2 (arriba). Revisa allí el asunto y el mensaje del correo.',
           type: 'ok',
         })
       } else {
@@ -78,9 +78,9 @@ export function AIAssistant({ body, onBodyAppend, onSubjectChange }) {
       </button>
       <Message text={message.text} type={message.type} className="mt-1" />
       {output && (
-        <div className="ai-output" style={{ marginTop: '0.5rem' }}>
-          {output}
-        </div>
+        <p className="form-group hint" style={{ marginTop: '0.5rem' }}>
+          ↑ La sugerencia ya está puesta en el Paso 2 (arriba). Revisa los campos «Asunto del correo» y «Mensaje (cuerpo del correo)».
+        </p>
       )}
     </Panel>
   )

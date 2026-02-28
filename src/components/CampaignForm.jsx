@@ -42,9 +42,14 @@ export function CampaignForm({
       const fullMsg = String(msg ?? '')
       const isBackendRequiredFields =
         /email|nombre|compañía|compania/i.test(fullMsg) && /requerido|required|campo/i.test(fullMsg)
-      const text = isBackendRequiredFields
-        ? `Error al crear campaña: ${fullMsg} Este endpoint del backend puede estar esperando otros datos (p. ej. de contactos). Revisa la documentación del backend (api-docs) o contacta al equipo del backend.`
-        : 'Error al crear campaña: ' + fullMsg
+      const needsExcel =
+        /excel|datos válidos|válidos|validos|importar|contactos/i.test(fullMsg)
+      let text = 'Error al crear campaña: ' + fullMsg
+      if (needsExcel) {
+        text = `Error al crear campaña: ${fullMsg} Primero importa un Excel con datos válidos en el Paso 1 (columnas que pida el backend, p. ej. email, nombre).`
+      } else if (isBackendRequiredFields) {
+        text = `Error al crear campaña: ${fullMsg} Este endpoint puede exigir tener contactos importados desde Excel (Paso 1). Revisa la documentación del backend (api-docs) o contacta al equipo del backend.`
+      }
       setMessage({ text, type: 'err' })
     } finally {
       setLoading(false)
@@ -92,6 +97,9 @@ export function CampaignForm({
           onChange={(e) => onBodyChange?.(e.target.value)}
         />
       </FormGroup>
+      <p className="form-group hint">
+        Para poder guardar la campaña, el backend puede exigir tener contactos importados desde un Excel válido en el Paso 1.
+      </p>
       <button
         type="button"
         className="btn btn-secondary"
