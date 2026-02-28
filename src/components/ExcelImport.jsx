@@ -61,7 +61,7 @@ export function ExcelImport({ onImportSuccess }) {
   return (
     <Panel title="Paso 1 · Base de datos (Excel)" icon="fas fa-file-excel">
       <p className="form-group hint">
-        Sube un archivo .xlsx para importar contactos con columnas como email y nombre.
+        Sube un archivo .xlsx para importar <strong>contactos</strong> (destinatarios de los correos). Eso no es lo mismo que «campañas»: las campañas son el asunto y mensaje que tú creas y guardas en el Paso 2.
       </p>
       <details className="form-group hint" style={{ marginBottom: '0.75rem', fontSize: '0.9rem' }}>
         <summary style={{ cursor: 'pointer' }}>¿Qué formato debe tener el Excel?</summary>

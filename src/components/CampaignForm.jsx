@@ -8,7 +8,9 @@ export function CampaignForm({
   campaigns,
   selectedCampaignId,
   onSelectedCampaignIdChange,
-  onCampaignsChange,
+  onCampaignCreated,
+  onCampaignUpdated,
+  onCampaignDeleted,
   subject,
   body,
   onSubjectChange,
@@ -33,8 +35,12 @@ export function CampaignForm({
         : await createCampaign({ name: sub, subject: sub, body: b })
       const newId = data.id ?? data.campaign_id ?? data.data?.id ?? id
       setMessage({ text: id ? 'Campaña actualizada.' : 'Campaña creada correctamente.', type: 'ok' })
-      onCampaignsChange?.()
-      if (!id && newId) onSelectedCampaignIdChange?.(String(newId))
+      if (id) {
+        onCampaignUpdated?.(id, { name: sub, subject: sub, body: b })
+      } else if (newId) {
+        onCampaignCreated?.({ ...data, id: newId, name: sub, subject: sub, body: b })
+        onSelectedCampaignIdChange?.(String(newId))
+      }
     } catch (err) {
       const msg =
         err.data?.message ||
@@ -66,10 +72,10 @@ export function CampaignForm({
     try {
       await deleteCampaign(id)
       setMessage({ text: 'Campaña eliminada.', type: 'ok' })
+      onCampaignDeleted?.(id)
       onSelectedCampaignIdChange?.('')
       onSubjectChange?.('')
       onBodyChange?.('')
-      onCampaignsChange?.()
     } catch (err) {
       const msg = err.data?.message ?? err.data?.error ?? (typeof err.data === 'object' ? JSON.stringify(err.data) : err.message)
       setMessage({ text: 'Error al eliminar: ' + msg, type: 'err' })
@@ -84,7 +90,7 @@ export function CampaignForm({
 
   return (
     <Panel title="Paso 2 · Campaña / Mensaje" icon="fas fa-envelope">
-      <FormGroup label="Usar campaña existente" id="selCampaign" hint="O deja «Crear nueva» y escribe asunto y mensaje.">
+      <FormGroup label="Tus campañas guardadas (solo las que creas aquí)" id="selCampaign" hint="Escribe asunto y mensaje abajo y pulsa «Crear campaña» para guardar una. En el desplegable solo aparecen las que tú creas en esta sesión.">
         <select
           id="selCampaign"
           value={selectedCampaignId || ''}
@@ -92,10 +98,10 @@ export function CampaignForm({
         >
           <option value="">— Crear nueva campaña (rellena abajo) —</option>
           {list.map((c) => {
-            const id = c.id ?? c.campaign_id
-            const name = c.name ?? c.subject ?? 'Campaña #' + id
+            const cid = c.id ?? c.campaign_id
+            const name = (c.name ?? c.subject || 'Campaña').slice(0, 60) || 'Campaña #' + cid
             return (
-              <option key={id} value={id}>
+              <option key={cid} value={cid}>
                 {name}
               </option>
             )
