@@ -47,6 +47,23 @@ export async function register({ email, password, first_name, last_name }) {
 }
 
 /**
+ * Verificar cuenta con el código enviado por correo.
+ * POST /api/v1/auth/verify-email (o el endpoint que use el backend).
+ */
+export async function verifyEmail(email, code) {
+  const res = await fetch(API_BASE + '/api/v1/auth/verify-email', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, code: String(code).trim() }),
+  })
+  const text = await res.text()
+  let data
+  try { data = JSON.parse(text) } catch (_) { data = text }
+  if (!res.ok) throw { status: res.status, data }
+  return data
+}
+
+/**
  * Solicita restablecimiento de contraseña.
  * Usa POST /api/v1/auth/forgot-password del backend.
  */

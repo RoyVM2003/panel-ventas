@@ -9,7 +9,8 @@ Base del backend: **`https://osdemsventas.site`** (configurable con `VITE_API_BA
 | Método | Endpoint | Qué hace |
 |--------|----------|----------|
 | POST | `/api/v1/auth/register` | **Crear cuenta.** Body: `FormData` con `email`, `password`, `first_name`, `last_name`. No requiere token. |
-| POST | `/api/v1/auth/login` | **Iniciar sesión.** Body: `{ "email", "password" }`. Devuelve un token (Bearer) que el front guarda y envía en el resto de peticiones. |
+| POST | `/api/v1/auth/login` | **Iniciar sesión.** Body: `{ "email", "password" }`. Devuelve un token (Bearer) que el front guarda y envía en el resto de peticiones. Si la cuenta no está verificada, devuelve error y el front muestra el formulario para ingresar el código. |
+| POST | `/api/v1/auth/verify-email` | **Verificar cuenta.** Body: `{ "email", "code" }` (código de 6 dígitos enviado por correo). |
 | POST | `/api/v1/auth/forgot-password` | **Solicitar restablecimiento de contraseña.** Envía un correo con enlace a `/reset-password?token=...`. |
 | POST | `/api/v1/auth/reset-password` | **Restablecer contraseña.** El front envía `{ "token", "password" }` usando el token recibido por correo. |
 | GET | `/api/v1/auth/verify-reset-token/{token}` | Verificar si un token de restablecimiento es válido o ha expirado. |

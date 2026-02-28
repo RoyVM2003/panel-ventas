@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { FormGroup } from '../components/FormGroup'
 import { Message } from '../components/Message'
-import { register, forgotPassword } from '../services/authService'
+import { register, forgotPassword, verifyEmail } from '../services/authService'
 
 export function LoginPage() {
   const { login } = useAuth()
@@ -26,6 +26,11 @@ export function LoginPage() {
   const [forgotLoading, setForgotLoading] = useState(false)
   const [forgotMsg, setForgotMsg] = useState({ text: '', type: 'info' })
 
+  const [showVerify, setShowVerify] = useState(false)
+  const [verifyCode, setVerifyCode] = useState('')
+  const [verifyLoading, setVerifyLoading] = useState(false)
+  const [verifyMsg, setVerifyMsg] = useState({ text: '', type: 'info' })
+
   const handleLogin = async (e) => {
     e.preventDefault()
     const email = loginEmail.trim()
@@ -42,8 +47,36 @@ export function LoginPage() {
         err.data?.error ||
         (err.data && typeof err.data === 'object' ? JSON.stringify(err.data) : err.message)
       setLoginMsg({ text: 'Error: ' + msg, type: 'err' })
+      const msgLower = (msg || '').toLowerCase()
+      if (msgLower.includes('no verificada') || msgLower.includes('verifica tu cuenta') || msgLower.includes('verificación')) {
+        setShowVerify(true)
+      }
     } finally {
       setLoginLoading(false)
+    }
+  }
+
+  const handleVerify = async (e) => {
+    e.preventDefault()
+    const code = verifyCode.trim()
+    if (!code || !loginEmail.trim()) return
+    setVerifyLoading(true)
+    setVerifyMsg({ text: '', type: 'info' })
+    try {
+      await verifyEmail(loginEmail.trim(), code)
+      setVerifyMsg({ text: 'Cuenta verificada. Ya puedes iniciar sesión.', type: 'ok' })
+      setShowVerify(false)
+      setVerifyCode('')
+      setLoginMsg({ text: 'Cuenta verificada. Vuelve a pulsar Entrar para iniciar sesión.', type: 'ok' })
+    } catch (err) {
+      const msg =
+        err.data?.errors?.[0]?.msg ||
+        err.data?.message ||
+        err.data?.error ||
+        (err.data && typeof err.data === 'object' ? JSON.stringify(err.data) : err.message)
+      setVerifyMsg({ text: 'Error: ' + msg, type: 'err' })
+    } finally {
+      setVerifyLoading(false)
     }
   }
 
@@ -141,6 +174,42 @@ export function LoginPage() {
             Crear cuenta
           </button>
         </p>
+
+        {showVerify && (
+          <div className="verify-section" style={{ marginTop: '1.5rem', padding: '1rem', border: '1px solid var(--border, #ccc)', borderRadius: '8px' }}>
+            <h3 style={{ marginTop: 0, fontSize: '1.1rem' }}>
+              <i className="fas fa-envelope-open-text"></i> Verificar correo
+            </h3>
+            <p className="msg info" style={{ marginBottom: '0.75rem' }}>
+              Introduce el código de 6 dígitos que te enviamos a <strong>{loginEmail}</strong>
+            </p>
+            <Message text={verifyMsg.text} type={verifyMsg.type} />
+            <form onSubmit={handleVerify}>
+              <FormGroup label="Código de verificación" id="verifyCode">
+                <input
+                  type="text"
+                  id="verifyCode"
+                  value={verifyCode}
+                  onChange={(e) => setVerifyCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                  placeholder="Ej. 337054"
+                  maxLength={6}
+                  autoComplete="one-time-code"
+                />
+              </FormGroup>
+              <button type="submit" className="btn btn-secondary" disabled={verifyLoading || verifyCode.length < 6}>
+                {verifyLoading ? 'Verificando...' : 'Verificar cuenta'}
+              </button>
+              <button
+                type="button"
+                className="btn-link"
+                style={{ marginLeft: '0.5rem' }}
+                onClick={() => { setShowVerify(false); setVerifyCode(''); setVerifyMsg({ text: '', type: 'info' }); }}
+              >
+                Cancelar
+              </button>
+            </form>
+          </div>
+        )}
       </div>
 
       {showRegister && (
