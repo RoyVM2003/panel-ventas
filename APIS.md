@@ -62,7 +62,7 @@ Todas requieren token. Documentación completa: **https://osdemsventas.site/api-
 
 | Área | Acciones en el panel |
 |------|----------------------|
-| **Auth** | Iniciar sesión, crear cuenta (modal). |
+| **Auth** | Solo iniciar sesión (crear cuenta deshabilitado en el panel). |
 | **Excel** | Importar .xlsx (contactos), listar campañas. |
 | **Campañas** | Crear campaña (asunto + cuerpo), seleccionar una, enviar. |
 | **IA** | Sugerir texto para el correo (varios modelos). |
