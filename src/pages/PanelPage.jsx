@@ -65,7 +65,7 @@ export function PanelPage() {
   return (
     <div id="app" className="app-visible">
       <HeaderBar />
-      <nav className="app-steps">
+      <nav className="app-steps" aria-label="Flujo para enviar una campaña">
         <button
           type="button"
           className="app-step"
@@ -74,7 +74,7 @@ export function PanelPage() {
           <span className="app-step-number">1</span>
           <span className="app-step-text">
             Importar contactos
-            <small>Sube tu Excel una sola vez</small>
+            <small>Sube tu lista de clientes desde Excel</small>
           </span>
         </button>
         <button
@@ -85,7 +85,7 @@ export function PanelPage() {
           <span className="app-step-number">2</span>
           <span className="app-step-text">
             Diseñar campaña
-            <small>Asunto y cuerpo del correo</small>
+            <small>Define el mensaje que quieres que recuerden</small>
           </span>
         </button>
         <button
@@ -96,7 +96,7 @@ export function PanelPage() {
           <span className="app-step-number">2B</span>
           <span className="app-step-text">
             Afinar con IA
-            <small>Texto sugerido (opcional)</small>
+            <small>Pulimos el texto para que suene mejor</small>
           </span>
         </button>
         <button
@@ -107,7 +107,7 @@ export function PanelPage() {
           <span className="app-step-number">3</span>
           <span className="app-step-text">
             Enviar campaña
-            <small>Confirma y dispara el envío</small>
+            <small>Un clic y tu promo sale a todos</small>
           </span>
         </button>
       </nav>
