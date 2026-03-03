@@ -13,6 +13,8 @@ export function PanelPage() {
   const [subject, setSubject] = useState('')
   const [body, setBody] = useState('')
   const [globalMsg, setGlobalMsg] = useState({ text: '', type: 'info' })
+  const [hasImportedExcel, setHasImportedExcel] = useState(false)
+  const [currentStep, setCurrentStep] = useState(1)
 
   const addCampaign = useCallback((campaign) => {
     setCampaigns((prev) => {
@@ -165,10 +167,10 @@ export function PanelPage() {
       <nav className="app-steps" aria-label="Flujo para enviar una campaña">
         <button
           type="button"
-          className="app-step"
-          onClick={() => document.getElementById('step-1')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+          className={`app-step ${currentStep === 1 ? 'app-step--active' : ''} ${hasImportedExcel ? 'app-step--completed' : ''}`}
+          onClick={() => { setCurrentStep(1); document.getElementById('step-1')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}
         >
-          <span className="app-step-number">1</span>
+          <span className="app-step-number">{hasImportedExcel ? <i className="fas fa-check" /> : '1'}</span>
           <span className="app-step-text">
             Importar contactos
             <small>Sube tu lista de clientes desde Excel</small>
@@ -176,10 +178,10 @@ export function PanelPage() {
         </button>
         <button
           type="button"
-          className="app-step"
-          onClick={() => document.getElementById('step-2')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+          className={`app-step ${currentStep === 2 ? 'app-step--active' : ''} ${(subject?.trim() && body?.trim()) ? 'app-step--completed' : ''}`}
+          onClick={() => { setCurrentStep(2); document.getElementById('step-2')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}
         >
-          <span className="app-step-number">2</span>
+          <span className="app-step-number">{(subject?.trim() && body?.trim()) ? <i className="fas fa-check" /> : '2'}</span>
           <span className="app-step-text">
             Diseñar campaña
             <small>Define el mensaje que quieres que recuerden</small>
@@ -187,8 +189,8 @@ export function PanelPage() {
         </button>
         <button
           type="button"
-          className="app-step"
-          onClick={() => document.getElementById('step-2b')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+          className={`app-step ${currentStep === '2b' ? 'app-step--active' : ''}`}
+          onClick={() => { setCurrentStep('2b'); document.getElementById('step-2b')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}
         >
           <span className="app-step-number">2B</span>
           <span className="app-step-text">
@@ -198,19 +200,19 @@ export function PanelPage() {
         </button>
         <button
           type="button"
-          className="app-step"
-          onClick={() => document.getElementById('step-3')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+          className={`app-step ${currentStep === 3 ? 'app-step--active' : ''}`}
+          onClick={() => { setCurrentStep(3); document.getElementById('step-3')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}
         >
           <span className="app-step-number">3</span>
           <span className="app-step-text">
             Enviar campaña
-            <small>Confirma el envío a tu base de contactos</small>
+            <small>Solo a los contactos del Excel del Paso 1</small>
           </span>
         </button>
       </nav>
       <Message text={globalMsg.text} type={globalMsg.type} />
       <section id="step-1" className="app-section">
-        <ExcelImport />
+        <ExcelImport onImportSuccess={() => setHasImportedExcel(true)} />
       </section>
       <section id="step-2" className="app-section">
         <CampaignForm
@@ -230,7 +232,7 @@ export function PanelPage() {
         <AIAssistant body={body} onBodyAppend={handleBodyAppend} onSubjectChange={setSubject} />
       </section>
       <section id="step-3" className="app-section">
-        <SendCampaign subject={subject} message={body} />
+        <SendCampaign subject={subject} message={body} hasImportedExcel={hasImportedExcel} />
       </section>
     </div>
   )

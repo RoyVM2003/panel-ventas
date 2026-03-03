@@ -3,13 +3,20 @@ import { Panel } from './Panel'
 import { Message } from './Message'
 import { sendCampaign } from '../services/campaignService'
 
-export function SendCampaign({ subject, message: body }) {
+export function SendCampaign({ subject, message: body, hasImportedExcel }) {
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState({ text: '', type: 'info' })
   const safeSubject = (typeof subject === 'string' ? subject : '').trim()
   const safeBody = (typeof body === 'string' ? body : '').trim()
 
   const handleSend = async () => {
+    if (!hasImportedExcel) {
+      setMessage({
+        text: 'Primero importa un Excel en el Paso 1. Solo se enviará a los contactos de ese archivo.',
+        type: 'err',
+      })
+      return
+    }
     if (!safeSubject || !safeBody) {
       setMessage({
         text: 'Escribe asunto y mensaje en el Paso 2 antes de enviar.',
@@ -60,9 +67,13 @@ export function SendCampaign({ subject, message: body }) {
         type="button"
         className="btn"
         onClick={handleSend}
-        disabled={loading}
+        disabled={loading || !hasImportedExcel}
       >
-        {loading ? (
+        {!hasImportedExcel ? (
+          <>
+            <i className="fas fa-lock"></i> Importa Excel primero (Paso 1)
+          </>
+        ) : loading ? (
           <>
             <span className="btn-spinner" aria-hidden="true" /> Enviando...
           </>
@@ -71,7 +82,7 @@ export function SendCampaign({ subject, message: body }) {
             <i className="fas fa-paper-plane"></i> Enviar campaña
             <span
               className="help-icon"
-              title="Se enviará el asunto y mensaje actuales a todos los contactos activos importados en el Paso 1."
+              title="Solo se enviará a los contactos del Excel que importaste en el Paso 1."
             >
               ?
             </span>

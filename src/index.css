@@ -29,16 +29,18 @@ body {
   margin-bottom: 2rem;
   border: 1px solid rgba(173, 191, 214, 0.5);
   box-shadow: 0 4px 24px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
-  transition: box-shadow 0.2s ease;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 
 .panel:hover {
-  box-shadow: 0 8px 32px rgba(15, 23, 42, 0.1), 0 2px 6px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 12px 40px rgba(15, 23, 42, 0.12), 0 4px 12px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 
 .panel h2 {
   margin: 0 0 1.25rem;
-  font-size: 1.5rem;
+  font-size: 1.65rem;
   font-weight: 700;
   color: #0b1e33;
   display: flex;
@@ -93,10 +95,10 @@ body {
 }
 
 .form-group .hint {
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   color: #4a5568;
   margin-top: 0.35rem;
-  line-height: 1.45;
+  line-height: 1.5;
 }
 
 /* Botones tipo marketing: sólidos, claros, hover suave */
@@ -166,6 +168,34 @@ body {
   border: 1px solid rgba(95, 149, 204, 0.4);
   color: #f9fafb;
   box-shadow: 0 8px 32px rgba(11, 30, 51, 0.25);
+}
+
+.header-brand {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.header-avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: rgba(212, 168, 58, 0.25);
+  border: 2px solid rgba(212, 168, 58, 0.6);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #d4a83a;
+  flex-shrink: 0;
+}
+
+.header-trust {
+  margin: 0.5rem 0 0;
+  font-size: 0.8125rem;
+  color: rgba(226, 239, 255, 0.75);
+  line-height: 1.4;
 }
 
 .header-title h1 {
@@ -353,9 +383,10 @@ body {
 .email-preview {
   margin: 1.25rem 0 1.5rem;
   padding: 1rem 1.25rem;
-  border-radius: 14px;
+  border-radius: 18px;
   background: #f8fafc;
   border: 1px solid rgba(148, 163, 184, 0.6);
+  transition: box-shadow 0.2s ease;
 }
 
 .email-preview-header {
@@ -595,6 +626,18 @@ body {
   border-color: rgba(30, 74, 118, 0.35);
 }
 
+.app-step--active {
+  background: #fff !important;
+  border-color: #c9a227 !important;
+  box-shadow: 0 4px 16px rgba(201, 162, 39, 0.25) !important;
+}
+
+.app-step--completed .app-step-number {
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(5, 150, 105, 0.35);
+}
+
 .app-step-number {
   width: 2.25rem;
   height: 2.25rem;
@@ -664,6 +707,16 @@ body {
   .app-step {
     padding: 0.75rem 0.875rem;
     font-size: 0.875rem;
+  }
+
+  .panel .btn,
+  .panel .btn-secondary {
+    width: 100%;
+    padding: 1rem 1.25rem;
+  }
+
+  .form-group textarea {
+    min-height: 180px;
   }
 
   .login-section {
