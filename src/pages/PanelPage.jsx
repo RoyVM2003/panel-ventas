@@ -31,8 +31,14 @@ export function PanelPage() {
   const updateCampaignInList = useCallback((id, { name, subject, body }) => {
     setCampaigns((prev) =>
       prev.map((c) => {
-        const cid = c.id ?? c.campaign_id
-        return cid === id ? { ...c, name: name ?? c.name, subject: subject ?? c.subject, body: body ?? c.body } : c
+        const cid = c.id ?? c.campaign_id ?? c.id_campaign
+        if (String(cid ?? '') !== String(id ?? '')) return c
+        return {
+          ...c,
+          name: name ?? c.name ?? c.nombre,
+          subject: subject ?? c.subject,
+          body: body ?? c.body,
+        }
       })
     )
   }, [])

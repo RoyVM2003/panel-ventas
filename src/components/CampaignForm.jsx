@@ -61,7 +61,7 @@ export function CampaignForm({
       if (needsExcel) {
         text = `Error: ${fullMsg} Primero importa un Excel con datos válidos en el Paso 1 (columnas que pida el backend, p. ej. email, nombre).`
       } else if (isBackendRequiredFields) {
-        text = `Error: ${fullMsg} El backend puede exigir tener contactos importados desde Excel (Paso 1). Revisa https://osdemsventas.site/api-docs o contacta al equipo del backend.`
+        text = `Error: ${fullMsg} El backend puede exigir tener contactos importados desde Excel (Paso 1). Si el problema sigue, contacta al equipo del backend para que revise la configuración.`
       }
       setMessage({ text, type: 'err' })
     } finally {

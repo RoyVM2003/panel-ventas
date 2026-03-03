@@ -35,11 +35,6 @@ export async function updateCampaign(id, { name, subject, body }) {
       name: n,
       subject: subject || n,
       body: body || '',
-      email: 'plantilla-campana@noreply.local',
-      nombre: n,
-      compañía: n,
-      compania: n,
-      company: n,
     },
   })
 }
