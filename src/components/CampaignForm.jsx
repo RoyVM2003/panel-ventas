@@ -90,7 +90,11 @@ export function CampaignForm({
 
   return (
     <Panel title="Paso 2 · Campaña / Mensaje" icon="fas fa-envelope">
-      <FormGroup label="Tus campañas guardadas (solo las que creas aquí)" id="selCampaign" hint="Escribe asunto y mensaje abajo y pulsa «Crear campaña» para guardar una. En el desplegable solo aparecen las que tú creas en esta sesión.">
+      <FormGroup
+        label="Tus campañas guardadas"
+        id="selCampaign"
+        hint="Escribe asunto y mensaje abajo y pulsa «Crear campaña» para guardar una. Aquí puedes volver a cargar campañas que ya existen en tu cuenta."
+      >
         <select
           id="selCampaign"
           value={selectedCampaignId || ''}

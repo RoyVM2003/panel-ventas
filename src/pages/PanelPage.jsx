@@ -6,6 +6,7 @@ import { AIAssistant } from '../components/AIAssistant'
 import { SendCampaign } from '../components/SendCampaign'
 import { Message } from '../components/Message'
 import { getCampaign } from '../services/campaignService'
+import { listCampaigns } from '../services/excelService'
 
 export function PanelPage() {
   // Solo campañas que TÚ creas en esta sesión (no se carga la lista del backend para no mezclar contactos)
@@ -60,6 +61,48 @@ export function PanelPage() {
 
   const handleBodyAppend = useCallback((newBody) => {
     setBody(newBody)
+  }, [])
+
+  // Al entrar al panel, intentar cargar campañas ya existentes de la cuenta
+  useEffect(() => {
+    let cancelled = false
+    listCampaigns({ page: 1, limit: 50 })
+      .then((items) => {
+        if (cancelled) return
+        if (!Array.isArray(items)) return
+        const mapped = items
+          .map((c) => {
+            const id = c.id ?? c.campaign_id ?? c._id
+            if (!id) return null
+            return {
+              id,
+              name: c.name ?? c.subject ?? 'Campaña',
+              subject: c.subject ?? c.name ?? '',
+              body: c.body ?? c.message ?? '',
+            }
+          })
+          .filter(Boolean)
+        if (mapped.length) {
+          setCampaigns((prev) => {
+            const existingIds = new Set(prev.map((c) => String(c.id ?? c.campaign_id)))
+            const merged = [...prev]
+            mapped.forEach((c) => {
+              const cid = String(c.id)
+              if (!existingIds.has(cid)) {
+                merged.push(c)
+                existingIds.add(cid)
+              }
+            })
+            return merged
+          })
+        }
+      })
+      .catch(() => {
+        // Si falla, simplemente no mostramos campañas previas
+      })
+    return () => {
+      cancelled = true
+    }
   }, [])
 
   return (
