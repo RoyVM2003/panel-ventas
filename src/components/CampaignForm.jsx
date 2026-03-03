@@ -53,16 +53,7 @@ export function CampaignForm({
         err.data?.error ||
         (err.data && typeof err.data === 'object' ? JSON.stringify(err.data) : err.message)
       const fullMsg = String(msg ?? '')
-      const isBackendRequiredFields =
-        /email|nombre|compañía|compania/i.test(fullMsg) && /requerido|required|campo/i.test(fullMsg)
-      const needsExcel =
-        /excel|datos válidos|válidos|validos|importar|contactos/i.test(fullMsg)
       let text = (id ? 'Error al actualizar: ' : 'Error al crear campaña: ') + fullMsg
-      if (needsExcel) {
-        text = `Error: ${fullMsg} Primero importa un Excel con datos válidos en el Paso 1 (columnas que pida el backend, p. ej. email, nombre).`
-      } else if (isBackendRequiredFields) {
-        text = `Error: ${fullMsg} El backend puede exigir tener contactos importados desde Excel (Paso 1). Si el problema sigue, contacta al equipo del backend para que revise la configuración.`
-      }
       setMessage({ text, type: 'err' })
     } finally {
       setLoading(false)
