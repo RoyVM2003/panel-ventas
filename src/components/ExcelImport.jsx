@@ -67,9 +67,8 @@ export function ExcelImport({ onImportSuccess }) {
         <summary style={{ cursor: 'pointer' }}>¿Qué formato debe tener el Excel?</summary>
         <ul style={{ marginTop: '0.5rem', paddingLeft: '1.25rem' }}>
           <li>Primera fila: nombres de columnas (encabezados).</li>
-          <li>Al menos una columna <strong>email</strong> (obligatoria) y, según el backend, columnas opcionales como <strong>nombre</strong>.</li>
+          <li>Al menos una columna <strong>email</strong> (obligatoria) y, según tu backend, columnas opcionales como <strong>nombre</strong>.</li>
           <li>Emails válidos y únicos (sin duplicados dentro del archivo ni ya existentes en la base de datos).</li>
-          <li>Si tienes dudas sobre las columnas exactas, consulta la documentación interna del backend o pide al administrador el formato que usa tu instalación.</li>
         </ul>
       </details>
       <FormGroup label="Seleccionar archivo Excel" id="fileExcel">
