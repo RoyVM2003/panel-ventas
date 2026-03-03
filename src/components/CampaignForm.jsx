@@ -82,6 +82,18 @@ export function CampaignForm({
       onSelectedCampaignIdChange?.('')
       onSubjectChange?.('')
       onBodyChange?.('')
+      // Marcar como eliminada también en localStorage para que no reaparezca
+      try {
+        const raw = window.localStorage.getItem('panel_deleted_campaign_ids')
+        const arr = raw ? JSON.parse(raw) : []
+        const list = Array.isArray(arr) ? arr : []
+        if (!list.includes(id)) {
+          list.push(id)
+          window.localStorage.setItem('panel_deleted_campaign_ids', JSON.stringify(list))
+        }
+      } catch {
+        // Ignorar errores de almacenamiento local
+      }
     } catch (err) {
       const msg = err.data?.message ?? err.data?.error ?? (typeof err.data === 'object' ? JSON.stringify(err.data) : err.message)
       setMessage({ text: 'Error al eliminar: ' + msg, type: 'err' })

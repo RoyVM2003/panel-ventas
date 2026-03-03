@@ -5,7 +5,6 @@ import { CampaignForm } from '../components/CampaignForm'
 import { AIAssistant } from '../components/AIAssistant'
 import { SendCampaign } from '../components/SendCampaign'
 import { Message } from '../components/Message'
-import { getCampaign } from '../services/campaignService'
 import { listCampaigns } from '../services/excelService'
 
 export function PanelPage() {
@@ -42,30 +41,21 @@ export function PanelPage() {
     setCampaigns((prev) => prev.filter((c) => (c.id ?? c.campaign_id) !== id))
   }, [])
 
-  // Al elegir una campaña existente, cargar su asunto y cuerpo
-  useEffect(() => {
-    if (!selectedCampaignId) return
-    let cancelled = false
-    getCampaign(selectedCampaignId)
-      .then((c) => {
-        if (cancelled) return
-        const s = c.subject ?? c.name ?? ''
-        const b = c.body ?? c.message ?? ''
-        setSubject(typeof s === 'string' ? s : '')
-        setBody(typeof b === 'string' ? b : '')
-      })
-      .catch(() => {
-        if (!cancelled) {
-          setSubject('')
-          setBody('')
-        }
-      })
-    return () => { cancelled = true }
-  }, [selectedCampaignId])
-
   const handleBodyAppend = useCallback((newBody) => {
     setBody(newBody)
   }, [])
+
+  const getDeletedIds = () => {
+    try {
+      const raw = window.localStorage.getItem('panel_deleted_campaign_ids')
+      if (!raw) return new Set()
+      const arr = JSON.parse(raw)
+      if (!Array.isArray(arr)) return new Set()
+      return new Set(arr.map((v) => String(v)))
+    } catch {
+      return new Set()
+    }
+  }
 
   // Cargar campañas guardadas localmente (como respaldo) al entrar
   useEffect(() => {
@@ -74,11 +64,13 @@ export function PanelPage() {
       if (!raw) return
       const parsed = JSON.parse(raw)
       if (!Array.isArray(parsed)) return
+      const deletedIds = getDeletedIds()
       setCampaigns((prev) => {
-        if (!prev.length) return parsed
+        const base = parsed.filter((c) => !deletedIds.has(String(c.id ?? c.campaign_id ?? c.id_campaign ?? '')))
+        if (!prev.length) return base
         const existingIds = new Set(prev.map((c) => String(c.id ?? c.campaign_id)))
         const merged = [...prev]
-        parsed.forEach((c) => {
+        base.forEach((c) => {
           const cid = String(c.id ?? c.campaign_id ?? '')
           if (!cid || existingIds.has(cid)) return
           merged.push(c)
@@ -94,6 +86,7 @@ export function PanelPage() {
   // Al entrar al panel, intentar cargar campañas ya existentes de la cuenta
   useEffect(() => {
     let cancelled = false
+    const deletedIds = getDeletedIds()
     listCampaigns({ page: 1, limit: 50 })
       .then((items) => {
         if (cancelled) return
@@ -102,6 +95,7 @@ export function PanelPage() {
           .map((c) => {
             const id = c.id ?? c.campaign_id ?? c.id_campaign ?? c._id
             if (!id) return null
+            if (deletedIds.has(String(id))) return null
             return {
               id,
               name: c.name ?? c.subject ?? c.nombre ?? c.compania ?? 'Campaña',
