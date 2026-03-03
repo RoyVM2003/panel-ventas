@@ -87,7 +87,21 @@ export function ExcelImport({ onImportSuccess }) {
         onClick={handleImport}
         disabled={loading}
       >
-        <i className="fas fa-upload"></i> Importar Excel
+        {loading ? (
+          <>
+            <span className="btn-spinner" aria-hidden="true" /> Importando...
+          </>
+        ) : (
+          <>
+            <i className="fas fa-upload"></i> Importar Excel
+            <span
+              className="help-icon"
+              title="Debe tener al menos una columna email con correos válidos y, si quieres, otra con el nombre."
+            >
+              ?
+            </span>
+          </>
+        )}
       </button>
       <Message text={message.text} type={message.type} className="mt-1" />
     </Panel>

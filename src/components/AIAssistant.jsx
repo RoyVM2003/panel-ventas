@@ -8,7 +8,7 @@ export function AIAssistant({ body, onBodyAppend, onSubjectChange }) {
   const [prompt, setPrompt] = useState('')
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState({ text: '', type: 'info' })
-  const [output, setOutput] = useState('')
+  const [suggestion, setSuggestion] = useState({ subject: '', body: '' })
 
   const handleSuggest = async () => {
     const p = prompt.trim()
@@ -20,14 +20,16 @@ export function AIAssistant({ body, onBodyAppend, onSubjectChange }) {
       return
     }
     setLoading(true)
-    setOutput('')
+    setSuggestion({ subject: '', body: '' })
     setMessage({ text: 'Pidiendo sugerencia a la IA...', type: 'info' })
     try {
       // Llama al backend real: POST /api/v1/ai/campaign-suggestion
       const data = await generateText(p)
       const { subject: suggestedSubject, body: suggestedBody } = getSubjectAndBodyFromAIResponse(data)
-      const textForPreview = suggestedBody || suggestedSubject
-      setOutput(suggestedSubject ? `Asunto: ${suggestedSubject}\n\n${suggestedBody}` : suggestedBody)
+      setSuggestion({
+        subject: suggestedSubject || '',
+        body: suggestedBody || '',
+      })
       if (suggestedSubject) onSubjectChange?.(suggestedSubject)
       if (suggestedBody) {
         const currentBody = typeof body === 'string' ? body : ''
@@ -74,13 +76,64 @@ export function AIAssistant({ body, onBodyAppend, onSubjectChange }) {
         onClick={handleSuggest}
         disabled={loading}
       >
-        <i className="fas fa-magic"></i> Sugerir asunto y texto
+        {loading ? (
+          <>
+            <span className="btn-spinner" aria-hidden="true" /> Pidiendo sugerencia...
+          </>
+        ) : (
+          <>
+            <i className="fas fa-magic"></i> Sugerir asunto y texto
+          </>
+        )}
       </button>
       <Message text={message.text} type={message.type} className="mt-1" />
-      {output && (
-        <p className="form-group hint" style={{ marginTop: '0.5rem' }}>
-          ↑ La sugerencia ya está puesta en el Paso 2 (arriba). Revisa los campos «Asunto del correo» y «Mensaje (cuerpo del correo)».
-        </p>
+      {(suggestion.subject || suggestion.body) && (
+        <div className="ai-suggestion-card">
+          <div className="ai-suggestion-header">
+            <span className="ai-suggestion-title">Propuesta de la IA</span>
+            <span className="ai-suggestion-subtitle">
+              Se ha aplicado en el Paso 2. Aquí puedes revisarla y volver a usarla si haces cambios manuales.
+            </span>
+          </div>
+          {suggestion.subject && (
+            <p className="ai-suggestion-subject">
+              <span>Asunto sugerido:</span> {suggestion.subject}
+            </p>
+          )}
+          {suggestion.body && (
+            <div className="ai-suggestion-body">
+              <span className="ai-suggestion-label">Mensaje sugerido:</span>
+              <pre>{suggestion.body}</pre>
+            </div>
+          )}
+          <div className="ai-suggestion-actions">
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => {
+                if (suggestion.subject) onSubjectChange?.(suggestion.subject)
+                if (suggestion.body) {
+                  const currentBody = typeof body === 'string' ? body : ''
+                  onBodyAppend?.(currentBody ? currentBody + '\n\n' + suggestion.body : suggestion.body)
+                }
+              }}
+            >
+              Usar tal cual en el Paso 2
+            </button>
+            {suggestion.body && (
+              <button
+                type="button"
+                className="btn btn-link"
+                onClick={() => {
+                  const currentBody = typeof body === 'string' ? body : ''
+                  onBodyAppend?.(currentBody ? currentBody + '\n\n' + suggestion.body : suggestion.body)
+                }}
+              >
+                Copiar solo al mensaje
+              </button>
+            )}
+          </div>
+        </div>
       )}
     </Panel>
   )

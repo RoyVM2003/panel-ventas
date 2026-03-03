@@ -62,7 +62,21 @@ export function SendCampaign({ subject, message: body }) {
         onClick={handleSend}
         disabled={loading}
       >
-        <i className="fas fa-paper-plane"></i> Enviar campaña
+        {loading ? (
+          <>
+            <span className="btn-spinner" aria-hidden="true" /> Enviando...
+          </>
+        ) : (
+          <>
+            <i className="fas fa-paper-plane"></i> Enviar campaña
+            <span
+              className="help-icon"
+              title="Se enviará el asunto y mensaje actuales a todos los contactos activos importados en el Paso 1."
+            >
+              ?
+            </span>
+          </>
+        )}
       </button>
       <Message text={message.text} type={message.type} className="mt-1" />
     </Panel>
