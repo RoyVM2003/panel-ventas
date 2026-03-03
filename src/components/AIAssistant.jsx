@@ -92,7 +92,7 @@ export function AIAssistant({ body, onBodyAppend, onSubjectChange }) {
           <div className="ai-suggestion-header">
             <span className="ai-suggestion-title">Propuesta de la IA</span>
             <span className="ai-suggestion-subtitle">
-              Se ha aplicado en el Paso 2. Aquí puedes revisarla y volver a usarla si haces cambios manuales.
+              Se ha aplicado en el Paso 2 (arriba). Revisa allí el asunto y el mensaje.
             </span>
           </div>
           {suggestion.subject && (
@@ -106,33 +106,6 @@ export function AIAssistant({ body, onBodyAppend, onSubjectChange }) {
               <pre>{suggestion.body}</pre>
             </div>
           )}
-          <div className="ai-suggestion-actions">
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={() => {
-                if (suggestion.subject) onSubjectChange?.(suggestion.subject)
-                if (suggestion.body) {
-                  const currentBody = typeof body === 'string' ? body : ''
-                  onBodyAppend?.(currentBody ? currentBody + '\n\n' + suggestion.body : suggestion.body)
-                }
-              }}
-            >
-              Usar tal cual en el Paso 2
-            </button>
-            {suggestion.body && (
-              <button
-                type="button"
-                className="btn btn-link"
-                onClick={() => {
-                  const currentBody = typeof body === 'string' ? body : ''
-                  onBodyAppend?.(currentBody ? currentBody + '\n\n' + suggestion.body : suggestion.body)
-                }}
-              >
-                Copiar solo al mensaje
-              </button>
-            )}
-          </div>
         </div>
       )}
     </Panel>

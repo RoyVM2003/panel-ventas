@@ -55,11 +55,11 @@ export async function deleteCampaign(id) {
 
 /**
  * POST /api/v1/campaigns/send — Enviar campaña a todos los contactos activos.
- * Body: { subject, message } — asunto y cuerpo del correo.
+ * Body: { subject, message } (y body por compatibilidad si el backend lo usa).
  */
 export async function sendCampaign(subject, message) {
   return apiEmail('/api/v1/campaigns/send', {
     method: 'POST',
-    body: { subject, message },
+    body: { subject, message, body: message },
   })
 }
