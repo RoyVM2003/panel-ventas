@@ -316,7 +316,7 @@ body {
   color: #e5f0ff;
   padding: 0.75rem 1rem;
   border-radius: 12px;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   white-space: pre-wrap;
   border: 1px solid #333;
 }
@@ -329,6 +329,58 @@ body {
   height: 1px;
   background: #b8d4eb;
   margin: 1.25rem 0;
+}
+
+/* Vista previa del correo en Paso 3 */
+.email-preview {
+  margin: 1.25rem 0 1.5rem;
+  padding: 1rem 1.25rem;
+  border-radius: 14px;
+  background: #f8fafc;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+}
+
+.email-preview-header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.75rem;
+}
+
+.email-preview-label {
+  font-weight: 600;
+  color: #0b1e33;
+  font-size: 0.95rem;
+}
+
+.email-preview-small {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.email-preview-body {
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 0.75rem 0.9rem;
+  border: 1px dashed rgba(148, 163, 184, 0.7);
+}
+
+.email-preview-subject {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+  color: #111827;
+}
+
+.email-preview-subject span {
+  font-weight: 600;
+  margin-right: 0.2rem;
+}
+
+.email-preview-message pre {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  white-space: pre-wrap;
+  font-size: 0.9rem;
+  color: #111827;
 }
 
 /* Crear cuenta: botón que abre modal */

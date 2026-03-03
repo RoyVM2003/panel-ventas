@@ -6,11 +6,11 @@ import { sendCampaign } from '../services/campaignService'
 export function SendCampaign({ subject, message: body }) {
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState({ text: '', type: 'info' })
+  const safeSubject = (typeof subject === 'string' ? subject : '').trim()
+  const safeBody = (typeof body === 'string' ? body : '').trim()
 
   const handleSend = async () => {
-    const sub = (typeof subject === 'string' ? subject : '').trim()
-    const msg = (typeof body === 'string' ? body : '').trim()
-    if (!sub || !msg) {
+    if (!safeSubject || !safeBody) {
       setMessage({
         text: 'Escribe asunto y mensaje en el Paso 2 antes de enviar.',
         type: 'err',
@@ -20,7 +20,7 @@ export function SendCampaign({ subject, message: body }) {
     setLoading(true)
     setMessage({ text: 'Enviando...', type: 'info' })
     try {
-      await sendCampaign(sub, msg)
+      await sendCampaign(safeSubject, safeBody)
       setMessage({ text: 'Envío solicitado correctamente.', type: 'ok' })
     } catch (err) {
       const msg =
@@ -38,6 +38,24 @@ export function SendCampaign({ subject, message: body }) {
       <p className="form-group hint">
         Se enviará el asunto y el mensaje definidos en el Paso 2 a todos los contactos activos que importaste en el Paso 1. Revisa bien el contenido antes de confirmar el envío.
       </p>
+      <div className="email-preview">
+        <div className="email-preview-header">
+          <span className="email-preview-label">Vista previa del correo</span>
+          <span className="email-preview-small">Así lo verá tu cliente en su bandeja de entrada</span>
+        </div>
+        <div className="email-preview-body">
+          <p className="email-preview-subject">
+            <span>Asunto:</span> {safeSubject || <em>Sin asunto (rellénalo en el Paso 2)</em>}
+          </p>
+          <div className="email-preview-message">
+            {safeBody ? (
+              <pre>{safeBody}</pre>
+            ) : (
+              <em>Escribe el mensaje en el Paso 2 o usa la ayuda de IA para generarlo.</em>
+            )}
+          </div>
+        </div>
+      </div>
       <button
         type="button"
         className="btn"
