@@ -38,7 +38,9 @@ export function PanelPage() {
   }, [])
 
   const removeCampaign = useCallback((id) => {
-    setCampaigns((prev) => prev.filter((c) => (c.id ?? c.campaign_id) !== id))
+    setCampaigns((prev) =>
+      prev.filter((c) => String(c.id ?? c.campaign_id ?? c.id_campaign ?? '') !== String(id))
+    )
   }, [])
 
   const handleBodyAppend = useCallback((newBody) => {
