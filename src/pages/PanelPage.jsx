@@ -45,6 +45,21 @@ export function PanelPage() {
     setBody(newBody)
   }, [])
 
+  // Cuando el usuario selecciona una campaña de la lista, rellenar asunto y mensaje
+  useEffect(() => {
+    if (!selectedCampaignId) {
+      // Si elige "Crear nueva campaña", se limpian los campos en CampaignForm
+      return
+    }
+    const cid = String(selectedCampaignId)
+    const found = campaigns.find((c) => String(c.id ?? c.campaign_id ?? c.id_campaign ?? '') === cid)
+    if (!found) return
+    const s = found.subject ?? found.name ?? found.nombre ?? ''
+    const b = found.body ?? found.message ?? ''
+    if (typeof s === 'string') setSubject(s)
+    if (typeof b === 'string') setBody(b)
+  }, [selectedCampaignId, campaigns])
+
   const getDeletedIds = () => {
     try {
       const raw = window.localStorage.getItem('panel_deleted_campaign_ids')

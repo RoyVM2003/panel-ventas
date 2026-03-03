@@ -95,8 +95,35 @@ export function CampaignForm({
         // Ignorar errores de almacenamiento local
       }
     } catch (err) {
-      const msg = err.data?.message ?? err.data?.error ?? (typeof err.data === 'object' ? JSON.stringify(err.data) : err.message)
-      setMessage({ text: 'Error al eliminar: ' + msg, type: 'err' })
+      const msg =
+        err.data?.message ??
+        err.data?.error ??
+        (typeof err.data === 'object' ? JSON.stringify(err.data) : err.message)
+      const text = String(msg || '')
+      const isAlreadyDeleted =
+        /no encontrada/i.test(text) || /ya está eliminada/i.test(text) || /ya esta eliminada/i.test(text)
+
+      if (isAlreadyDeleted) {
+        // Si el backend dice que no existe o ya está eliminada, la quitamos igual del panel
+        setMessage({ text: 'Esta campaña ya estaba eliminada en el servidor, se ha quitado del panel.', type: 'ok' })
+        onCampaignDeleted?.(id)
+        onSelectedCampaignIdChange?.('')
+        onSubjectChange?.('')
+        onBodyChange?.('')
+        try {
+          const raw = window.localStorage.getItem('panel_deleted_campaign_ids')
+          const arr = raw ? JSON.parse(raw) : []
+          const list = Array.isArray(arr) ? arr : []
+          if (!list.includes(id)) {
+            list.push(id)
+            window.localStorage.setItem('panel_deleted_campaign_ids', JSON.stringify(list))
+          }
+        } catch {
+          // Ignorar errores de almacenamiento local
+        }
+      } else {
+        setMessage({ text: 'Error al eliminar: ' + text, type: 'err' })
+      }
     } finally {
       setLoading(false)
     }
