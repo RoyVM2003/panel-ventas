@@ -161,6 +161,7 @@ export function CampaignForm({
           id="campSubject"
           placeholder="Ej: Novedades de este mes"
           value={subVal}
+          autoComplete="off"
           onChange={(e) => onSubjectChange?.(e.target.value)}
         />
       </FormGroup>
@@ -169,6 +170,7 @@ export function CampaignForm({
           id="campBody"
           placeholder="Escribe aquí el contenido del correo..."
           value={bodyVal}
+          autoComplete="off"
           onChange={(e) => onBodyChange?.(e.target.value)}
         />
       </FormGroup>
