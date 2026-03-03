@@ -7,11 +7,7 @@ export function HeaderBar() {
     <div className="header-bar">
       <div className="header-title">
         <h1>
-          <img
-            src="https://osdemsdigital.com/wp-content/uploads/2025/04/Logo-os-group.jpg"
-            alt="OSDEMS"
-            className="header-logo"
-          />
+          <i className="fas fa-paper-plane"></i>
           Panel de promociones
         </h1>
         <p className="header-subtitle">
