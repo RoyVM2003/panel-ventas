@@ -38,7 +38,7 @@ export function LoginPage() {
         err.data?.message ||
         err.data?.error ||
         (err.data && typeof err.data === 'object' ? JSON.stringify(err.data) : err.message)
-      setLoginMsg({ text: 'Error: ' + msg, type: 'err' })
+      setLoginMsg({ text: 'No se pudo iniciar sesión. ' + msg, type: 'err' })
       const msgLower = (msg || '').toLowerCase()
       const isUnverified =
         msgLower.includes('no verificada') ||
@@ -71,10 +71,10 @@ export function LoginPage() {
         err.data?.error ||
         err.message
       if (err.status === 404 || (typeof msg === 'undefined' && err.data)) {
-        msg = 'Ruta de verificación no encontrada (404). El backend puede usar otro endpoint; pide al administrador la URL correcta para verificar el correo.'
+        msg = 'El enlace de verificación no es válido. Si el problema continúa, contacta al administrador.'
       }
-      if (!msg) msg = 'Error al verificar. Intenta de nuevo o contacta al administrador.'
-      setVerifyMsg({ text: 'Error: ' + msg, type: 'err' })
+      if (!msg) msg = 'No se pudo verificar. Intenta de nuevo o contacta al administrador.'
+      setVerifyMsg({ text: msg, type: 'err' })
     } finally {
       setVerifyLoading(false)
     }
@@ -89,7 +89,7 @@ export function LoginPage() {
       setVerifyMsg({ text: 'Código reenviado. Revisa tu correo.', type: 'ok' })
     } catch (err) {
       const msg = err.data?.message || err.data?.error || err.message
-      setVerifyMsg({ text: msg ? 'Error: ' + msg : 'No se pudo reenviar. Intenta más tarde.', type: 'err' })
+      setVerifyMsg({ text: msg ? msg : 'No hemos podido reenviar el código. Intenta de nuevo en unos minutos.', type: 'err' })
     } finally {
       setResendLoading(false)
     }

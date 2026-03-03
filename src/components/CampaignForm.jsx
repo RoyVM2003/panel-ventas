@@ -23,7 +23,7 @@ export function CampaignForm({
     const sub = (typeof subject === 'string' ? subject : subject?.value ?? '').trim()
     const b = (typeof body === 'string' ? body : body?.value ?? '').trim()
     if (!sub || !b) {
-      setMessage({ text: 'Rellena asunto y mensaje.', type: 'err' })
+      setMessage({ text: 'Escribe el asunto y el contenido del correo.', type: 'err' })
       return
     }
     const id = selectedCampaignId || ''
@@ -40,7 +40,7 @@ export function CampaignForm({
         data.data?.id ??
         data.data?.id_campaign ??
         id
-      setMessage({ text: id ? 'Campaña actualizada.' : 'Campaña creada correctamente.', type: 'ok' })
+      setMessage({ text: 'Campaña guardada.', type: 'ok' })
       if (id) {
         onCampaignUpdated?.(id, { name: sub, subject: sub, body: b })
       } else if (newId) {
@@ -53,8 +53,7 @@ export function CampaignForm({
         err.data?.error ||
         (err.data && typeof err.data === 'object' ? JSON.stringify(err.data) : err.message)
       const fullMsg = String(msg ?? '')
-      let text = (id ? 'Error al actualizar: ' : 'Error al crear campaña: ') + fullMsg
-      setMessage({ text, type: 'err' })
+      setMessage({ text: 'No se pudo guardar la campaña. ' + fullMsg, type: 'err' })
     } finally {
       setLoading(false)
     }
@@ -96,7 +95,7 @@ export function CampaignForm({
 
       if (isAlreadyDeleted) {
         // Si el backend dice que no existe o ya está eliminada, la quitamos igual del panel
-        setMessage({ text: 'Esta campaña ya estaba eliminada en el servidor, se ha quitado del panel.', type: 'ok' })
+        setMessage({ text: 'Esa campaña ya no existía; la hemos quitado de la lista.', type: 'ok' })
         onCampaignDeleted?.(id)
         onSelectedCampaignIdChange?.('')
         onSubjectChange?.('')
@@ -113,7 +112,7 @@ export function CampaignForm({
           // Ignorar errores de almacenamiento local
         }
       } else {
-        setMessage({ text: 'Error al eliminar: ' + text, type: 'err' })
+        setMessage({ text: 'No se pudo eliminar. ' + text, type: 'err' })
       }
     } finally {
       setLoading(false)

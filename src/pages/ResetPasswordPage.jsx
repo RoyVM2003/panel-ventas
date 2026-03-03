@@ -15,7 +15,7 @@ export function ResetPasswordPage() {
   useEffect(() => {
     if (!token) {
       setMsg({
-        text: 'El enlace no es válido o falta el token para restablecer la contraseña.',
+        text: 'Este enlace ha caducado o no es válido. Solicita de nuevo el restablecimiento desde «¿Olvidaste tu contraseña?».',
         type: 'err',
       })
     }
@@ -61,7 +61,7 @@ export function ResetPasswordPage() {
       setConfirmPassword('')
     } catch (error) {
       setMsg({
-        text: 'Error al restablecer contraseña: ' + (error.message || 'intenta nuevamente más tarde'),
+        text: 'No se pudo cambiar la contraseña. ' + (error.message || 'Intenta de nuevo más tarde.'),
         type: 'err',
       })
     } finally {

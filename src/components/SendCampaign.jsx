@@ -30,14 +30,14 @@ export function SendCampaign({ subject, message: body, hasImportedExcel, onSendS
     setMessage({ text: 'Enviando...', type: 'info' })
     try {
       await sendCampaign(safeSubject, safeBody)
-      setMessage({ text: 'Envío solicitado correctamente.', type: 'ok' })
+      setMessage({ text: 'Listo. Tu campaña se ha puesto en cola y se enviará a tus contactos en breve.', type: 'ok' })
       onSendSuccess?.()
     } catch (err) {
       const msg =
         err.data?.message ||
         err.data?.error ||
         (err.data && typeof err.data === 'object' ? JSON.stringify(err.data) : err.message)
-      setMessage({ text: 'Error al enviar: ' + msg, type: 'err' })
+      setMessage({ text: 'No se pudo enviar la campaña. ' + msg, type: 'err' })
     } finally {
       setLoading(false)
     }

@@ -21,7 +21,7 @@ export function AIAssistant({ body, onBodyAppend, onSubjectChange, onSuggestionA
     }
     setLoading(true)
     setSuggestion({ subject: '', body: '' })
-    setMessage({ text: 'Pidiendo sugerencia a la IA...', type: 'info' })
+    setMessage({ text: 'Generando sugerencia...', type: 'info' })
     try {
       // Llama al backend real: POST /api/v1/ai/campaign-suggestion
       const data = await generateText(p)
@@ -37,13 +37,13 @@ export function AIAssistant({ body, onBodyAppend, onSubjectChange, onSuggestionA
       }
       if (suggestedSubject || suggestedBody) {
         setMessage({
-          text: 'Sugerencia aplicada en el Paso 2 (arriba). Revisa allí el asunto y el mensaje del correo.',
+          text: 'Listo. Hemos rellenado el asunto y el mensaje arriba. Revísalos y edita lo que quieras.',
           type: 'ok',
         })
         onSuggestionApplied?.()
       } else {
         setMessage({
-          text: 'El servidor respondió pero no se pudo extraer asunto ni mensaje. Escribe el texto manualmente en el Paso 2 o revisa el formato de respuesta del backend.',
+          text: 'No pudimos obtener una sugerencia válida. Escribe el asunto y el mensaje tú mismo en el Paso 2.',
           type: 'err',
         })
       }
@@ -52,7 +52,7 @@ export function AIAssistant({ body, onBodyAppend, onSubjectChange, onSuggestionA
         err.data?.message ||
         err.data?.error ||
         (err.data && typeof err.data === 'object' ? JSON.stringify(err.data) : err.message)
-      setMessage({ text: 'Error al pedir sugerencia IA: ' + msg, type: 'err' })
+      setMessage({ text: 'No se pudo generar la sugerencia. ' + msg, type: 'err' })
     } finally {
       setLoading(false)
     }
@@ -79,7 +79,7 @@ export function AIAssistant({ body, onBodyAppend, onSubjectChange, onSuggestionA
       >
         {loading ? (
           <>
-            <span className="btn-spinner" aria-hidden="true" /> Pidiendo sugerencia...
+            <span className="btn-spinner" aria-hidden="true" /> Generando...
           </>
         ) : (
           <>
@@ -93,7 +93,7 @@ export function AIAssistant({ body, onBodyAppend, onSubjectChange, onSuggestionA
           <div className="ai-suggestion-header">
             <span className="ai-suggestion-title">Propuesta de la IA</span>
             <span className="ai-suggestion-subtitle">
-              Se ha aplicado en el Paso 2 (arriba). Revisa allí el asunto y el mensaje.
+              Se ha aplicado arriba. Revisa el asunto y el mensaje.
             </span>
           </div>
           {suggestion.subject && (

@@ -20,7 +20,7 @@ export function ExcelImport({ onImportSuccess }) {
 
   const handleImport = async () => {
     if (!file) {
-      setMessage({ text: 'Selecciona un archivo Excel (.xlsx).', type: 'err' })
+      setMessage({ text: 'Elige un archivo Excel (.xlsx) para importar.', type: 'err' })
       return
     }
     setLoading(true)
@@ -56,7 +56,7 @@ export function ExcelImport({ onImportSuccess }) {
         err.data?.message ||
         err.data?.error ||
         (err.data && typeof err.data === 'object' ? JSON.stringify(err.data) : err.message)
-      setMessage({ text: 'Error al importar: ' + msg, type: 'err' })
+      setMessage({ text: 'No se pudo importar el archivo. ' + msg, type: 'err' })
     } finally {
       setLoading(false)
     }
