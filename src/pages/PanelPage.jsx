@@ -9,7 +9,6 @@ import { getCampaign } from '../services/campaignService'
 import { listCampaigns } from '../services/excelService'
 
 export function PanelPage() {
-  // Solo campañas que TÚ creas en esta sesión (no se carga la lista del backend para no mezclar contactos)
   const [campaigns, setCampaigns] = useState([])
   const [selectedCampaignId, setSelectedCampaignId] = useState('')
   const [subject, setSubject] = useState('')
@@ -63,6 +62,30 @@ export function PanelPage() {
     setBody(newBody)
   }, [])
 
+  // Cargar campañas guardadas localmente (como respaldo) al entrar
+  useEffect(() => {
+    try {
+      const raw = window.localStorage.getItem('panel_campaigns')
+      if (!raw) return
+      const parsed = JSON.parse(raw)
+      if (!Array.isArray(parsed)) return
+      setCampaigns((prev) => {
+        if (!prev.length) return parsed
+        const existingIds = new Set(prev.map((c) => String(c.id ?? c.campaign_id)))
+        const merged = [...prev]
+        parsed.forEach((c) => {
+          const cid = String(c.id ?? c.campaign_id ?? '')
+          if (!cid || existingIds.has(cid)) return
+          merged.push(c)
+          existingIds.add(cid)
+        })
+        return merged
+      })
+    } catch {
+      // Ignorar errores de lectura
+    }
+  }, [])
+
   // Al entrar al panel, intentar cargar campañas ya existentes de la cuenta
   useEffect(() => {
     let cancelled = false
@@ -105,6 +128,15 @@ export function PanelPage() {
     }
   }, [])
 
+  // Guardar campañas en localStorage como respaldo entre sesiones
+  useEffect(() => {
+    try {
+      window.localStorage.setItem('panel_campaigns', JSON.stringify(campaigns))
+    } catch {
+      // Si el almacenamiento falla (modo incógnito, etc.), simplemente lo ignoramos
+    }
+  }, [campaigns])
+
   return (
     <div id="app" className="app-visible">
       <HeaderBar />
@@ -139,7 +171,7 @@ export function PanelPage() {
           <span className="app-step-number">2B</span>
           <span className="app-step-text">
             Afinar con IA
-            <small>Pulimos el texto para que suene mejor</small>
+            <small>Deja que la IA te proponga mejoras</small>
           </span>
         </button>
         <button
@@ -150,7 +182,7 @@ export function PanelPage() {
           <span className="app-step-number">3</span>
           <span className="app-step-text">
             Enviar campaña
-            <small>Un clic y tu promo sale a todos</small>
+            <small>Confirma el envío a tu base de contactos</small>
           </span>
         </button>
       </nav>

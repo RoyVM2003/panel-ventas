@@ -34,9 +34,9 @@ export function SendCampaign({ subject, message: body }) {
   }
 
   return (
-    <Panel title="Paso 3 · Enviar campaña" icon="fas fa-paper-plane">
+    <Panel title="Paso 3 · Revisión final y envío" icon="fas fa-paper-plane">
       <p className="form-group hint">
-        Se enviará el asunto y mensaje que escribiste en el Paso 2 a todos los contactos activos (los que importaste en el Paso 1 con el Excel). Si no has importado contactos, el envío no tendrá destinatarios. Revisa antes de enviar.
+        Se enviará el asunto y el mensaje definidos en el Paso 2 a todos los contactos activos que importaste en el Paso 1. Revisa bien el contenido antes de confirmar el envío.
       </p>
       <button
         type="button"

@@ -56,14 +56,14 @@ export function AIAssistant({ body, onBodyAppend, onSubjectChange }) {
   }
 
   return (
-    <Panel title="Paso 2B · Ayuda IA para el texto (opcional)" icon="fas fa-robot">
+    <Panel title="Paso 2B · Mejora el texto con IA (opcional)" icon="fas fa-robot">
       <FormGroup
         label="Describe la promoción o el público objetivo"
         id="aiPrompt"
       >
         <textarea
           id="aiPrompt"
-          placeholder="Ej: Promo 2x1 en curso online de ventas para pymes mexicanas, tono cercano pero profesional..."
+          placeholder="Ej: Promoción de renovación anual con descuento para clientes actuales, tono cercano y profesional."
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
         />

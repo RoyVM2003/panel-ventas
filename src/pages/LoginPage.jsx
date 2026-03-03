@@ -100,10 +100,10 @@ export function LoginPage() {
       <div className="login-section">
         <div className="login-header">
           <h2>
-            <i className="fas fa-lock"></i> Bienvenido al panel de promociones
+            <i className="fas fa-lock"></i> Accede a tu panel de promociones
           </h2>
           <p className="login-subtitle">
-            Centraliza tus contactos, diseña campañas y envía correos que venden en pocos pasos.
+            Conecta con tus clientes: gestiona contactos, campañas y envíos de correo en un solo panel.
           </p>
         </div>
         <Message text={loginMsg.text} type={loginMsg.type} />

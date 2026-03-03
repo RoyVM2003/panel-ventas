@@ -89,9 +89,9 @@ export function CampaignForm({
   const bodyVal = typeof body === 'string' ? body : body?.value ?? ''
 
   return (
-    <Panel title="Paso 2 · Campaña / Mensaje" icon="fas fa-envelope">
+    <Panel title="Paso 2 · Contenido de la campaña" icon="fas fa-envelope">
       <FormGroup
-        label="Tus campañas guardadas"
+        label="Campañas guardadas"
         id="selCampaign"
         hint="Escribe asunto y mensaje abajo y pulsa «Crear campaña» para guardar una. Aquí puedes volver a cargar campañas que ya existen en tu cuenta."
       >

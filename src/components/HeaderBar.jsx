@@ -11,7 +11,7 @@ export function HeaderBar() {
           Panel de promociones
         </h1>
         <p className="header-subtitle">
-          Lanza campañas de correo en minutos usando tu propia base de contactos.
+          Diseña, guarda y envía campañas de email desde un mismo lugar.
         </p>
       </div>
       <div className="user-info">
