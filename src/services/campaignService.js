@@ -29,12 +29,19 @@ export async function getCampaign(id) {
 /** PUT /api/v1/excel/campaigns/{id} — Actualizar campaña. Incluye email, nombre, compañía por si el backend los exige. */
 export async function updateCampaign(id, { name, subject, body }) {
   const n = name || subject || 'Campaña'
+  // Email sintético estable por campaña para evitar duplicados
+  const email = `plantilla-${String(id)}@noreply.local`
   return apiEmail(`/api/v1/excel/campaigns/${encodeURIComponent(id)}`, {
     method: 'PUT',
     body: {
       name: n,
       subject: subject || n,
       body: body || '',
+      email,
+      nombre: n,
+      compañía: n,
+      compania: n,
+      company: n,
     },
   })
 }
