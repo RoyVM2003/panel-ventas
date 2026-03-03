@@ -65,22 +65,76 @@ export function PanelPage() {
   return (
     <div id="app" className="app-visible">
       <HeaderBar />
+      <nav className="app-steps">
+        <button
+          type="button"
+          className="app-step"
+          onClick={() => document.getElementById('step-1')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+        >
+          <span className="app-step-number">1</span>
+          <span className="app-step-text">
+            Importar contactos
+            <small>Sube tu Excel una sola vez</small>
+          </span>
+        </button>
+        <button
+          type="button"
+          className="app-step"
+          onClick={() => document.getElementById('step-2')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+        >
+          <span className="app-step-number">2</span>
+          <span className="app-step-text">
+            Diseñar campaña
+            <small>Asunto y cuerpo del correo</small>
+          </span>
+        </button>
+        <button
+          type="button"
+          className="app-step"
+          onClick={() => document.getElementById('step-2b')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+        >
+          <span className="app-step-number">2B</span>
+          <span className="app-step-text">
+            Afinar con IA
+            <small>Texto sugerido (opcional)</small>
+          </span>
+        </button>
+        <button
+          type="button"
+          className="app-step"
+          onClick={() => document.getElementById('step-3')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+        >
+          <span className="app-step-number">3</span>
+          <span className="app-step-text">
+            Enviar campaña
+            <small>Confirma y dispara el envío</small>
+          </span>
+        </button>
+      </nav>
       <Message text={globalMsg.text} type={globalMsg.type} />
-      <ExcelImport />
-      <CampaignForm
-        campaigns={campaigns}
-        selectedCampaignId={selectedCampaignId}
-        onSelectedCampaignIdChange={setSelectedCampaignId}
-        onCampaignCreated={addCampaign}
-        onCampaignUpdated={updateCampaignInList}
-        onCampaignDeleted={removeCampaign}
-        subject={subject}
-        body={body}
-        onSubjectChange={setSubject}
-        onBodyChange={setBody}
-      />
-      <AIAssistant body={body} onBodyAppend={handleBodyAppend} onSubjectChange={setSubject} />
-      <SendCampaign subject={subject} message={body} />
+      <section id="step-1" className="app-section">
+        <ExcelImport />
+      </section>
+      <section id="step-2" className="app-section">
+        <CampaignForm
+          campaigns={campaigns}
+          selectedCampaignId={selectedCampaignId}
+          onSelectedCampaignIdChange={setSelectedCampaignId}
+          onCampaignCreated={addCampaign}
+          onCampaignUpdated={updateCampaignInList}
+          onCampaignDeleted={removeCampaign}
+          subject={subject}
+          body={body}
+          onSubjectChange={setSubject}
+          onBodyChange={setBody}
+        />
+      </section>
+      <section id="step-2b" className="app-section">
+        <AIAssistant body={body} onBodyAppend={handleBodyAppend} onSubjectChange={setSubject} />
+      </section>
+      <section id="step-3" className="app-section">
+        <SendCampaign subject={subject} message={body} />
+      </section>
     </div>
   )
 }

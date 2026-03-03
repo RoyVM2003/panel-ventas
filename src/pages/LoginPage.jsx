@@ -98,12 +98,14 @@ export function LoginPage() {
   return (
     <div id="loginPage" className="login-page">
       <div className="login-section">
-        <h2>
-          <i className="fas fa-lock"></i> Paso 0 · Iniciar sesión
-        </h2>
-        <p className="msg info">
-          Inicia sesión con tu cuenta.
-        </p>
+        <div className="login-header">
+          <h2>
+            <i className="fas fa-lock"></i> Bienvenido al panel de promociones
+          </h2>
+          <p className="login-subtitle">
+            Centraliza tus contactos, diseña campañas y envía correos que venden en pocos pasos.
+          </p>
+        </div>
         <Message text={loginMsg.text} type={loginMsg.type} />
         <form id="formLogin" onSubmit={handleLogin}>
           <FormGroup label="Correo" id="loginEmail">
@@ -127,7 +129,7 @@ export function LoginPage() {
             />
           </FormGroup>
           <button type="submit" className="btn" id="btnLogin" disabled={loginLoading}>
-            Entrar
+            Entrar al panel
           </button>
         </form>
         <button

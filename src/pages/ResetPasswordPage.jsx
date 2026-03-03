@@ -72,12 +72,14 @@ export function ResetPasswordPage() {
   return (
     <div className="login-page">
       <div className="login-section">
-        <h2>
-          <i className="fas fa-key"></i> Restablecer contraseña
-        </h2>
-        <p className="msg info" style={{ marginBottom: '1rem' }}>
-          La contraseña debe contener al menos una mayúscula, una minúscula y un número.
-        </p>
+        <div className="login-header">
+          <h2>
+            <i className="fas fa-key"></i> Crea una nueva contraseña
+          </h2>
+          <p className="login-subtitle">
+            Elige una clave segura para proteger tu acceso al panel de promociones.
+          </p>
+        </div>
         <Message text={msg.text} type={msg.type} />
         <form onSubmit={handleSubmit}>
           <FormGroup label="Nueva contraseña" id="newPassword">
