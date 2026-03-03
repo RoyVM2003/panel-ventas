@@ -27,24 +27,28 @@ export function ExcelImport({ onImportSuccess }) {
     setMessage({ text: 'Importando...', type: 'info' })
     try {
       const data = await importExcel(file)
-      // Doc: respuesta { success, message, insertedCount, duplicateCount, internalDuplicateCount, errorCount, ... }
-      const parts = [data.message || 'Importación correcta.']
-      if (data.insertedCount != null) parts.push(`${data.insertedCount} registros insertados`)
-      if (data.duplicateCount != null && data.duplicateCount > 0) {
-        parts.push(`${data.duplicateCount} emails ya existían en la BD (omitidos)`)
-      }
-      if (data.internalDuplicateCount != null && data.internalDuplicateCount > 0) {
-        parts.push(`${data.internalDuplicateCount} duplicados dentro del archivo (omitidos)`)
-      }
-      if (data.errorCount != null && data.errorCount > 0) parts.push(`${data.errorCount} con error`)
       const inserted = data.insertedCount ?? 0
       const duplicates = (data.duplicateCount ?? 0) + (data.internalDuplicateCount ?? 0)
-      if (inserted === 0 && duplicates > 0) {
-        parts.push('Esos contactos ya están en la base: puedes usarlos para enviar campañas en el Paso 3.')
+      const errors = data.errorCount ?? 0
+
+      let text
+      if (inserted > 0 && errors === 0) {
+        text = duplicates > 0
+          ? `Listo. Se han añadido ${inserted} contactos nuevos a tu lista. ${duplicates} correos ya estaban guardados y no se repitieron. Ya puedes enviar tu campaña en el Paso 3.`
+          : `Listo. Se han añadido ${inserted} contactos a tu lista. Ya puedes enviar tu campaña en el Paso 3.`
+      } else if (inserted === 0 && duplicates > 0 && errors === 0) {
+        text = `Tu archivo se leyó correctamente. Los ${duplicates} correos que trae ya estaban en tu lista, así que no se añadieron de nuevo. Puedes usarlos igual para enviar tu campaña en el Paso 3.`
+      } else if (errors > 0) {
+        text = inserted > 0
+          ? `Se añadieron ${inserted} contactos. ${errors} correos no se pudieron importar (revisa que sean válidos).`
+          : `No se pudieron importar ${errors} correos. Revisa que la columna se llame "email" y que los correos sean válidos.`
+      } else {
+        text = 'El archivo no contenía contactos nuevos. Revisa que tenga una columna "email" con correos válidos.'
       }
+
       setMessage({
-        text: parts.join(' · '),
-        type: 'ok',
+        text,
+        type: errors > 0 && inserted === 0 ? 'err' : 'ok',
       })
       onImportSuccess?.()
     } catch (err) {
