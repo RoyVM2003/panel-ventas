@@ -93,14 +93,21 @@ export function CampaignForm({
       <FormGroup
         label="Campañas guardadas"
         id="selCampaign"
-        hint="Escribe asunto y mensaje abajo y pulsa «Crear campaña» para guardar una. Aquí puedes volver a cargar campañas que ya existen en tu cuenta."
+        hint="Elige una campaña guardada para rellenar asunto y mensaje, o selecciona «Crear nueva campaña» para empezar desde cero."
       >
         <select
           id="selCampaign"
           value={selectedCampaignId || ''}
-          onChange={(e) => onSelectedCampaignIdChange?.(e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value
+            onSelectedCampaignIdChange?.(value)
+            if (!value) {
+              onSubjectChange?.('')
+              onBodyChange?.('')
+            }
+          }}
         >
-          <option value="">— Crear nueva campaña (rellena abajo) —</option>
+          <option value="">Crear nueva campaña</option>
           {list.map((c) => {
             const cid = c.id ?? c.campaign_id
             const name = ((c.name ?? c.subject) || 'Campaña').slice(0, 60) || 'Campaña #' + cid
