@@ -17,7 +17,12 @@ export function PanelPage() {
 
   const addCampaign = useCallback((campaign) => {
     setCampaigns((prev) => {
-      const id = campaign.id ?? campaign.campaign_id ?? campaign.data?.id
+      const id =
+        campaign.id ??
+        campaign.campaign_id ??
+        campaign.id_campaign ??
+        campaign.data?.id ??
+        campaign.data?.id_campaign
       if (!id) return prev
       if (prev.some((c) => (c.id ?? c.campaign_id) === id)) return prev
       return [...prev, { id, name: campaign.name ?? campaign.subject, subject: campaign.subject, body: campaign.body }]
@@ -95,12 +100,12 @@ export function PanelPage() {
         if (!Array.isArray(items)) return
         const mapped = items
           .map((c) => {
-            const id = c.id ?? c.campaign_id ?? c._id
+            const id = c.id ?? c.campaign_id ?? c.id_campaign ?? c._id
             if (!id) return null
             return {
               id,
-              name: c.name ?? c.subject ?? 'Campaña',
-              subject: c.subject ?? c.name ?? '',
+              name: c.name ?? c.subject ?? c.nombre ?? c.compania ?? 'Campaña',
+              subject: c.subject ?? c.name ?? c.nombre ?? '',
               body: c.body ?? c.message ?? '',
             }
           })

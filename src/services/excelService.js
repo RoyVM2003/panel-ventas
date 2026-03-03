@@ -17,5 +17,8 @@ export async function listCampaigns({ page = 1, limit = 10, search = '' } = {}) 
   const qs = params.toString()
   const url = '/api/v1/excel/campaigns' + (qs ? '?' + qs : '')
   const data = await apiEmail(url)
-  return Array.isArray(data) ? data : (data.data || data.campaigns || data.items || [])
+  // El backend devuelve { success, data: [...], pagination: { ... } }
+  if (Array.isArray(data)) return data
+  if (Array.isArray(data?.data)) return data.data
+  return data.campaigns || data.items || []
 }

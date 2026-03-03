@@ -33,7 +33,13 @@ export function CampaignForm({
       const data = id
         ? await updateCampaign(id, { name: sub, subject: sub, body: b })
         : await createCampaign({ name: sub, subject: sub, body: b })
-      const newId = data.id ?? data.campaign_id ?? data.data?.id ?? id
+      const newId =
+        data.id ??
+        data.campaign_id ??
+        data.id_campaign ??
+        data.data?.id ??
+        data.data?.id_campaign ??
+        id
       setMessage({ text: id ? 'Campaña actualizada.' : 'Campaña creada correctamente.', type: 'ok' })
       if (id) {
         onCampaignUpdated?.(id, { name: sub, subject: sub, body: b })
