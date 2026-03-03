@@ -3,14 +3,16 @@ import { Panel } from './Panel'
 import { Message } from './Message'
 import { sendCampaign } from '../services/campaignService'
 
-export function SendCampaign({ subject, message: body, hasImportedExcel }) {
+export function SendCampaign({ subject, message: body, hasImportedExcel, onSendSuccess }) {
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState({ text: '', type: 'info' })
   const safeSubject = (typeof subject === 'string' ? subject : '').trim()
   const safeBody = (typeof body === 'string' ? body : '').trim()
+  // Solo permitir envío si en esta sesión se importó un Excel (evitar envío sin lista)
+  const canSend = hasImportedExcel === true
 
   const handleSend = async () => {
-    if (!hasImportedExcel) {
+    if (!canSend) {
       setMessage({
         text: 'Primero importa un Excel en el Paso 1. Solo se enviará a los contactos de ese archivo.',
         type: 'err',
@@ -29,6 +31,7 @@ export function SendCampaign({ subject, message: body, hasImportedExcel }) {
     try {
       await sendCampaign(safeSubject, safeBody)
       setMessage({ text: 'Envío solicitado correctamente.', type: 'ok' })
+      onSendSuccess?.()
     } catch (err) {
       const msg =
         err.data?.message ||
@@ -42,8 +45,13 @@ export function SendCampaign({ subject, message: body, hasImportedExcel }) {
 
   return (
     <Panel title="Paso 3 · Revisión final y envío" icon="fas fa-paper-plane">
+      {!canSend && (
+        <div className="msg err" role="alert" style={{ marginBottom: '1rem' }}>
+          <strong>No puedes enviar todavía.</strong> Primero importa un archivo Excel en el Paso 1 (Importar contactos). El envío solo irá a los correos de ese archivo.
+        </div>
+      )}
       <p className="form-group hint">
-        Se enviará el asunto y el mensaje definidos en el Paso 2 a todos los contactos activos que importaste en el Paso 1. Revisa bien el contenido antes de confirmar el envío.
+        Se enviará el asunto y el mensaje del Paso 2 solo a los contactos del Excel que importaste en el Paso 1. Sin Excel importado no se puede enviar. Revisa el contenido antes de confirmar.
       </p>
       <div className="email-preview">
         <div className="email-preview-header">
@@ -67,9 +75,9 @@ export function SendCampaign({ subject, message: body, hasImportedExcel }) {
         type="button"
         className="btn"
         onClick={handleSend}
-        disabled={loading || !hasImportedExcel}
+        disabled={loading || !canSend}
       >
-        {!hasImportedExcel ? (
+        {!canSend ? (
           <>
             <i className="fas fa-lock"></i> Importa Excel primero (Paso 1)
           </>

@@ -14,6 +14,8 @@ export function PanelPage() {
   const [body, setBody] = useState('')
   const [globalMsg, setGlobalMsg] = useState({ text: '', type: 'info' })
   const [hasImportedExcel, setHasImportedExcel] = useState(false)
+  const [hasUsedAI, setHasUsedAI] = useState(false)
+  const [hasSentCampaign, setHasSentCampaign] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
 
   const addCampaign = useCallback((campaign) => {
@@ -58,7 +60,6 @@ export function PanelPage() {
   // Cuando el usuario selecciona una campaña de la lista, rellenar asunto y mensaje
   useEffect(() => {
     if (!selectedCampaignId) {
-      // Si elige "Crear nueva campaña", se limpian los campos en CampaignForm
       return
     }
     const cid = String(selectedCampaignId)
@@ -68,6 +69,8 @@ export function PanelPage() {
     const b = found.body ?? found.message ?? ''
     if (typeof s === 'string') setSubject(s)
     if (typeof b === 'string') setBody(b)
+    // Al cargar una campaña guardada, marcar Diseñar y Afinar con IA como hechos
+    setHasUsedAI(true)
   }, [selectedCampaignId, campaigns])
 
   const getDeletedIds = () => {
@@ -189,10 +192,10 @@ export function PanelPage() {
         </button>
         <button
           type="button"
-          className={`app-step ${currentStep === '2b' ? 'app-step--active' : ''}`}
+          className={`app-step ${currentStep === '2b' ? 'app-step--active' : ''} ${hasUsedAI ? 'app-step--completed' : ''}`}
           onClick={() => { setCurrentStep('2b'); document.getElementById('step-2b')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}
         >
-          <span className="app-step-number">2B</span>
+          <span className="app-step-number">{hasUsedAI ? <i className="fas fa-check" /> : '2B'}</span>
           <span className="app-step-text">
             Afinar con IA
             <small>Deja que la IA te proponga mejoras</small>
@@ -200,10 +203,10 @@ export function PanelPage() {
         </button>
         <button
           type="button"
-          className={`app-step ${currentStep === 3 ? 'app-step--active' : ''}`}
+          className={`app-step ${currentStep === 3 ? 'app-step--active' : ''} ${hasSentCampaign ? 'app-step--completed' : ''}`}
           onClick={() => { setCurrentStep(3); document.getElementById('step-3')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}
         >
-          <span className="app-step-number">3</span>
+          <span className="app-step-number">{hasSentCampaign ? <i className="fas fa-check" /> : '3'}</span>
           <span className="app-step-text">
             Enviar campaña
             <small>Solo a los contactos del Excel del Paso 1</small>
@@ -229,10 +232,10 @@ export function PanelPage() {
         />
       </section>
       <section id="step-2b" className="app-section">
-        <AIAssistant body={body} onBodyAppend={handleBodyAppend} onSubjectChange={setSubject} />
+        <AIAssistant body={body} onBodyAppend={handleBodyAppend} onSubjectChange={setSubject} onSuggestionApplied={() => setHasUsedAI(true)} />
       </section>
       <section id="step-3" className="app-section">
-        <SendCampaign subject={subject} message={body} hasImportedExcel={hasImportedExcel} />
+        <SendCampaign subject={subject} message={body} hasImportedExcel={hasImportedExcel} onSendSuccess={() => setHasSentCampaign(true)} />
       </section>
     </div>
   )

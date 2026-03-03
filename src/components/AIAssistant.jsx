@@ -4,7 +4,7 @@ import { FormGroup } from './FormGroup'
 import { Message } from './Message'
 import { generateText, getSubjectAndBodyFromAIResponse } from '../services/aiService'
 
-export function AIAssistant({ body, onBodyAppend, onSubjectChange }) {
+export function AIAssistant({ body, onBodyAppend, onSubjectChange, onSuggestionApplied }) {
   const [prompt, setPrompt] = useState('')
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState({ text: '', type: 'info' })
@@ -40,6 +40,7 @@ export function AIAssistant({ body, onBodyAppend, onSubjectChange }) {
           text: 'Sugerencia aplicada en el Paso 2 (arriba). Revisa allí el asunto y el mensaje del correo.',
           type: 'ok',
         })
+        onSuggestionApplied?.()
       } else {
         setMessage({
           text: 'El servidor respondió pero no se pudo extraer asunto ni mensaje. Escribe el texto manualmente en el Paso 2 o revisa el formato de respuesta del backend.',
