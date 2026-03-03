@@ -99,8 +99,13 @@ export function LoginPage() {
     <div id="loginPage" className="login-page">
       <div className="login-section">
         <div className="login-header">
+          <img
+            src="https://osdemsdigital.com/wp-content/uploads/2025/04/Logo-os-group.jpg"
+            alt="OSDEMS"
+            className="login-logo"
+          />
           <h2>
-            <i className="fas fa-lock"></i> Accede a tu panel de promociones
+            Accede a tu panel de promociones
           </h2>
           <p className="login-subtitle">
             Conecta con tus clientes: gestiona contactos, campañas y envíos de correo en un solo panel.

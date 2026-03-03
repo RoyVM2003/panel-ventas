@@ -59,16 +59,16 @@ export function ExcelImport({ onImportSuccess }) {
   }
 
   return (
-    <Panel title="Paso 1 · Base de datos (Excel)" icon="fas fa-file-excel">
+    <Panel title="Paso 1 · Contactos (Excel)" icon="fas fa-file-excel">
       <p className="form-group hint">
-        Sube un archivo .xlsx con los <strong>contactos</strong> a los que quieres escribir. Los contactos son tu base de envíos; las campañas son el asunto y el mensaje que defines en el Paso 2.
+        Sube un archivo .xlsx con los <strong>contactos</strong> a los que quieres escribir. Aquí cargas tu lista de personas; en el Paso 2 solo defines el asunto y el texto del correo.
       </p>
-      <details className="form-group hint" style={{ marginBottom: '0.75rem', fontSize: '0.9rem' }}>
-        <summary style={{ cursor: 'pointer' }}>¿Qué formato debe tener el Excel?</summary>
+      <details className="form-group hint" style={{ marginBottom: '0.75rem', fontSize: '0.95rem' }}>
+        <summary style={{ cursor: 'pointer', fontWeight: 600 }}>¿Qué formato debe tener el Excel?</summary>
         <ul style={{ marginTop: '0.5rem', paddingLeft: '1.25rem' }}>
-          <li>Primera fila: nombres de columnas (encabezados).</li>
-          <li>Al menos una columna <strong>email</strong> (obligatoria) y, según tu backend, columnas opcionales como <strong>nombre</strong>.</li>
-          <li>Emails válidos y únicos (sin duplicados dentro del archivo ni ya existentes en la base de datos).</li>
+          <li>Primera fila con los nombres de las columnas (encabezados).</li>
+          <li>Al menos una columna llamada <strong>email</strong> (obligatoria) y, si quieres, otra columna con el <strong>nombre</strong>.</li>
+          <li>Correos válidos y sin repetir (ni dentro del archivo ni ya cargados antes).</li>
         </ul>
       </details>
       <FormGroup label="Seleccionar archivo Excel" id="fileExcel">

@@ -175,7 +175,7 @@ export function CampaignForm({
         />
       </FormGroup>
       <p className="form-group hint">
-        Para poder guardar la campaña, el backend puede exigir tener contactos importados desde un Excel válido en el Paso 1.
+        Para que tus campañas se puedan enviar, asegúrate de haber cargado al menos un archivo de contactos en el Paso 1.
       </p>
       <div className="form-group" style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
         <button

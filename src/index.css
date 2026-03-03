@@ -183,6 +183,14 @@ body {
   font-size: 1.35rem;
 }
 
+.header-logo {
+  height: 2.25rem;
+  width: auto;
+  object-fit: contain;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
 .header-subtitle {
   margin: 0.35rem 0 0;
   font-size: 1rem;
@@ -228,6 +236,15 @@ body {
   margin: 2.5rem auto 2rem;
   border: 1px solid rgba(173, 191, 214, 0.5);
   box-shadow: 0 8px 40px rgba(15, 23, 42, 0.12), 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.login-logo {
+  height: 3rem;
+  width: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  display: block;
 }
 
 .login-header h2 {
