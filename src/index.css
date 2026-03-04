@@ -3886,10 +3886,11 @@ h4, h5, h6, button, input, select, textarea, label {
   text-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
 }
 
-/* Timeline sobre la imagen — siempre un solo renglón */
+/* Timeline sobre la imagen — siempre un solo renglón, centrado */
 .wf-stl {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-wrap: nowrap;
   background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(16px);
@@ -3905,15 +3906,17 @@ h4, h5, h6, button, input, select, textarea, label {
 .wf-stl-step {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.4rem;
-  padding: 0.4rem 0.6rem;
+  padding: 0.4rem 0.75rem;
   border-radius: 10px;
   border: none;
   background: transparent;
   cursor: pointer;
   font-family: inherit;
   transition: all 0.2s ease;
-  flex-shrink: 0;
+  flex: 1;
+  min-width: 0;
   white-space: nowrap;
 }
 
@@ -3964,9 +3967,8 @@ h4, h5, h6, button, input, select, textarea, label {
 .wf-stl-step--done .wf-stl-label { color: #6ee7b7; }
 
 .wf-stl-line {
-  flex: 1;
-  min-width: 12px;
-  max-width: 40px;
+  flex: 0 0 24px;
+  width: 24px;
   height: 1px;
   background: rgba(255, 255, 255, 0.2);
 }
