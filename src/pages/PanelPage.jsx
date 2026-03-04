@@ -192,43 +192,40 @@ export function PanelPage() {
             alt="equipo de trabajo"
           />
           <div className="home-hero-overlay" />
+
+          {/* Saludo personal — esquina inferior izquierda */}
+          <div className="home-hero-greeting">
+            <div className="home-hero-greeting-top">
+              <span className="hw-dot" />
+              <span className="home-hero-greeting-label">Panel activo</span>
+            </div>
+            <div className="home-hero-greeting-name">
+              Hola, <span className="hw-name-light">{username}</span>
+            </div>
+            <div className="home-hero-greeting-sub">¿qué enviamos hoy?</div>
+            <div className="home-hero-pills">
+              <div className={`hero-pill${hasImportedExcel ? ' hero-pill--done' : ''}`}>
+                <i className={hasImportedExcel ? 'fas fa-check' : 'fas fa-users'} />
+                Contactos
+              </div>
+              <div className={`hero-pill${(subject?.trim() && body?.trim()) ? ' hero-pill--done' : ''}`}>
+                <i className={(subject?.trim() && body?.trim()) ? 'fas fa-check' : 'fas fa-envelope'} />
+                Campaña
+              </div>
+              <div className={`hero-pill${hasSentCampaign ? ' hero-pill--done hero-pill--sent' : ''}`}>
+                <i className={hasSentCampaign ? 'fas fa-check' : 'fas fa-rocket'} />
+                {hasSentCampaign ? 'Enviada' : 'Envío'}
+              </div>
+            </div>
+          </div>
+
+          {/* Texto central */}
           <div className="home-hero-text">
             <div className="home-hero-eyebrow">OSDEMS · Email Marketing con IA</div>
             <h1 className="home-hero-h1">Lanza campañas<br />que convierten</h1>
             <p className="home-hero-desc">
               Importa contactos, diseña con IA y envía a toda tu lista en minutos.
             </p>
-          </div>
-        </div>
-
-        {/* ══════════════════════════════════
-            BARRA DE BIENVENIDA — compacta
-        ══════════════════════════════════ */}
-        <div className="wst-root">
-          <div className="wst-inner">
-            <div className="wst-left">
-              <span className="hw-dot" />
-              <div>
-                <div className="wst-greeting">
-                  Hola, <span className="hw-name">{username}</span>
-                </div>
-                <div className="wst-sub">¿qué enviamos hoy?</div>
-              </div>
-            </div>
-            <div className="wst-pills">
-              <div className={`wst-pill${hasImportedExcel ? ' wst-pill--done' : ''}`}>
-                <i className={hasImportedExcel ? 'fas fa-check' : 'fas fa-users'} />
-                Contactos
-              </div>
-              <div className={`wst-pill${(subject?.trim() && body?.trim()) ? ' wst-pill--done' : ''}`}>
-                <i className={(subject?.trim() && body?.trim()) ? 'fas fa-check' : 'fas fa-envelope'} />
-                Campaña
-              </div>
-              <div className={`wst-pill${hasSentCampaign ? ' wst-pill--done wst-pill--sent' : ''}`}>
-                <i className={hasSentCampaign ? 'fas fa-check' : 'fas fa-rocket'} />
-                {hasSentCampaign ? 'Enviada' : 'Envío'}
-              </div>
-            </div>
           </div>
         </div>
 
