@@ -3812,11 +3812,11 @@ body {
 
 /* Cards con efecto cristal sobre la imagen */
 .wf-cards .panel {
-  background: rgba(255, 255, 255, 0.62) !important;
-  backdrop-filter: blur(14px) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.55) !important;
-  box-shadow: 0 8px 32px rgba(11, 30, 51, 0.1) !important;
+  background: rgba(255, 255, 255, 0.42) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.45) !important;
+  box-shadow: 0 8px 32px rgba(11, 30, 51, 0.12) !important;
 }
 
 @media (max-width: 768px) {
@@ -4264,11 +4264,12 @@ body {
 .app-dark-page .upload-format-hint summary { color: var(--navy-700); }
 
 /* Email preview */
-.app-dark-page .email-preview        { background: var(--gray-50); border-color: var(--gray-200); }
-.app-dark-page .email-preview-body   { background: #fff; border-color: var(--gray-300); }
-.app-dark-page .email-preview-label  { color: var(--navy-900); }
-.app-dark-page .email-preview-subject { color: #111827; }
-.app-dark-page .email-preview-message pre { color: #374151; }
+.app-dark-page .email-preview        { background: rgba(255,255,255,0.9) !important; border-color: rgba(203,213,225,0.6) !important; }
+.app-dark-page .email-preview-body   { background: #fff !important; border-color: rgba(203,213,225,0.5) !important; }
+.app-dark-page .email-preview-label  { color: #0b1e33 !important; }
+.app-dark-page .email-preview-small  { color: #64748b !important; }
+.app-dark-page .email-preview-subject { color: #111827 !important; }
+.app-dark-page .email-preview-message pre { color: #374151 !important; }
 
 /* AI cards */
 .app-dark-page .ai-suggestion-card { background: #0f172a; border-color: rgba(255,255,255,0.08); }
