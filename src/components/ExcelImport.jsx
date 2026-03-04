@@ -1,21 +1,29 @@
 import { useState, useRef } from 'react'
 import { Panel } from './Panel'
-import { FormGroup } from './FormGroup'
 import { Message } from './Message'
 import { importExcel } from '../services/excelService'
 
 export function ExcelImport({ onImportSuccess }) {
   const [file, setFile] = useState(null)
-  const [fileName, setFileName] = useState('Ningún archivo seleccionado')
+  const [fileName, setFileName] = useState('')
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState({ text: '', type: 'info' })
+  const [dragging, setDragging] = useState(false)
   const inputRef = useRef(null)
 
-  const handleChange = (e) => {
-    const f = e.target.files?.[0]
+  const applyFile = (f) => {
+    if (!f) return
     setFile(f)
-    setFileName(f ? f.name : 'Ningún archivo seleccionado')
+    setFileName(f.name)
     setMessage({ text: '', type: 'info' })
+  }
+
+  const handleChange = (e) => applyFile(e.target.files?.[0])
+
+  const handleDrop = (e) => {
+    e.preventDefault()
+    setDragging(false)
+    applyFile(e.dataTransfer.files?.[0])
   }
 
   const handleImport = async () => {
@@ -34,22 +42,19 @@ export function ExcelImport({ onImportSuccess }) {
       let text
       if (inserted > 0 && errors === 0) {
         text = duplicates > 0
-          ? `Listo. Se han añadido ${inserted} contactos nuevos a tu lista. ${duplicates} correos ya estaban guardados y no se repitieron. Ya puedes enviar tu campaña en el Paso 3.`
-          : `Listo. Se han añadido ${inserted} contactos a tu lista. Ya puedes enviar tu campaña en el Paso 3.`
+          ? `Listo. Se añadieron ${inserted} contactos nuevos. ${duplicates} correos ya estaban guardados y no se repitieron.`
+          : `Listo. Se añadieron ${inserted} contactos a tu lista. Ya puedes lanzar tu campaña.`
       } else if (inserted === 0 && duplicates > 0 && errors === 0) {
-        text = `Tu archivo se leyó correctamente. Los ${duplicates} correos que trae ya estaban en tu lista, así que no se añadieron de nuevo. Puedes usarlos igual para enviar tu campaña en el Paso 3.`
+        text = `Los ${duplicates} correos del archivo ya estaban en tu lista. Puedes usarlos para enviar tu campaña.`
       } else if (errors > 0) {
         text = inserted > 0
-          ? `Se añadieron ${inserted} contactos. ${errors} correos no se pudieron importar (revisa que sean válidos).`
-          : `No se pudieron importar ${errors} correos. Revisa que la columna se llame "email" y que los correos sean válidos.`
+          ? `Se añadieron ${inserted} contactos. ${errors} correos no pudieron importarse (revisa que sean válidos).`
+          : `No se pudieron importar ${errors} correos. Revisa que la columna se llame "email" y contenga correos válidos.`
       } else {
         text = 'El archivo no contenía contactos nuevos. Revisa que tenga una columna "email" con correos válidos.'
       }
 
-      setMessage({
-        text,
-        type: errors > 0 && inserted === 0 ? 'err' : 'ok',
-      })
+      setMessage({ text, type: errors > 0 && inserted === 0 ? 'err' : 'ok' })
       onImportSuccess?.()
     } catch (err) {
       const msg =
@@ -63,50 +68,69 @@ export function ExcelImport({ onImportSuccess }) {
   }
 
   return (
-    <Panel title="Paso 1 · Contactos (Excel)" icon="fas fa-file-excel">
-      <p className="form-group hint">
-        Sube un archivo .xlsx con los <strong>contactos</strong> a los que quieres escribir. Aquí cargas tu lista de personas; en el Paso 2 solo defines el asunto y el texto del correo.
+    <Panel title="Paso 1 — Importar contactos" icon="fas fa-users">
+
+      <p className="form-hint-text">
+        Sube un archivo <strong>.xlsx</strong> con la columna <strong>email</strong> (y opcionalmente <strong>nombre</strong>). Esos serán los destinatarios de tu campaña.
       </p>
-      <details className="form-group hint" style={{ marginBottom: '0.75rem', fontSize: '0.95rem' }}>
-        <summary style={{ cursor: 'pointer', fontWeight: 600 }}>¿Qué formato debe tener el Excel?</summary>
-        <ul style={{ marginTop: '0.5rem', paddingLeft: '1.25rem' }}>
-          <li>Primera fila con los nombres de las columnas (encabezados).</li>
-          <li>Al menos una columna llamada <strong>email</strong> (obligatoria) y, si quieres, otra columna con el <strong>nombre</strong>.</li>
-          <li>Correos válidos y sin repetir (ni dentro del archivo ni ya cargados antes).</li>
+
+      {/* Zona de carga drag & drop */}
+      <div
+        className={`upload-zone${dragging ? ' upload-zone--drag' : ''}${file ? ' upload-zone--ready' : ''}`}
+        onClick={() => inputRef.current?.click()}
+        onDragOver={(e) => { e.preventDefault(); setDragging(true) }}
+        onDragLeave={() => setDragging(false)}
+        onDrop={handleDrop}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => e.key === 'Enter' && inputRef.current?.click()}
+        aria-label="Zona para subir archivo Excel"
+      >
+        <div className={`upload-zone-icon${file ? ' upload-zone-icon--ready' : ''}`}>
+          <i className={file ? 'fas fa-file-circle-check' : 'fas fa-cloud-arrow-up'}></i>
+        </div>
+        <div className="upload-zone-info">
+          <strong>{file ? fileName : 'Arrastra tu Excel aquí'}</strong>
+          <span>{file ? 'Archivo listo · haz clic para cambiarlo' : 'o haz clic para seleccionar · formato .xlsx'}</span>
+        </div>
+        {file && (
+          <div className="upload-zone-badge">
+            <i className="fas fa-check"></i>
+          </div>
+        )}
+      </div>
+
+      <input
+        ref={inputRef}
+        type="file"
+        id="fileExcel"
+        accept=".xlsx,.xls"
+        onChange={handleChange}
+        style={{ display: 'none' }}
+      />
+
+      <details className="upload-format-hint">
+        <summary>¿Qué formato debe tener el Excel?</summary>
+        <ul>
+          <li>Primera fila con encabezados de columna.</li>
+          <li>Columna obligatoria: <strong>email</strong>. Opcional: <strong>nombre</strong>.</li>
+          <li>Correos válidos y sin duplicados.</li>
         </ul>
       </details>
-      <FormGroup label="Seleccionar archivo Excel" id="fileExcel">
-        <input
-          ref={inputRef}
-          type="file"
-          id="fileExcel"
-          accept=".xlsx,.xls"
-          onChange={handleChange}
-        />
-        <div className="file-name">{fileName}</div>
-      </FormGroup>
+
       <button
         type="button"
         className="btn btn-secondary"
         onClick={handleImport}
-        disabled={loading}
+        disabled={loading || !file}
       >
         {loading ? (
-          <>
-            <span className="btn-spinner" aria-hidden="true" /> Importando...
-          </>
+          <><span className="btn-spinner" aria-hidden="true" /> Importando...</>
         ) : (
-          <>
-            <i className="fas fa-upload"></i> Importar Excel
-            <span
-              className="help-icon"
-              title="Debe tener al menos una columna email con correos válidos y, si quieres, otra con el nombre."
-            >
-              ?
-            </span>
-          </>
+          <><i className="fas fa-upload"></i> Importar contactos</>
         )}
       </button>
+
       <Message text={message.text} type={message.type} className="mt-1" />
     </Panel>
   )

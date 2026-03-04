@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from 'react'
+import { useAuth } from '../context/AuthContext'
 import { HeaderBar } from '../components/HeaderBar'
 import { ExcelImport } from '../components/ExcelImport'
 import { CampaignForm } from '../components/CampaignForm'
@@ -8,6 +9,8 @@ import { Message } from '../components/Message'
 import { listCampaigns } from '../services/excelService'
 
 export function PanelPage() {
+  const { email } = useAuth()
+  const username = email ? email.split('@')[0] : 'Usuario'
   const [campaigns, setCampaigns] = useState([])
   const [selectedCampaignId, setSelectedCampaignId] = useState('')
   const [subject, setSubject] = useState('')
@@ -177,6 +180,35 @@ export function PanelPage() {
 
       <div className="app-dark-content wrap">
       <HeaderBar />
+
+      {/* ── Welcome strip ── */}
+      <div className="panel-welcome">
+        <div className="panel-welcome-left">
+          <div className="panel-welcome-label">
+            <span className="panel-welcome-dot" />
+            Panel activo
+          </div>
+          <h1 className="panel-welcome-title">
+            Hola, <span className="panel-welcome-name">{username}</span> —<br />
+            ¿qué enviamos hoy?
+          </h1>
+        </div>
+        <div className="panel-welcome-tags">
+          <div className={`panel-tag${hasImportedExcel ? ' panel-tag--done' : ''}`}>
+            <i className={hasImportedExcel ? 'fas fa-check' : 'fas fa-users'}></i>
+            Contactos{hasImportedExcel ? ' listos' : ' pendientes'}
+          </div>
+          <div className={`panel-tag${(subject?.trim() && body?.trim()) ? ' panel-tag--done' : ''}`}>
+            <i className={(subject?.trim() && body?.trim()) ? 'fas fa-check' : 'fas fa-envelope'}></i>
+            Campaña{(subject?.trim() && body?.trim()) ? ' lista' : ' pendiente'}
+          </div>
+          <div className={`panel-tag${hasSentCampaign ? ' panel-tag--done' : ''}`}>
+            <i className={hasSentCampaign ? 'fas fa-check' : 'fas fa-rocket'}></i>
+            {hasSentCampaign ? 'Enviada' : 'Por enviar'}
+          </div>
+        </div>
+      </div>
+
       <nav className="app-steps" aria-label="Flujo para enviar una campaña">
 
         <button
