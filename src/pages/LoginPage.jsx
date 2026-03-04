@@ -96,149 +96,293 @@ export function LoginPage() {
   }
 
   return (
-    <div id="loginPage" className="login-page">
+    <div id="loginPage" className="lp-root">
 
-      {/* ── Lado izquierdo: hero con foto ── */}
-      <div className="login-hero">
-        <div className="login-hero-content">
-          <div className="login-hero-tag">
-            <i className="fas fa-bolt"></i>
-            Email Marketing Profesional
+      {/* ── Capas de fondo decorativas ── */}
+      <div className="lp-bg-blob lp-bg-blob--gold" />
+      <div className="lp-bg-blob lp-bg-blob--teal" />
+      <div className="lp-bg-blob lp-bg-blob--purple" />
+      <div className="lp-bg-dots" />
+
+      {/* ── Formas geométricas decorativas ── */}
+      <div className="lp-geo lp-geo--ring-lg" />
+      <div className="lp-geo lp-geo--ring-sm" />
+      <div className="lp-geo lp-geo--arc" />
+
+      {/* ══════════════ HERO (izquierda) ══════════════ */}
+      <div className="lp-hero">
+
+        {/* Logo */}
+        <div className="lp-topbar">
+          <div className="lp-brand">
+            <img
+              src="https://osdemsdigital.com/wp-content/uploads/2026/03/logo-ventas.jpeg"
+              alt="OSDEMS"
+              className="lp-brand-img"
+            />
+            <div>
+              <div className="lp-brand-name">OSDEMS Ventas</div>
+              <div className="lp-brand-sub">Panel de Email Marketing</div>
+            </div>
           </div>
-          <h1>
-            Envía campañas que<br />
-            <span>venden más</span>
-          </h1>
-          <p className="login-hero-desc">
-            Conecta con tus clientes, gestiona tus listas y lanza campañas de correo personalizadas en minutos — todo desde un mismo lugar.
-          </p>
-          <ul className="login-hero-features">
-            <li>
-              <span className="feat-icon"><i className="fas fa-file-excel"></i></span>
-              Importa contactos desde Excel en segundos
-            </li>
-            <li>
-              <span className="feat-icon"><i className="fas fa-pen-fancy"></i></span>
-              Diseña campañas de correo personalizadas
-            </li>
-            <li>
-              <span className="feat-icon"><i className="fas fa-robot"></i></span>
-              Asistente de inteligencia artificial incluido
-            </li>
-            <li>
-              <span className="feat-icon"><i className="fas fa-paper-plane"></i></span>
-              Envía a toda tu lista con un solo clic
-            </li>
-          </ul>
+          <div className="lp-live-pill">
+            <span className="lp-live-dot" />
+            En línea
+          </div>
         </div>
+
+        {/* Headline principal */}
+        <div className="lp-hero-body">
+          <div className="lp-badge-pill">
+            <i className="fas fa-rocket"></i>
+            Plataforma de Email Marketing
+          </div>
+          <h1 className="lp-h1">
+            Campañas que<br />
+            <span className="lp-h1-grad">conectan</span>
+            <br />y <span className="lp-h1-outline">venden</span>
+          </h1>
+          <p className="lp-hero-desc">
+            Importa contactos, diseña con IA y lanza correos masivos en minutos. Todo en un solo lugar.
+          </p>
+
+          {/* Estadísticas en píldoras */}
+          <div className="lp-stats-row">
+            <div className="lp-stat-pill">
+              <i className="fas fa-paper-plane"></i>
+              <strong>+12k</strong>
+              <span>emails/mes</span>
+            </div>
+            <div className="lp-stat-sep" />
+            <div className="lp-stat-pill">
+              <i className="fas fa-robot"></i>
+              <strong>IA</strong>
+              <span>incluida</span>
+            </div>
+            <div className="lp-stat-sep" />
+            <div className="lp-stat-pill">
+              <i className="fas fa-shield-halved"></i>
+              <strong>100%</strong>
+              <span>seguro</span>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Tarjetas flotantes de producto (mockup) ── */}
+        <div className="lp-mockup-area">
+
+          {/* Tarjeta A: Campaña enviada */}
+          <div className="lp-card lp-card--sent">
+            <div className="lp-card-icon lp-card-icon--green">
+              <i className="fas fa-circle-check"></i>
+            </div>
+            <div className="lp-card-body">
+              <div className="lp-card-title">Campaña enviada</div>
+              <div className="lp-card-sub">Black Friday · hace 2 min</div>
+            </div>
+            <div className="lp-card-badge lp-card-badge--green">
+              1,250 correos
+            </div>
+          </div>
+
+          {/* Tarjeta B: IA activa */}
+          <div className="lp-card lp-card--ai">
+            <div className="lp-card-icon lp-card-icon--gold">
+              <i className="fas fa-wand-magic-sparkles"></i>
+            </div>
+            <div className="lp-card-body">
+              <div className="lp-card-title">Asistente IA</div>
+              <div className="lp-card-typing">
+                <span className="lp-typing-dot" />
+                <span className="lp-typing-dot" />
+                <span className="lp-typing-dot" />
+                <span className="lp-typing-label">Mejorando asunto...</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Tarjeta C: Excel importado */}
+          <div className="lp-card lp-card--excel">
+            <div className="lp-card-icon lp-card-icon--blue">
+              <i className="fas fa-file-excel"></i>
+            </div>
+            <div className="lp-card-body">
+              <div className="lp-card-title">Lista importada</div>
+              <div className="lp-card-sub">485 contactos listos</div>
+            </div>
+            <div className="lp-card-progress">
+              <div className="lp-card-progress-bar" />
+            </div>
+          </div>
+
+          {/* Gráfica mini de barras (decorativa) */}
+          <div className="lp-card lp-card--chart">
+            <div className="lp-chart-header">
+              <span className="lp-chart-label">Aperturas esta semana</span>
+              <span className="lp-chart-val">68%</span>
+            </div>
+            <div className="lp-chart-bars">
+              <div className="lp-bar" style={{ height: '45%' }} />
+              <div className="lp-bar" style={{ height: '65%' }} />
+              <div className="lp-bar" style={{ height: '40%' }} />
+              <div className="lp-bar" style={{ height: '80%' }} />
+              <div className="lp-bar lp-bar--active" style={{ height: '68%' }} />
+              <div className="lp-bar" style={{ height: '55%' }} />
+              <div className="lp-bar" style={{ height: '72%' }} />
+            </div>
+          </div>
+
+          {/* Imagen decorativa de persona */}
+          <div className="lp-person-frame">
+            <img
+              src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=420&q=80"
+              alt="Profesional"
+              className="lp-person-img"
+            />
+            <div className="lp-person-glow" />
+          </div>
+
+        </div>
+
       </div>
 
-      {/* ── Lado derecho: formulario ── */}
-      <div className="login-form-panel">
-        <div className="login-form-inner">
-          <div className="login-section">
-            <div className="login-header">
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
-                <div style={{ width: '2.5rem', height: '2.5rem', borderRadius: '10px', background: 'linear-gradient(135deg, #0b1e33, #123765)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <i className="fas fa-paper-plane" style={{ color: '#d4a83a', fontSize: '1rem' }}></i>
-                </div>
-                <span style={{ fontWeight: 700, fontSize: '1rem', color: '#0b1e33', letterSpacing: '-0.01em' }}>OSDEMS Ventas</span>
-              </div>
-              <h2>Bienvenido de vuelta</h2>
-              <p className="login-subtitle">
-                Accede a tu panel para gestionar contactos, diseñar campañas y enviar correos a tus clientes.
-              </p>
+      {/* ══════════════ PANEL FORMULARIO (derecha) ══════════════ */}
+      <div className="lp-panel">
+
+        {/* Acento superior */}
+        <div className="lp-panel-accent" />
+
+        <div className="lp-panel-inner">
+
+          {/* Logo en el panel */}
+          <div className="lp-panel-logo">
+            <img
+              src="https://osdemsdigital.com/wp-content/uploads/2026/03/logo-ventas.jpeg"
+              alt="OSDEMS"
+              className="lp-panel-logo-img"
+            />
+          </div>
+
+          <h2 className="lp-panel-title">Bienvenido de vuelta</h2>
+          <p className="lp-panel-subtitle">
+            Accede para gestionar tus campañas de email
+          </p>
+
+          <Message text={loginMsg.text} type={loginMsg.type} />
+
+          <form id="formLogin" onSubmit={handleLogin} className="lp-form">
+            <div className="lp-field">
+              <label htmlFor="loginEmail" className="lp-label">
+                <i className="fas fa-envelope"></i> Correo electrónico
+              </label>
+              <input
+                type="email"
+                id="loginEmail"
+                className="lp-input"
+                value={loginEmail}
+                onChange={(e) => setLoginEmail(e.target.value)}
+                required
+                placeholder="tu@email.com"
+              />
             </div>
-
-            <Message text={loginMsg.text} type={loginMsg.type} />
-
-            <form id="formLogin" onSubmit={handleLogin}>
-              <FormGroup label="Correo electrónico" id="loginEmail">
-                <input
-                  type="email"
-                  id="loginEmail"
-                  value={loginEmail}
-                  onChange={(e) => setLoginEmail(e.target.value)}
-                  required
-                  placeholder="tu@email.com"
-                />
-              </FormGroup>
-              <FormGroup label="Contraseña" id="loginPassword">
-                <input
-                  type="password"
-                  id="loginPassword"
-                  value={loginPassword}
-                  onChange={(e) => setLoginPassword(e.target.value)}
-                  required
-                  placeholder="••••••••"
-                />
-              </FormGroup>
-              <button type="submit" className="btn" id="btnLogin" disabled={loginLoading} style={{ width: '100%' }}>
-                {loginLoading
-                  ? <><span className="btn-spinner" aria-hidden="true" /> Conectando...</>
-                  : <><i className="fas fa-sign-in-alt"></i> Entrar al panel</>
-                }
-              </button>
-            </form>
-
-            <button
-              type="button"
-              className="btn-link forgot-link"
-              onClick={() => {
-                setForgotEmail(loginEmail)
-                setForgotMsg({ text: '', type: 'info' })
-                setShowForgot(true)
-              }}
-            >
-              ¿Olvidaste tu contraseña?
+            <div className="lp-field">
+              <label htmlFor="loginPassword" className="lp-label">
+                <i className="fas fa-lock"></i> Contraseña
+              </label>
+              <input
+                type="password"
+                id="loginPassword"
+                className="lp-input"
+                value={loginPassword}
+                onChange={(e) => setLoginPassword(e.target.value)}
+                required
+                placeholder="••••••••"
+              />
+            </div>
+            <button type="submit" className="lp-btn-primary" id="btnLogin" disabled={loginLoading}>
+              {loginLoading
+                ? <><span className="btn-spinner" aria-hidden="true" /> Conectando...</>
+                : <><i className="fas fa-arrow-right-to-bracket"></i> Entrar al panel</>
+              }
             </button>
+          </form>
 
-            {showVerify && (
-              <div style={{ marginTop: '1.5rem', padding: '1.25rem', background: '#f8fafc', border: '1.5px solid #e2e8f0', borderRadius: '14px' }}>
-                <h3 style={{ marginTop: 0, fontSize: '1rem', color: '#0b1e33', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <i className="fas fa-envelope-open-text"></i> Verificar correo
-                </h3>
-                <p className="msg info" style={{ marginBottom: '0.75rem' }}>
-                  Introduce el código de 6 dígitos que te enviamos a <strong>{loginEmail}</strong>
-                </p>
-                <Message text={verifyMsg.text} type={verifyMsg.type} />
-                <form onSubmit={handleVerify}>
-                  <FormGroup label="Código de verificación" id="verifyCode">
-                    <input
-                      type="text"
-                      id="verifyCode"
-                      value={verifyCode}
-                      onChange={(e) => setVerifyCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                      placeholder="Ej. 337054"
-                      maxLength={6}
-                      autoComplete="one-time-code"
-                    />
-                  </FormGroup>
+          <button
+            type="button"
+            className="btn-link forgot-link"
+            onClick={() => {
+              setForgotEmail(loginEmail)
+              setForgotMsg({ text: '', type: 'info' })
+              setShowForgot(true)
+            }}
+          >
+            ¿Olvidaste tu contraseña?
+          </button>
+
+          {showVerify && (
+            <div className="lp-verify-box">
+              <div className="lp-verify-header">
+                <i className="fas fa-envelope-open-text"></i>
+                Verificar correo
+              </div>
+              <p className="lp-verify-info">
+                Código de 6 dígitos enviado a <strong>{loginEmail}</strong>
+              </p>
+              <Message text={verifyMsg.text} type={verifyMsg.type} />
+              <form onSubmit={handleVerify}>
+                <FormGroup label="Código de verificación" id="verifyCode">
+                  <input
+                    type="text"
+                    id="verifyCode"
+                    value={verifyCode}
+                    onChange={(e) => setVerifyCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                    placeholder="337054"
+                    maxLength={6}
+                    autoComplete="one-time-code"
+                  />
+                </FormGroup>
+                <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
                   <button type="submit" className="btn btn-secondary" disabled={verifyLoading || verifyCode.length < 6}>
                     {verifyLoading ? 'Verificando...' : 'Verificar cuenta'}
                   </button>
                   <button
                     type="button"
                     className="btn-link"
-                    style={{ marginLeft: '0.75rem' }}
                     onClick={() => { setShowVerify(false); setVerifyCode(''); setVerifyMsg({ text: '', type: 'info' }); }}
                   >
                     Cancelar
                   </button>
-                  <p style={{ marginTop: '0.75rem', fontSize: '0.875rem' }}>
-                    <button
-                      type="button"
-                      className="btn-link"
-                      onClick={handleResendCode}
-                      disabled={resendLoading}
-                    >
-                      {resendLoading ? 'Enviando...' : 'Reenviar código por correo'}
-                    </button>
-                  </p>
-                </form>
-              </div>
-            )}
+                </div>
+                <p style={{ marginTop: '0.75rem', fontSize: '0.875rem' }}>
+                  <button
+                    type="button"
+                    className="btn-link"
+                    onClick={handleResendCode}
+                    disabled={resendLoading}
+                  >
+                    {resendLoading ? 'Enviando...' : 'Reenviar código'}
+                  </button>
+                </p>
+              </form>
+            </div>
+          )}
+
+          {/* Features mini */}
+          <div className="lp-panel-features">
+            <div className="lp-pf-item">
+              <i className="fas fa-file-excel"></i>
+              <span>Importa desde Excel</span>
+            </div>
+            <div className="lp-pf-item">
+              <i className="fas fa-robot"></i>
+              <span>IA incluida</span>
+            </div>
+            <div className="lp-pf-item">
+              <i className="fas fa-rocket"></i>
+              <span>Envío masivo</span>
+            </div>
           </div>
+
         </div>
       </div>
 
@@ -260,7 +404,7 @@ export function LoginPage() {
               </button>
             </div>
             <p className="msg info">
-              Ingresa el correo con el que te registraste. Te enviaremos un enlace para restablecer tu contraseña.
+              Ingresa tu correo y te enviaremos un enlace para restablecer tu contraseña.
             </p>
             <Message text={forgotMsg.text} type={forgotMsg.type} />
             <form
