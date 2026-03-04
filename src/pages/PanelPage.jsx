@@ -178,132 +178,166 @@ export function PanelPage() {
       <div className="app-dark-ring app-dark-ring--lg" />
       <div className="app-dark-ring app-dark-ring--sm" />
 
-      <div className="app-dark-content wrap">
+      <div className="app-dark-content">
         <HeaderBar />
 
-        {/* ── BANNER — reemplaza con: <img src="URL" className="home-banner-img" alt="..." /> ── */}
-        <div className="home-banner">
-          <div className="home-banner-ph" />
+        {/* ══════════════════════════════════
+            HERO — imagen completa con texto
+            Reemplaza el src con tu imagen real
+        ══════════════════════════════════ */}
+        <div className="home-hero">
+          <img
+            src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1600&q=80"
+            className="home-hero-img"
+            alt="equipo de trabajo"
+          />
+          <div className="home-hero-overlay" />
+          <div className="home-hero-text">
+            <div className="home-hero-eyebrow">OSDEMS · Email Marketing con IA</div>
+            <h1 className="home-hero-h1">Lanza campañas<br />que convierten</h1>
+            <p className="home-hero-desc">
+              Importa contactos, diseña con IA y envía a toda tu lista en minutos.
+            </p>
+          </div>
         </div>
 
-        {/* ── WELCOME ── */}
-        <div className="hw-root">
-          <div className="hw-left">
+        {/* ══════════════════════════════════
+            SPLIT — Welcome (izq) + Imagen (der)
+            Reemplaza el src con tu foto real
+        ══════════════════════════════════ */}
+        <div className="home-split">
+          <div className="home-split-content">
             <div className="hw-eyebrow">
               <span className="hw-dot" />
               Panel activo
             </div>
-            <h1 className="hw-title">
+            <h2 className="hw-title">
               Hola, <span className="hw-name">{username}</span><br />
               ¿qué enviamos hoy?
-            </h1>
+            </h2>
             <p className="hw-sub">
               Sigue los pasos para lanzar tu próxima campaña de email.
             </p>
+            <div className="hw-stats-row">
+              <div className={`hw-stat${hasImportedExcel ? ' hw-stat--done' : ''}`}>
+                <div className="hw-stat-icon">
+                  <i className={hasImportedExcel ? 'fas fa-check' : 'fas fa-users'} />
+                </div>
+                <div>
+                  <div className="hw-stat-label">Contactos</div>
+                  <div className="hw-stat-val">{hasImportedExcel ? 'Importados' : 'Pendientes'}</div>
+                </div>
+              </div>
+              <div className={`hw-stat${(subject?.trim() && body?.trim()) ? ' hw-stat--done' : ''}`}>
+                <div className="hw-stat-icon">
+                  <i className={(subject?.trim() && body?.trim()) ? 'fas fa-check' : 'fas fa-envelope'} />
+                </div>
+                <div>
+                  <div className="hw-stat-label">Campaña</div>
+                  <div className="hw-stat-val">{(subject?.trim() && body?.trim()) ? 'Lista' : 'Pendiente'}</div>
+                </div>
+              </div>
+              <div className={`hw-stat${hasSentCampaign ? ' hw-stat--done hw-stat--sent' : ''}`}>
+                <div className="hw-stat-icon">
+                  <i className={hasSentCampaign ? 'fas fa-check' : 'fas fa-rocket'} />
+                </div>
+                <div>
+                  <div className="hw-stat-label">Envío</div>
+                  <div className="hw-stat-val">{hasSentCampaign ? '¡Enviada!' : 'Por lanzar'}</div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="hw-right">
-            <div className={`hw-stat${hasImportedExcel ? ' hw-stat--done' : ''}`}>
-              <div className="hw-stat-icon">
-                <i className={hasImportedExcel ? 'fas fa-check' : 'fas fa-users'} />
-              </div>
-              <div>
-                <div className="hw-stat-label">Contactos</div>
-                <div className="hw-stat-val">{hasImportedExcel ? 'Importados' : 'Pendientes'}</div>
-              </div>
-            </div>
-            <div className={`hw-stat${(subject?.trim() && body?.trim()) ? ' hw-stat--done' : ''}`}>
-              <div className="hw-stat-icon">
-                <i className={(subject?.trim() && body?.trim()) ? 'fas fa-check' : 'fas fa-envelope'} />
-              </div>
-              <div>
-                <div className="hw-stat-label">Campaña</div>
-                <div className="hw-stat-val">{(subject?.trim() && body?.trim()) ? 'Lista' : 'Pendiente'}</div>
-              </div>
-            </div>
-            <div className={`hw-stat${hasSentCampaign ? ' hw-stat--done hw-stat--sent' : ''}`}>
-              <div className="hw-stat-icon">
-                <i className={hasSentCampaign ? 'fas fa-check' : 'fas fa-rocket'} />
-              </div>
-              <div>
-                <div className="hw-stat-label">Envío</div>
-                <div className="hw-stat-val">{hasSentCampaign ? '¡Enviada!' : 'Por lanzar'}</div>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        {/* ── TIMELINE DE PASOS ── */}
-        <nav className="stl-nav" aria-label="Pasos de la campaña">
-          <button
-            type="button"
-            className={`stl-step${currentStep === 1 ? ' stl-step--active' : ''}${hasImportedExcel ? ' stl-step--done' : ''}`}
-            onClick={() => { setCurrentStep(1); document.getElementById('step-1')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}
-          >
-            <span className="stl-num">{hasImportedExcel ? <i className="fas fa-check" /> : '1'}</span>
-            <span className="stl-label">Importar contactos</span>
-          </button>
-          <div className="stl-line" />
-          <button
-            type="button"
-            className={`stl-step${currentStep === 2 ? ' stl-step--active' : ''}${(subject?.trim() && body?.trim()) ? ' stl-step--done' : ''}`}
-            onClick={() => { setCurrentStep(2); document.getElementById('step-2')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}
-          >
-            <span className="stl-num">{(subject?.trim() && body?.trim()) ? <i className="fas fa-check" /> : '2'}</span>
-            <span className="stl-label">Diseñar campaña</span>
-          </button>
-          <div className="stl-line" />
-          <button
-            type="button"
-            className={`stl-step${currentStep === '2b' ? ' stl-step--active' : ''}${hasUsedAI ? ' stl-step--done' : ''}`}
-            onClick={() => { setCurrentStep('2b'); document.getElementById('step-2b')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}
-          >
-            <span className="stl-num stl-num--ai">{hasUsedAI ? <i className="fas fa-check" /> : <i className="fas fa-wand-magic-sparkles" />}</span>
-            <span className="stl-label">Afinar con IA</span>
-          </button>
-          <div className="stl-line" />
-          <button
-            type="button"
-            className={`stl-step${currentStep === 3 ? ' stl-step--active' : ''}${hasSentCampaign ? ' stl-step--done' : ''}`}
-            onClick={() => { setCurrentStep(3); document.getElementById('step-3')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}
-          >
-            <span className="stl-num">{hasSentCampaign ? <i className="fas fa-check" /> : '3'}</span>
-            <span className="stl-label">Lanzar campaña</span>
-          </button>
-        </nav>
-
-        <Message text={globalMsg.text} type={globalMsg.type} />
-
-        {/* ── GRID: Paso 1 + Paso 2 en paralelo ── */}
-        <div className="home-grid">
-          <section id="step-1" className="app-section">
-            <ExcelImport onImportSuccess={() => setHasImportedExcel(true)} />
-          </section>
-          <section id="step-2" className="app-section">
-            <CampaignForm
-              campaigns={campaigns}
-              selectedCampaignId={selectedCampaignId}
-              onSelectedCampaignIdChange={setSelectedCampaignId}
-              onCampaignCreated={addCampaign}
-              onCampaignUpdated={updateCampaignInList}
-              onCampaignDeleted={removeCampaign}
-              subject={subject}
-              body={body}
-              onSubjectChange={setSubject}
-              onBodyChange={setBody}
+          {/* Imagen derecha — reemplaza src con tu imagen */}
+          <div className="home-split-img">
+            <img
+              src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80"
+              className="home-split-photo"
+              alt="profesional"
             />
-          </section>
+            <div className="home-split-img-fade" />
+          </div>
         </div>
 
-        {/* ── IA — sección especial ancho completo ── */}
-        <section id="step-2b" className="app-section home-ai-section">
-          <AIAssistant body={body} onBodyAppend={handleBodyAppend} onSubjectChange={setSubject} onSuggestionApplied={() => setHasUsedAI(true)} />
-        </section>
+        {/* ══════════════════════════════════
+            CONTENIDO FUNCIONAL
+        ══════════════════════════════════ */}
+        <div className="wrap">
 
-        {/* ── LANZAR — sección final ancho completo ── */}
-        <section id="step-3" className="app-section">
-          <SendCampaign subject={subject} message={body} hasImportedExcel={hasImportedExcel} onSendSuccess={() => setHasSentCampaign(true)} />
-        </section>
+          {/* Timeline de pasos */}
+          <nav className="stl-nav" aria-label="Pasos de la campaña">
+            <button
+              type="button"
+              className={`stl-step${currentStep === 1 ? ' stl-step--active' : ''}${hasImportedExcel ? ' stl-step--done' : ''}`}
+              onClick={() => { setCurrentStep(1); document.getElementById('step-1')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}
+            >
+              <span className="stl-num">{hasImportedExcel ? <i className="fas fa-check" /> : '1'}</span>
+              <span className="stl-label">Importar contactos</span>
+            </button>
+            <div className="stl-line" />
+            <button
+              type="button"
+              className={`stl-step${currentStep === 2 ? ' stl-step--active' : ''}${(subject?.trim() && body?.trim()) ? ' stl-step--done' : ''}`}
+              onClick={() => { setCurrentStep(2); document.getElementById('step-2')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}
+            >
+              <span className="stl-num">{(subject?.trim() && body?.trim()) ? <i className="fas fa-check" /> : '2'}</span>
+              <span className="stl-label">Diseñar campaña</span>
+            </button>
+            <div className="stl-line" />
+            <button
+              type="button"
+              className={`stl-step${currentStep === '2b' ? ' stl-step--active' : ''}${hasUsedAI ? ' stl-step--done' : ''}`}
+              onClick={() => { setCurrentStep('2b'); document.getElementById('step-2b')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}
+            >
+              <span className="stl-num stl-num--ai">{hasUsedAI ? <i className="fas fa-check" /> : <i className="fas fa-wand-magic-sparkles" />}</span>
+              <span className="stl-label">Afinar con IA</span>
+            </button>
+            <div className="stl-line" />
+            <button
+              type="button"
+              className={`stl-step${currentStep === 3 ? ' stl-step--active' : ''}${hasSentCampaign ? ' stl-step--done' : ''}`}
+              onClick={() => { setCurrentStep(3); document.getElementById('step-3')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}
+            >
+              <span className="stl-num">{hasSentCampaign ? <i className="fas fa-check" /> : '3'}</span>
+              <span className="stl-label">Lanzar campaña</span>
+            </button>
+          </nav>
 
+          <Message text={globalMsg.text} type={globalMsg.type} />
+
+          {/* Grid paso 1 + paso 2 en paralelo */}
+          <div className="home-grid">
+            <section id="step-1" className="app-section">
+              <ExcelImport onImportSuccess={() => setHasImportedExcel(true)} />
+            </section>
+            <section id="step-2" className="app-section">
+              <CampaignForm
+                campaigns={campaigns}
+                selectedCampaignId={selectedCampaignId}
+                onSelectedCampaignIdChange={setSelectedCampaignId}
+                onCampaignCreated={addCampaign}
+                onCampaignUpdated={updateCampaignInList}
+                onCampaignDeleted={removeCampaign}
+                subject={subject}
+                body={body}
+                onSubjectChange={setSubject}
+                onBodyChange={setBody}
+              />
+            </section>
+          </div>
+
+          {/* IA — sección especial oscura */}
+          <section id="step-2b" className="app-section home-ai-section">
+            <AIAssistant body={body} onBodyAppend={handleBodyAppend} onSubjectChange={setSubject} onSuggestionApplied={() => setHasUsedAI(true)} />
+          </section>
+
+          {/* Lanzar campaña */}
+          <section id="step-3" className="app-section">
+            <SendCampaign subject={subject} message={body} hasImportedExcel={hasImportedExcel} onSendSuccess={() => setHasSentCampaign(true)} />
+          </section>
+
+        </div>
       </div>
     </div>
   )
