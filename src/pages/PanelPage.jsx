@@ -261,57 +261,78 @@ export function PanelPage() {
         </div>
 
         {/* ══════════════════════════════════
-            CONTENIDO FUNCIONAL
+            FLUJO DE TRABAJO
         ══════════════════════════════════ */}
-        <div className="wrap">
+        <div className="workflow-root">
 
-          {/* Timeline de pasos */}
-          <nav className="stl-nav" aria-label="Pasos de la campaña">
-            <button
-              type="button"
-              className={`stl-step${currentStep === 1 ? ' stl-step--active' : ''}${hasImportedExcel ? ' stl-step--done' : ''}`}
-              onClick={() => { setCurrentStep(1); document.getElementById('step-1')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}
-            >
-              <span className="stl-num">{hasImportedExcel ? <i className="fas fa-check" /> : '1'}</span>
-              <span className="stl-label">Importar contactos</span>
-            </button>
-            <div className="stl-line" />
-            <button
-              type="button"
-              className={`stl-step${currentStep === 2 ? ' stl-step--active' : ''}${(subject?.trim() && body?.trim()) ? ' stl-step--done' : ''}`}
-              onClick={() => { setCurrentStep(2); document.getElementById('step-2')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}
-            >
-              <span className="stl-num">{(subject?.trim() && body?.trim()) ? <i className="fas fa-check" /> : '2'}</span>
-              <span className="stl-label">Diseñar campaña</span>
-            </button>
-            <div className="stl-line" />
-            <button
-              type="button"
-              className={`stl-step${currentStep === '2b' ? ' stl-step--active' : ''}${hasUsedAI ? ' stl-step--done' : ''}`}
-              onClick={() => { setCurrentStep('2b'); document.getElementById('step-2b')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}
-            >
-              <span className="stl-num stl-num--ai">{hasUsedAI ? <i className="fas fa-check" /> : <i className="fas fa-wand-magic-sparkles" />}</span>
-              <span className="stl-label">Afinar con IA</span>
-            </button>
-            <div className="stl-line" />
-            <button
-              type="button"
-              className={`stl-step${currentStep === 3 ? ' stl-step--active' : ''}${hasSentCampaign ? ' stl-step--done' : ''}`}
-              onClick={() => { setCurrentStep(3); document.getElementById('step-3')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}
-            >
-              <span className="stl-num">{hasSentCampaign ? <i className="fas fa-check" /> : '3'}</span>
-              <span className="stl-label">Lanzar campaña</span>
-            </button>
-          </nav>
+          {/* ── TIMELINE ── */}
+          <div className="wrap">
+            <nav className="stl-nav" aria-label="Pasos de la campaña">
+              <button type="button"
+                className={`stl-step${currentStep === 1 ? ' stl-step--active' : ''}${hasImportedExcel ? ' stl-step--done' : ''}`}
+                onClick={() => { setCurrentStep(1); document.getElementById('step-1')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}>
+                <span className="stl-num">{hasImportedExcel ? <i className="fas fa-check" /> : '1'}</span>
+                <span className="stl-label">Importar contactos</span>
+              </button>
+              <div className="stl-line" />
+              <button type="button"
+                className={`stl-step${currentStep === 2 ? ' stl-step--active' : ''}${(subject?.trim() && body?.trim()) ? ' stl-step--done' : ''}`}
+                onClick={() => { setCurrentStep(2); document.getElementById('step-2')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}>
+                <span className="stl-num">{(subject?.trim() && body?.trim()) ? <i className="fas fa-check" /> : '2'}</span>
+                <span className="stl-label">Diseñar campaña</span>
+              </button>
+              <div className="stl-line" />
+              <button type="button"
+                className={`stl-step${currentStep === '2b' ? ' stl-step--active' : ''}${hasUsedAI ? ' stl-step--done' : ''}`}
+                onClick={() => { setCurrentStep('2b'); document.getElementById('step-2b')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}>
+                <span className="stl-num stl-num--ai">{hasUsedAI ? <i className="fas fa-check" /> : <i className="fas fa-wand-magic-sparkles" />}</span>
+                <span className="stl-label">Afinar con IA</span>
+              </button>
+              <div className="stl-line" />
+              <button type="button"
+                className={`stl-step${currentStep === 3 ? ' stl-step--active' : ''}${hasSentCampaign ? ' stl-step--done' : ''}`}
+                onClick={() => { setCurrentStep(3); document.getElementById('step-3')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}>
+                <span className="stl-num">{hasSentCampaign ? <i className="fas fa-check" /> : '3'}</span>
+                <span className="stl-label">Lanzar campaña</span>
+              </button>
+            </nav>
+            <Message text={globalMsg.text} type={globalMsg.type} />
+          </div>
 
-          <Message text={globalMsg.text} type={globalMsg.type} />
-
-          {/* Grid paso 1 + paso 2 en paralelo */}
-          <div className="home-grid">
-            <section id="step-1" className="app-section">
+          {/* ── PASO 1: Importar contactos — imagen izquierda ── */}
+          <div className="svb" id="step-1">
+            <div className="svb-img">
+              {/* Reemplaza src con tu imagen real */}
+              <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=700&q=80" alt="contactos" />
+              <div className="svb-img-overlay" />
+              <div className="svb-img-badge">
+                <span className="svb-step-num">01</span>
+                <div>
+                  <div className="svb-step-name">Importar</div>
+                  <div className="svb-step-desc">contactos</div>
+                </div>
+              </div>
+            </div>
+            <div className="svb-body">
               <ExcelImport onImportSuccess={() => setHasImportedExcel(true)} />
-            </section>
-            <section id="step-2" className="app-section">
+            </div>
+          </div>
+
+          {/* ── PASO 2: Diseñar campaña — imagen derecha ── */}
+          <div className="svb svb--rev" id="step-2">
+            <div className="svb-img">
+              {/* Reemplaza src con tu imagen real */}
+              <img src="https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?auto=format&fit=crop&w=700&q=80" alt="campaña" />
+              <div className="svb-img-overlay" />
+              <div className="svb-img-badge">
+                <span className="svb-step-num">02</span>
+                <div>
+                  <div className="svb-step-name">Diseñar</div>
+                  <div className="svb-step-desc">campaña</div>
+                </div>
+              </div>
+            </div>
+            <div className="svb-body">
               <CampaignForm
                 campaigns={campaigns}
                 selectedCampaignId={selectedCampaignId}
@@ -324,18 +345,46 @@ export function PanelPage() {
                 onSubjectChange={setSubject}
                 onBodyChange={setBody}
               />
-            </section>
+            </div>
           </div>
 
-          {/* IA — sección especial oscura */}
-          <section id="step-2b" className="app-section home-ai-section">
-            <AIAssistant body={body} onBodyAppend={handleBodyAppend} onSubjectChange={setSubject} onSuggestionApplied={() => setHasUsedAI(true)} />
-          </section>
+          {/* ── IA: Afinar con IA — sección especial oscura full-width ── */}
+          <div className="svb-ai" id="step-2b">
+            <div className="svb-ai-img">
+              {/* Reemplaza src con tu imagen real */}
+              <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?auto=format&fit=crop&w=1400&q=80" alt="inteligencia artificial" />
+              <div className="svb-ai-overlay" />
+              <div className="svb-ai-header">
+                <div className="svb-ai-eyebrow">
+                  <i className="fas fa-wand-magic-sparkles" /> Inteligencia Artificial
+                </div>
+                <h2 className="svb-ai-title">Afina tu mensaje<br />con IA</h2>
+                <p className="svb-ai-sub">Deja que la IA mejore tu campaña para maximizar conversiones.</p>
+              </div>
+            </div>
+            <div className="svb-ai-form wrap">
+              <AIAssistant body={body} onBodyAppend={handleBodyAppend} onSubjectChange={setSubject} onSuggestionApplied={() => setHasUsedAI(true)} />
+            </div>
+          </div>
 
-          {/* Lanzar campaña */}
-          <section id="step-3" className="app-section">
-            <SendCampaign subject={subject} message={body} hasImportedExcel={hasImportedExcel} onSendSuccess={() => setHasSentCampaign(true)} />
-          </section>
+          {/* ── PASO 3: Lanzar — imagen izquierda ── */}
+          <div className="svb" id="step-3">
+            <div className="svb-img">
+              {/* Reemplaza src con tu imagen real */}
+              <img src="https://images.unsplash.com/photo-1552581234-26160f608093?auto=format&fit=crop&w=700&q=80" alt="lanzar campaña" />
+              <div className="svb-img-overlay" />
+              <div className="svb-img-badge">
+                <span className="svb-step-num">03</span>
+                <div>
+                  <div className="svb-step-name">Lanzar</div>
+                  <div className="svb-step-desc">campaña</div>
+                </div>
+              </div>
+            </div>
+            <div className="svb-body">
+              <SendCampaign subject={subject} message={body} hasImportedExcel={hasImportedExcel} onSendSuccess={() => setHasSentCampaign(true)} />
+            </div>
+          </div>
 
         </div>
       </div>
