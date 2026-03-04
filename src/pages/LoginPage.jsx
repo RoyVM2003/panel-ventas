@@ -186,8 +186,6 @@ export function LoginPage() {
             {/* PARA USAR: sustituye este div por <img src="URL" alt="..." className="lp-img-real" /> */}
             <div className="img-slot img-slot--portrait">
               <i className="fas fa-image"></i>
-              <span className="img-slot-label">Tu imagen aquí</span>
-              <span className="img-slot-hint">Reemplaza con una foto de tu equipo o producto</span>
             </div>
 
             {/* Feature pills */}

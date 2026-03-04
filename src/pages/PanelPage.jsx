@@ -184,9 +184,7 @@ export function PanelPage() {
       {/* ── Banner de imagen (reemplaza con tu foto/banner real) ── */}
       {/* PARA USAR: sustituye por <img src="URL" alt="..." style={{width:'100%',height:'210px',objectFit:'cover',borderRadius:'20px',marginBottom:'2rem'}} /> */}
       <div className="img-slot img-slot--banner">
-        <i className="fas fa-panorama"></i>
-        <span className="img-slot-label">Banner / imagen de portada</span>
-        <span className="img-slot-hint">Reemplaza con tu foto o imagen de marca · 1180 × 210 px recomendado</span>
+        <i className="fas fa-image"></i>
       </div>
 
       {/* ── Welcome strip ── */}
