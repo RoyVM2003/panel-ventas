@@ -1099,6 +1099,301 @@ body {
 .login-form-panel { display: none; }
 
 /* ═══════════════════════════════════════
+   HOME / PANEL — DARK CREATIVE THEME
+═══════════════════════════════════════ */
+
+.app-dark-page {
+  position: relative;
+  min-height: 100vh;
+  background: #050d1a;
+  overflow-x: hidden;
+}
+
+/* Fondo fijo para que no se mueva al hacer scroll */
+.app-dark-blob,
+.app-dark-dots,
+.app-dark-ring {
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.app-dark-blob {
+  border-radius: 50%;
+}
+
+.app-dark-blob--gold {
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(201, 162, 39, 0.18) 0%, transparent 65%);
+  filter: blur(90px);
+  top: -300px;
+  left: -200px;
+  animation: lp-float 10s ease-in-out infinite;
+}
+
+.app-dark-blob--teal {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(20, 80, 140, 0.38) 0%, transparent 65%);
+  filter: blur(80px);
+  bottom: 0;
+  right: 0;
+  animation: lp-float-r 12s ease-in-out infinite;
+}
+
+.app-dark-blob--purple {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(120, 60, 200, 0.14) 0%, transparent 65%);
+  filter: blur(70px);
+  top: 50%;
+  left: 40%;
+  animation: lp-float 14s ease-in-out infinite;
+}
+
+.app-dark-dots {
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.app-dark-ring {
+  border-radius: 50%;
+}
+
+.app-dark-ring--lg {
+  width: 600px;
+  height: 600px;
+  border: 1.5px solid rgba(201, 162, 39, 0.09);
+  top: -180px;
+  right: -180px;
+  animation: lp-spin-ring 50s linear infinite;
+}
+
+.app-dark-ring--sm {
+  width: 320px;
+  height: 320px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  bottom: 100px;
+  left: -80px;
+  animation: lp-spin-ring 30s linear infinite reverse;
+}
+
+/* Contenido por encima de los blobs */
+.app-dark-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── HeaderBar en dark ── */
+.app-dark-page .dash-header {
+  background: rgba(11, 30, 51, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(201, 162, 39, 0.18);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35), 0 1px 0 rgba(201, 162, 39, 0.12) inset;
+}
+
+/* ── Steps en dark ── */
+.app-dark-page .app-steps {
+  margin-bottom: 2rem;
+}
+
+.app-dark-page .app-step {
+  background: rgba(255, 255, 255, 0.055);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  color: #fff;
+}
+
+.app-dark-page .app-step::before {
+  background: linear-gradient(90deg, #c9a227, #f0cf6a, #c9a227);
+}
+
+.app-dark-page .app-step:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.app-dark-page .app-step--active {
+  background: rgba(201, 162, 39, 0.12) !important;
+  border-color: rgba(201, 162, 39, 0.5) !important;
+  box-shadow: 0 8px 32px rgba(201, 162, 39, 0.2), inset 0 1px 0 rgba(201, 162, 39, 0.15) !important;
+}
+
+.app-dark-page .app-step-text strong {
+  color: #fff;
+}
+
+.app-dark-page .app-step-text small {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.app-dark-page .app-step-icon {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* ── Paneles / cards en dark (glassmorphism) ── */
+.app-dark-page .panel {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.app-dark-page .panel:hover {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 16px 56px rgba(0, 0, 0, 0.35);
+  transform: translateY(-2px);
+}
+
+.app-dark-page .panel h2 {
+  color: #fff;
+}
+
+.app-dark-page .panel h2 i {
+  color: #e0b44a;
+}
+
+/* ── Línea divisoria ── */
+.app-dark-page .divider {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ── Labels y textos ── */
+.app-dark-page .form-group label {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.app-dark-page .form-group .hint {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* ── Inputs/select/textarea en dark ── */
+.app-dark-page .form-group input,
+.app-dark-page .form-group select,
+.app-dark-page .form-group textarea {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  backdrop-filter: blur(8px);
+}
+
+.app-dark-page .form-group input::placeholder,
+.app-dark-page .form-group textarea::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.app-dark-page .form-group input:focus,
+.app-dark-page .form-group select:focus,
+.app-dark-page .form-group textarea:focus {
+  border-color: rgba(201, 162, 39, 0.6);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.12);
+}
+
+.app-dark-page .form-group select option {
+  background: #0b1e33;
+  color: #fff;
+}
+
+/* ── Mensajes en dark ── */
+.app-dark-page .msg.ok {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.3);
+  color: #6ee7b7;
+}
+
+.app-dark-page .msg.err {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+}
+
+.app-dark-page .msg.info {
+  background: rgba(59, 130, 246, 0.12);
+  border-color: rgba(59, 130, 246, 0.3);
+  color: #93c5fd;
+}
+
+/* ── Textos generales en dark ── */
+.app-dark-page p,
+.app-dark-page span:not(.app-step-badge):not(.btn-spinner) {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.app-dark-page strong {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ── ai-output en dark ── */
+.app-dark-page .ai-output {
+  background: rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ── ai-suggestion-card en dark ── */
+.app-dark-page .ai-suggestion-card {
+  background: rgba(0, 0, 0, 0.35);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ── email-preview en dark ── */
+.app-dark-page .email-preview {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.app-dark-page .email-preview-body {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.app-dark-page .email-preview-label {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.app-dark-page .email-preview-subject {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.app-dark-page .email-preview-message pre {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ── file-name en dark ── */
+.app-dark-page .file-name {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ── help-icon en dark ── */
+.app-dark-page .help-icon {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.app-dark-page .help-icon:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* ── btn-link en dark ── */
+.app-dark-page .btn-link {
+  color: #e0b44a;
+}
+
+.app-dark-page .btn-link:hover {
+  color: #f0cf6a;
+}
+
+/* ═══════════════════════════════════════
    MENSAJES
 ═══════════════════════════════════════ */
 .msg {

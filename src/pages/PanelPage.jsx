@@ -165,7 +165,17 @@ export function PanelPage() {
   }, [campaigns])
 
   return (
-    <div id="app" className="app-visible wrap">
+    <div id="app" className="app-dark-page">
+
+      {/* Fondo decorativo — igual que el login */}
+      <div className="app-dark-blob app-dark-blob--gold" />
+      <div className="app-dark-blob app-dark-blob--teal" />
+      <div className="app-dark-blob app-dark-blob--purple" />
+      <div className="app-dark-dots" />
+      <div className="app-dark-ring app-dark-ring--lg" />
+      <div className="app-dark-ring app-dark-ring--sm" />
+
+      <div className="app-dark-content wrap">
       <HeaderBar />
       <nav className="app-steps" aria-label="Flujo para enviar una campaña">
 
@@ -254,6 +264,7 @@ export function PanelPage() {
       <section id="step-3" className="app-section">
         <SendCampaign subject={subject} message={body} hasImportedExcel={hasImportedExcel} onSendSuccess={() => setHasSentCampaign(true)} />
       </section>
+      </div>
     </div>
   )
 }

@@ -232,16 +232,6 @@ export function LoginPage() {
             </div>
           </div>
 
-          {/* Imagen decorativa de persona */}
-          <div className="lp-person-frame">
-            <img
-              src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=420&q=80"
-              alt="Profesional"
-              className="lp-person-img"
-            />
-            <div className="lp-person-glow" />
-          </div>
-
         </div>
 
       </div>
