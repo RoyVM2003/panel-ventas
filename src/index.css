@@ -3585,38 +3585,30 @@ body {
   align-items: start;
 }
 
-/* Workflow grid (nuevo) */
+/* Workflow grid (nuevo) — misma altura los dos pasos */
 .wf-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
   margin-bottom: 0;
-  align-items: start;
+  align-items: stretch;
 }
 
-/* Sección IA en nuevo workflow */
+.wf-grid .app-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.wf-grid .app-section .panel {
+  flex: 1;
+}
+
+/* Sección IA — sin fondo azul, igual que el resto */
 .wf-ai-section .panel {
-  background: linear-gradient(135deg, #0b1e33 0%, #123765 100%) !important;
-  border-color: rgba(201, 162, 39, 0.2) !important;
-  box-shadow: 0 8px 40px rgba(11, 30, 51, 0.2) !important;
+  background: #ffffff !important;
+  border-color: rgba(203, 213, 225, 0.6) !important;
+  box-shadow: 0 4px 24px rgba(11, 30, 51, 0.07) !important;
 }
-
-.wf-ai-section .panel h2            { color: #fff !important; }
-.wf-ai-section .panel-accent-bar    { background: linear-gradient(90deg, #c9a227 0%, #f0cf6a 55%, transparent 100%) !important; }
-.wf-ai-section .panel-hd-icon       { background: rgba(201,162,39,0.2) !important; border-color: rgba(201,162,39,0.35) !important; color: #e0b44a !important; }
-.wf-ai-section .form-group label    { color: rgba(255,255,255,0.85) !important; }
-.wf-ai-section .form-group textarea { background: rgba(255,255,255,0.07) !important; border-color: rgba(255,255,255,0.12) !important; color: #fff !important; }
-.wf-ai-section .form-group textarea::placeholder { color: rgba(255,255,255,0.3) !important; }
-.wf-ai-section .form-group textarea:focus { border-color: rgba(201,162,39,0.5) !important; background: rgba(255,255,255,0.1) !important; }
-.wf-ai-section .msg.info { background: rgba(59,130,246,0.12) !important; border-color: rgba(59,130,246,0.3) !important; color: #93c5fd !important; }
-.wf-ai-section .msg.ok   { background: rgba(16,185,129,0.12) !important; border-color: rgba(16,185,129,0.3) !important; color: #6ee7b7 !important; }
-.wf-ai-section .msg.err  { background: rgba(239,68,68,0.12) !important; border-color: rgba(239,68,68,0.3) !important; color: #fca5a5 !important; }
-.wf-ai-section .ai-suggestion-card  { background: rgba(0,0,0,0.3) !important; border-color: rgba(255,255,255,0.1) !important; }
-.wf-ai-section .ai-suggestion-title    { color: rgba(255,255,255,0.9) !important; }
-.wf-ai-section .ai-suggestion-subtitle { color: rgba(255,255,255,0.5) !important; }
-.wf-ai-section .ai-suggestion-subject  { color: rgba(255,255,255,0.8) !important; }
-.wf-ai-section .ai-suggestion-body pre { color: rgba(255,255,255,0.7) !important; }
-.wf-ai-section .form-hint-text         { color: rgba(255,255,255,0.5) !important; }
 
 @media (max-width: 860px) {
   .wf-grid { grid-template-columns: 1fr; }
@@ -3627,8 +3619,63 @@ body {
    WORKFLOW — bloques visuales (svb)
 ═══════════════════════════════════════ */
 
+@keyframes wf-gradient {
+  0%   { background-position: 0%   50%; }
+  33%  { background-position: 50%  0%;  }
+  66%  { background-position: 100% 50%; }
+  100% { background-position: 0%   50%; }
+}
+
+@keyframes wf-blob-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(40px, -30px) scale(1.08); }
+  66%       { transform: translate(-20px, 20px) scale(0.95); }
+}
+
+@keyframes wf-blob-float2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(-50px, 25px) scale(1.06); }
+  66%       { transform: translate(30px, -20px) scale(0.97); }
+}
+
 .workflow-root {
-  background: #f5f7fb;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(-45deg, #eef2fb, #e8f0fe, #f5f0ff, #f0f7ff, #fdf8ed, #eef2fb);
+  background-size: 500% 500%;
+  animation: wf-gradient 18s ease infinite;
+}
+
+.workflow-root::before,
+.workflow-root::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.workflow-root::before {
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(201, 162, 39, 0.1) 0%, transparent 65%);
+  top: -100px;
+  right: -150px;
+  animation: wf-blob-float 14s ease-in-out infinite;
+}
+
+.workflow-root::after {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 65%);
+  bottom: -50px;
+  left: -100px;
+  animation: wf-blob-float2 18s ease-in-out infinite;
+}
+
+.workflow-root .wrap {
+  position: relative;
+  z-index: 1;
 }
 
 /* Bloque imagen + formulario */
@@ -3921,17 +3968,17 @@ body {
 }
 
 .app-dark-page .dash-header {
-  background: rgba(11, 30, 51, 0.45);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(11, 30, 51, 0.82);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-color: rgba(255, 255, 255, 0.06);
   border-radius: 0;
   margin-bottom: 0;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.25);
   border-top: none;
   border-left: none;
   border-right: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .app-dark-page .dash-header-inner {
