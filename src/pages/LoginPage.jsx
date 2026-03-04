@@ -131,107 +131,220 @@ export function LoginPage() {
           </div>
         </div>
 
-        {/* Headline principal */}
-        <div className="lp-hero-body">
-          <div className="lp-badge-pill">
-            <i className="fas fa-rocket"></i>
-            Plataforma de Email Marketing
-          </div>
-          <h1 className="lp-h1">
-            Campañas que<br />
-            <span className="lp-h1-grad">conectan</span>
-            <br />y <span className="lp-h1-outline">venden</span>
-          </h1>
-          <p className="lp-hero-desc">
-            Importa contactos, diseña con IA y lanza correos masivos en minutos. Todo en un solo lugar.
-          </p>
+        {/* ── Grid principal: texto izquierda | mockup derecha ── */}
+        <div className="lp-hero-main">
 
-          {/* Estadísticas en píldoras */}
-          <div className="lp-stats-row">
-            <div className="lp-stat-pill">
-              <i className="fas fa-paper-plane"></i>
-              <strong>+12k</strong>
-              <span>emails/mes</span>
-            </div>
-            <div className="lp-stat-sep" />
-            <div className="lp-stat-pill">
-              <i className="fas fa-robot"></i>
-              <strong>IA</strong>
-              <span>incluida</span>
-            </div>
-            <div className="lp-stat-sep" />
-            <div className="lp-stat-pill">
-              <i className="fas fa-shield-halved"></i>
-              <strong>100%</strong>
-              <span>seguro</span>
-            </div>
-          </div>
-        </div>
+          {/* COLUMNA IZQUIERDA: texto + stats + trust */}
+          <div className="lp-hero-text">
 
-        {/* ── Tarjetas flotantes de producto (mockup) ── */}
-        <div className="lp-mockup-area">
+            <div className="lp-badge-pill">
+              <i className="fas fa-rocket"></i>
+              Plataforma de Email Marketing con IA
+            </div>
 
-          {/* Tarjeta A: Campaña enviada */}
-          <div className="lp-card lp-card--sent">
-            <div className="lp-card-icon lp-card-icon--green">
-              <i className="fas fa-circle-check"></i>
-            </div>
-            <div className="lp-card-body">
-              <div className="lp-card-title">Campaña enviada</div>
-              <div className="lp-card-sub">Black Friday · hace 2 min</div>
-            </div>
-            <div className="lp-card-badge lp-card-badge--green">
-              1,250 correos
-            </div>
-          </div>
+            <h1 className="lp-h1">
+              Campañas<br />
+              que <span className="lp-h1-grad">conectan</span><br />
+              y <span className="lp-h1-outline">venden</span>
+            </h1>
 
-          {/* Tarjeta B: IA activa */}
-          <div className="lp-card lp-card--ai">
-            <div className="lp-card-icon lp-card-icon--gold">
-              <i className="fas fa-wand-magic-sparkles"></i>
-            </div>
-            <div className="lp-card-body">
-              <div className="lp-card-title">Asistente IA</div>
-              <div className="lp-card-typing">
-                <span className="lp-typing-dot" />
-                <span className="lp-typing-dot" />
-                <span className="lp-typing-dot" />
-                <span className="lp-typing-label">Mejorando asunto...</span>
+            <p className="lp-hero-desc">
+              Importa contactos desde Excel, diseña con inteligencia artificial y lanza correos masivos en minutos.
+            </p>
+
+            {/* Stats grandes */}
+            <div className="lp-big-stats">
+              <div className="lp-big-stat">
+                <strong>12k+</strong>
+                <span>Emails al mes</span>
+              </div>
+              <div className="lp-big-stat-sep" />
+              <div className="lp-big-stat">
+                <strong>98%</strong>
+                <span>Entregados</span>
+              </div>
+              <div className="lp-big-stat-sep" />
+              <div className="lp-big-stat">
+                <strong>IA</strong>
+                <span>Incluida</span>
               </div>
             </div>
+
+            {/* Trust row: avatares + texto */}
+            <div className="lp-trust">
+              <div className="lp-trust-avatars">
+                <div className="lp-ta lp-ta--1" />
+                <div className="lp-ta lp-ta--2" />
+                <div className="lp-ta lp-ta--3" />
+                <div className="lp-ta lp-ta--4" />
+                <div className="lp-ta lp-ta--5" />
+              </div>
+              <span>+500 empresas confían en OSDEMS</span>
+            </div>
+
+            {/* Feature pills */}
+            <div className="lp-feat-pills">
+              <div className="lp-feat-pill">
+                <i className="fas fa-file-excel"></i> Excel
+              </div>
+              <div className="lp-feat-pill">
+                <i className="fas fa-robot"></i> IA
+              </div>
+              <div className="lp-feat-pill">
+                <i className="fas fa-shield-halved"></i> Seguro
+              </div>
+              <div className="lp-feat-pill">
+                <i className="fas fa-paper-plane"></i> Envío masivo
+              </div>
+            </div>
+
           </div>
 
-          {/* Tarjeta C: Excel importado */}
-          <div className="lp-card lp-card--excel">
-            <div className="lp-card-icon lp-card-icon--blue">
-              <i className="fas fa-file-excel"></i>
-            </div>
-            <div className="lp-card-body">
-              <div className="lp-card-title">Lista importada</div>
-              <div className="lp-card-sub">485 contactos listos</div>
-            </div>
-            <div className="lp-card-progress">
-              <div className="lp-card-progress-bar" />
-            </div>
-          </div>
+          {/* COLUMNA DERECHA: mockup app + shapes + floating cards */}
+          <div className="lp-preview-wrap">
 
-          {/* Gráfica mini de barras (decorativa) */}
-          <div className="lp-card lp-card--chart">
-            <div className="lp-chart-header">
-              <span className="lp-chart-label">Aperturas esta semana</span>
-              <span className="lp-chart-val">68%</span>
-            </div>
-            <div className="lp-chart-bars">
-              <div className="lp-bar" style={{ height: '45%' }} />
-              <div className="lp-bar" style={{ height: '65%' }} />
-              <div className="lp-bar" style={{ height: '40%' }} />
-              <div className="lp-bar" style={{ height: '80%' }} />
-              <div className="lp-bar lp-bar--active" style={{ height: '68%' }} />
-              <div className="lp-bar" style={{ height: '55%' }} />
-              <div className="lp-bar" style={{ height: '72%' }} />
-            </div>
-          </div>
+            {/* Shapes geométricas decorativas */}
+            <div className="lp-shape lp-shape--sq1" />
+            <div className="lp-shape lp-shape--sq2" />
+            <div className="lp-shape lp-shape--sq3" />
+            <div className="lp-shape lp-shape--circle1" />
+            <div className="lp-shape lp-shape--circle2" />
 
+            {/* Marco tipo browser con mini UI de la app */}
+            <div className="lp-app-frame">
+
+              {/* Chrome del browser */}
+              <div className="lp-app-chrome">
+                <div className="lp-app-dots">
+                  <span /><span /><span />
+                </div>
+                <div className="lp-app-url">osdemsventas.com · Panel</div>
+              </div>
+
+              {/* Cuerpo: sidebar + contenido */}
+              <div className="lp-app-body">
+
+                {/* Sidebar mini */}
+                <div className="lp-app-sidebar">
+                  <div className="lp-app-logo-mini">
+                    <i className="fas fa-paper-plane"></i>
+                  </div>
+                  <div className="lp-app-nav">
+                    <div className="lp-nav-item lp-nav-item--active" title="Campañas">
+                      <i className="fas fa-envelope"></i>
+                    </div>
+                    <div className="lp-nav-item" title="Contactos">
+                      <i className="fas fa-users"></i>
+                    </div>
+                    <div className="lp-nav-item" title="Estadísticas">
+                      <i className="fas fa-chart-bar"></i>
+                    </div>
+                    <div className="lp-nav-item" title="IA">
+                      <i className="fas fa-robot"></i>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Contenido principal del mockup */}
+                <div className="lp-app-main">
+
+                  <div className="lp-app-top-bar">
+                    <span className="lp-app-title">Panel de campañas</span>
+                    <div className="lp-app-btn-mini" />
+                  </div>
+
+                  {/* Stat cards mini */}
+                  <div className="lp-app-stats-row">
+                    <div className="lp-app-stat-card lp-app-stat-card--green">
+                      <div className="lp-asc-num">1,250</div>
+                      <div className="lp-asc-label">Enviados hoy</div>
+                    </div>
+                    <div className="lp-app-stat-card">
+                      <div className="lp-asc-num">68%</div>
+                      <div className="lp-asc-label">Apertura</div>
+                    </div>
+                    <div className="lp-app-stat-card">
+                      <div className="lp-asc-num">485</div>
+                      <div className="lp-asc-label">Contactos</div>
+                    </div>
+                  </div>
+
+                  {/* Mini gráfica de barras */}
+                  <div className="lp-app-chart">
+                    <div className="lp-app-chart-label">Aperturas esta semana</div>
+                    <div className="lp-app-chart-bars">
+                      <div className="lp-mini-bar" style={{ height: '55%' }} />
+                      <div className="lp-mini-bar" style={{ height: '75%' }} />
+                      <div className="lp-mini-bar" style={{ height: '40%' }} />
+                      <div className="lp-mini-bar" style={{ height: '90%' }} />
+                      <div className="lp-mini-bar lp-mini-bar--gold" style={{ height: '68%' }} />
+                      <div className="lp-mini-bar" style={{ height: '50%' }} />
+                      <div className="lp-mini-bar" style={{ height: '82%' }} />
+                    </div>
+                  </div>
+
+                  {/* Lista de campañas */}
+                  <div className="lp-app-campaigns">
+                    <div className="lp-campaign-item">
+                      <div className="lp-ci-dot lp-ci-dot--green" />
+                      <div className="lp-ci-info">
+                        <div className="lp-ci-name">Black Friday 2025</div>
+                        <div className="lp-ci-num">1,250 enviados</div>
+                      </div>
+                      <div className="lp-ci-tag lp-ci-tag--green">✓ Enviada</div>
+                    </div>
+                    <div className="lp-campaign-item">
+                      <div className="lp-ci-dot lp-ci-dot--gold" />
+                      <div className="lp-ci-info">
+                        <div className="lp-ci-name">Promo Navidad</div>
+                        <div className="lp-ci-num">Borrador guardado</div>
+                      </div>
+                      <div className="lp-ci-tag">En curso</div>
+                    </div>
+                    <div className="lp-campaign-item">
+                      <div className="lp-ci-dot lp-ci-dot--blue" />
+                      <div className="lp-ci-info">
+                        <div className="lp-ci-name">Campaña con IA</div>
+                        <div className="lp-ci-num">Generando con IA...</div>
+                      </div>
+                      <div className="lp-ci-tag lp-ci-tag--blue">IA activa</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            {/* Tarjetas flotantes encima del frame */}
+            <div className="lp-card lp-card--ai lp-card--float-tr">
+              <div className="lp-card-icon lp-card-icon--gold">
+                <i className="fas fa-wand-magic-sparkles"></i>
+              </div>
+              <div className="lp-card-body">
+                <div className="lp-card-title">Asistente IA</div>
+                <div className="lp-card-typing">
+                  <span className="lp-typing-dot" />
+                  <span className="lp-typing-dot" />
+                  <span className="lp-typing-dot" />
+                  <span className="lp-typing-label">Mejorando asunto...</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="lp-card lp-card--sent lp-card--float-bl">
+              <div className="lp-card-icon lp-card-icon--green">
+                <i className="fas fa-circle-check"></i>
+              </div>
+              <div className="lp-card-body">
+                <div className="lp-card-title">Campaña enviada</div>
+                <div className="lp-card-sub">Black Friday · hace 2 min</div>
+              </div>
+              <div className="lp-card-badge lp-card-badge--green">
+                1,250 correos
+              </div>
+            </div>
+
+          </div>
         </div>
 
       </div>
