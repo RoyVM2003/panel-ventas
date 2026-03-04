@@ -168,50 +168,67 @@ export function PanelPage() {
     <div id="app" className="app-visible wrap">
       <HeaderBar />
       <nav className="app-steps" aria-label="Flujo para enviar una campaña">
+
         <button
           type="button"
           className={`app-step ${currentStep === 1 ? 'app-step--active' : ''} ${hasImportedExcel ? 'app-step--completed' : ''}`}
           onClick={() => { setCurrentStep(1); document.getElementById('step-1')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}
         >
-          <span className="app-step-number">{hasImportedExcel ? <i className="fas fa-check" /> : '1'}</span>
-          <span className="app-step-text">
-            Importar contactos
-            <small>Sube tu lista de clientes desde Excel</small>
-          </span>
+          <span className="app-step-badge">{hasImportedExcel ? <i className="fas fa-check" /> : '1'}</span>
+          <div className="app-step-icon">
+            <i className="fas fa-users"></i>
+          </div>
+          <div className="app-step-text">
+            <strong>Importar contactos</strong>
+            <small>Sube tu lista desde Excel</small>
+          </div>
         </button>
+
         <button
           type="button"
           className={`app-step ${currentStep === 2 ? 'app-step--active' : ''} ${(subject?.trim() && body?.trim()) ? 'app-step--completed' : ''}`}
           onClick={() => { setCurrentStep(2); document.getElementById('step-2')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}
         >
-          <span className="app-step-number">{(subject?.trim() && body?.trim()) ? <i className="fas fa-check" /> : '2'}</span>
-          <span className="app-step-text">
-            Diseñar campaña
-            <small>Define el mensaje que quieres que recuerden</small>
-          </span>
+          <span className="app-step-badge">{(subject?.trim() && body?.trim()) ? <i className="fas fa-check" /> : '2'}</span>
+          <div className="app-step-icon">
+            <i className="fas fa-envelope-open-text"></i>
+          </div>
+          <div className="app-step-text">
+            <strong>Diseñar campaña</strong>
+            <small>Asunto y mensaje del correo</small>
+          </div>
         </button>
+
         <button
           type="button"
           className={`app-step ${currentStep === '2b' ? 'app-step--active' : ''} ${hasUsedAI ? 'app-step--completed' : ''}`}
           onClick={() => { setCurrentStep('2b'); document.getElementById('step-2b')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}
         >
-          <span className="app-step-number">{hasUsedAI ? <i className="fas fa-check" /> : '2B'}</span>
-          <span className="app-step-text">
-            Afinar con IA
-            <small>Deja que la IA te proponga mejoras</small>
-          </span>
+          <span className="app-step-badge">{hasUsedAI ? <i className="fas fa-check" /> : <i className="fas fa-robot" />}</span>
+          <div className="app-step-icon">
+            <i className="fas fa-wand-magic-sparkles"></i>
+          </div>
+          <div className="app-step-text">
+            <strong>Afinar con IA</strong>
+            <small>Mejora tu mensaje con IA</small>
+          </div>
         </button>
+
         <button
           type="button"
           className={`app-step ${currentStep === 3 ? 'app-step--active' : ''} ${hasSentCampaign ? 'app-step--completed' : ''}`}
           onClick={() => { setCurrentStep(3); document.getElementById('step-3')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}
         >
-          <span className="app-step-number">{hasSentCampaign ? <i className="fas fa-check" /> : '3'}</span>
-          <span className="app-step-text">
-            Enviar campaña
-            <small>Solo a los contactos del Excel del Paso 1</small>
-          </span>
+          <span className="app-step-badge">{hasSentCampaign ? <i className="fas fa-check" /> : '3'}</span>
+          <div className="app-step-icon">
+            <i className="fas fa-rocket"></i>
+          </div>
+          <div className="app-step-text">
+            <strong>Lanzar campaña</strong>
+            <small>Envío masivo a tus contactos</small>
+          </div>
         </button>
+
       </nav>
       <Message text={globalMsg.text} type={globalMsg.type} />
       <section id="step-1" className="app-section">
