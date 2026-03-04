@@ -24,19 +24,92 @@
   --red-dark: #b91c1c;
 }
 
+:root {
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-ui: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
 * {
   box-sizing: border-box;
 }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-body);
   margin: 0;
   min-height: 100vh;
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 1.6;
   background: #edf1f7;
   color: #1a202c;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+/* ── Tipografía mejorada ── */
+h1, h2, h3 {
+  font-family: var(--font-ui);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+h4, h5, h6, button, input, select, textarea, label {
+  font-family: var(--font-ui);
+}
+
+/* Títulos serif — hero y secciones principales */
+.home-hero-h1,
+.wf-banner-title,
+.svb-ai-title {
+  font-family: var(--font-display) !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* Panel titles */
+.panel h2 {
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* Form labels */
+.form-group label {
+  font-family: var(--font-ui);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* ═══════════════════════════════════════
+   SCROLL REVEAL — aparece al bajar
+═══════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.reveal-from-left {
+  transform: translateX(-32px);
+}
+
+.reveal.reveal-from-right {
+  transform: translateX(32px);
+}
+
+.reveal.reveal--visible {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
 
 /* ═══════════════════════════════════════
    WRAP / CONTENEDOR DASHBOARD
@@ -3270,11 +3343,12 @@ body {
 
 .home-hero-eyebrow {
   display: inline-block;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 100px;
   padding: 0.3rem 0.875rem;
@@ -3283,19 +3357,22 @@ body {
 }
 
 .home-hero-h1 {
-  font-size: clamp(2.25rem, 5.5vw, 4rem);
-  font-weight: 900;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 400;
   color: #ffffff;
   line-height: 1.1;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.01em;
   margin: 0 0 1rem;
-  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.25);
 }
 
 .home-hero-desc {
-  font-size: clamp(0.95rem, 1.5vw, 1.125rem);
-  color: rgba(255, 255, 255, 0.78);
-  line-height: 1.6;
+  font-family: var(--font-ui);
+  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.7;
   margin: 0;
 }
 
@@ -3324,11 +3401,12 @@ body {
 }
 
 .home-hero-greeting-name {
-  font-size: 1.375rem;
+  font-family: var(--font-ui);
+  font-size: 1.5rem;
   font-weight: 800;
   color: #fff;
   line-height: 1.2;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.03em;
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
 }
 
@@ -3340,10 +3418,13 @@ body {
 }
 
 .home-hero-greeting-sub {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.6);
+  font-family: var(--font-ui);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.58);
   margin-top: 0.1rem;
   margin-bottom: 0.875rem;
+  letter-spacing: 0.01em;
 }
 
 .home-hero-pills {
@@ -3702,21 +3783,23 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
+  font-family: var(--font-ui);
   font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 0.4rem;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 0.5rem;
 }
 
 .wf-banner-title {
-  font-size: clamp(1.2rem, 2.5vw, 1.75rem);
-  font-weight: 800;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 400;
   color: #fff;
-  letter-spacing: -0.03em;
-  margin: 0 0 1.1rem;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+  letter-spacing: -0.01em;
+  margin: 0 0 1.25rem;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
 }
 
 /* Timeline sobre la imagen */

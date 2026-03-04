@@ -7,8 +7,10 @@ import { AIAssistant } from '../components/AIAssistant'
 import { SendCampaign } from '../components/SendCampaign'
 import { Message } from '../components/Message'
 import { listCampaigns } from '../services/excelService'
+import { useScrollReveal } from '../hooks/useScrollReveal'
 
 export function PanelPage() {
+  useScrollReveal()
   const { email } = useAuth()
   const username = email ? email.split('@')[0] : 'Usuario'
   const [campaigns, setCampaigns] = useState([])
@@ -198,7 +200,7 @@ export function PanelPage() {
           </div>
 
           {/* Saludo personal — esquina inferior izquierda */}
-          <div className="home-hero-greeting">
+          <div className="home-hero-greeting reveal reveal-from-left">
             <div className="home-hero-greeting-top">
               <span className="hw-dot" />
               <span className="home-hero-greeting-label">Panel activo</span>
@@ -224,7 +226,7 @@ export function PanelPage() {
           </div>
 
           {/* Texto central */}
-          <div className="home-hero-text">
+          <div className="home-hero-text reveal reveal-delay-1">
             <div className="home-hero-eyebrow">OSDEMS · Email Marketing con IA</div>
             <h1 className="home-hero-h1">Lanza campañas<br />que convierten</h1>
             <p className="home-hero-desc">
@@ -240,7 +242,7 @@ export function PanelPage() {
 
           {/* ── Banner imagen + barra de progreso encima ── */}
           {/* Reemplaza el src con tu imagen real */}
-          <div className="wf-banner">
+          <div className="wf-banner reveal">
             <img
               src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80"
               className="wf-banner-img"
@@ -290,10 +292,10 @@ export function PanelPage() {
               <Message text={globalMsg.text} type={globalMsg.type} />
 
               <div className="wf-grid">
-                <section id="step-1" className="app-section">
+                <section id="step-1" className="app-section reveal reveal-delay-1">
                   <ExcelImport onImportSuccess={() => setHasImportedExcel(true)} />
                 </section>
-                <section id="step-2" className="app-section">
+                <section id="step-2" className="app-section reveal reveal-delay-2">
                   <CampaignForm
                     campaigns={campaigns}
                     selectedCampaignId={selectedCampaignId}
@@ -309,11 +311,11 @@ export function PanelPage() {
                 </section>
               </div>
 
-              <section id="step-2b" className="app-section wf-ai-section">
+              <section id="step-2b" className="app-section wf-ai-section reveal">
                 <AIAssistant body={body} onBodyAppend={handleBodyAppend} onSubjectChange={setSubject} onSuggestionApplied={() => setHasUsedAI(true)} />
               </section>
 
-              <section id="step-3" className="app-section">
+              <section id="step-3" className="app-section reveal">
                 <SendCampaign subject={subject} message={body} hasImportedExcel={hasImportedExcel} onSendSuccess={() => setHasSentCampaign(true)} />
               </section>
             </div>
