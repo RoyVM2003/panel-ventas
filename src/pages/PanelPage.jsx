@@ -165,7 +165,7 @@ export function PanelPage() {
   }, [campaigns])
 
   return (
-    <div id="app" className="app-visible">
+    <div id="app" className="app-visible wrap">
       <HeaderBar />
       <nav className="app-steps" aria-label="Flujo para enviar una campaña">
         <button

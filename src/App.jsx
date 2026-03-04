@@ -17,9 +17,7 @@ function AppRouter() {
 export default function App() {
   return (
     <AuthProvider>
-      <div className="wrap">
-        <AppRouter />
-      </div>
+      <AppRouter />
     </AuthProvider>
   )
 }
