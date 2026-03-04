@@ -3299,11 +3299,81 @@ body {
   margin: 0;
 }
 
-/* ── SPLIT dos columnas ── */
+/* ── BARRA DE BIENVENIDA compacta ── */
+.wst-root {
+  background: #fff;
+  border-bottom: 1px solid rgba(203, 213, 225, 0.6);
+}
+
+.wst-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0.875rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.wst-left {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.wst-greeting {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0b1e33;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.wst-sub {
+  font-size: 0.78rem;
+  color: #64748b;
+  margin-top: 0.1rem;
+}
+
+.wst-pills {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.wst-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: rgba(11, 30, 51, 0.05);
+  border: 1px solid rgba(11, 30, 51, 0.1);
+  color: rgba(11, 30, 51, 0.45);
+  transition: all 0.2s ease;
+}
+
+.wst-pill--done {
+  background: rgba(16, 185, 129, 0.09);
+  border-color: rgba(16, 185, 129, 0.3);
+  color: #059669;
+}
+
+.wst-pill--sent {
+  background: rgba(201, 162, 39, 0.09);
+  border-color: rgba(201, 162, 39, 0.3);
+  color: #c9a227;
+}
+
+/* ── SPLIT (legacy — ya no está en JSX, preservado por si acaso) ── */
 .home-split {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: clamp(260px, 28vw, 360px);
+  min-height: 260px;
   background: #ffffff;
 }
 
@@ -3311,16 +3381,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(1.5rem, 3.5vw, 2.75rem) clamp(1.5rem, 4vw, 3.5rem);
-}
-
-.home-split-content .hw-title {
-  font-size: clamp(1.4rem, 2.8vw, 2rem);
-  margin-bottom: 0.4rem;
-}
-
-.home-split-content .hw-sub {
-  font-size: 0.875rem;
+  padding: 1.5rem;
 }
 
 .hw-stats-row {
@@ -3434,13 +3495,51 @@ body {
   min-width: 20px;
 }
 
-/* Grid paso 1 + paso 2 */
+/* Grid paso 1 + paso 2 (home-grid legacy) */
 .home-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
   margin-bottom: 0;
   align-items: start;
+}
+
+/* Workflow grid (nuevo) */
+.wf-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 0;
+  align-items: start;
+}
+
+/* Sección IA en nuevo workflow */
+.wf-ai-section .panel {
+  background: linear-gradient(135deg, #0b1e33 0%, #123765 100%) !important;
+  border-color: rgba(201, 162, 39, 0.2) !important;
+  box-shadow: 0 8px 40px rgba(11, 30, 51, 0.2) !important;
+}
+
+.wf-ai-section .panel h2            { color: #fff !important; }
+.wf-ai-section .panel-accent-bar    { background: linear-gradient(90deg, #c9a227 0%, #f0cf6a 55%, transparent 100%) !important; }
+.wf-ai-section .panel-hd-icon       { background: rgba(201,162,39,0.2) !important; border-color: rgba(201,162,39,0.35) !important; color: #e0b44a !important; }
+.wf-ai-section .form-group label    { color: rgba(255,255,255,0.85) !important; }
+.wf-ai-section .form-group textarea { background: rgba(255,255,255,0.07) !important; border-color: rgba(255,255,255,0.12) !important; color: #fff !important; }
+.wf-ai-section .form-group textarea::placeholder { color: rgba(255,255,255,0.3) !important; }
+.wf-ai-section .form-group textarea:focus { border-color: rgba(201,162,39,0.5) !important; background: rgba(255,255,255,0.1) !important; }
+.wf-ai-section .msg.info { background: rgba(59,130,246,0.12) !important; border-color: rgba(59,130,246,0.3) !important; color: #93c5fd !important; }
+.wf-ai-section .msg.ok   { background: rgba(16,185,129,0.12) !important; border-color: rgba(16,185,129,0.3) !important; color: #6ee7b7 !important; }
+.wf-ai-section .msg.err  { background: rgba(239,68,68,0.12) !important; border-color: rgba(239,68,68,0.3) !important; color: #fca5a5 !important; }
+.wf-ai-section .ai-suggestion-card  { background: rgba(0,0,0,0.3) !important; border-color: rgba(255,255,255,0.1) !important; }
+.wf-ai-section .ai-suggestion-title    { color: rgba(255,255,255,0.9) !important; }
+.wf-ai-section .ai-suggestion-subtitle { color: rgba(255,255,255,0.5) !important; }
+.wf-ai-section .ai-suggestion-subject  { color: rgba(255,255,255,0.8) !important; }
+.wf-ai-section .ai-suggestion-body pre { color: rgba(255,255,255,0.7) !important; }
+.wf-ai-section .form-hint-text         { color: rgba(255,255,255,0.5) !important; }
+
+@media (max-width: 860px) {
+  .wf-grid { grid-template-columns: 1fr; }
+  .wst-inner { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
 }
 
 /* ═══════════════════════════════════════
@@ -3731,12 +3830,20 @@ body {
 .app-dark-ring--lg { border-color: rgba(11, 30, 51, 0.06); }
 .app-dark-ring--sm { border-color: rgba(11, 30, 51, 0.05); }
 
-/* HeaderBar: se mantiene oscuro — crea contraste bonito */
+/* HeaderBar: full-bleed sin huecos */
 .app-dark-page .dash-header {
   background: linear-gradient(135deg, #0b1e33 0%, #123765 100%);
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
   border-color: transparent;
+  border-radius: 0;
+  margin-bottom: 0;
+  box-shadow: 0 4px 24px rgba(11, 30, 51, 0.18);
+}
+
+.app-dark-page .dash-header-inner {
+  max-width: 1180px;
+  margin: 0 auto;
 }
 
 /* Steps en light */

@@ -202,61 +202,33 @@ export function PanelPage() {
         </div>
 
         {/* ══════════════════════════════════
-            SPLIT — Welcome (izq) + Imagen (der)
-            Reemplaza el src con tu foto real
+            BARRA DE BIENVENIDA — compacta
         ══════════════════════════════════ */}
-        <div className="home-split">
-          <div className="home-split-content">
-            <div className="hw-eyebrow">
+        <div className="wst-root">
+          <div className="wst-inner">
+            <div className="wst-left">
               <span className="hw-dot" />
-              Panel activo
-            </div>
-            <h2 className="hw-title">
-              Hola, <span className="hw-name">{username}</span><br />
-              ¿qué enviamos hoy?
-            </h2>
-            <p className="hw-sub">
-              Sigue los pasos para lanzar tu próxima campaña de email.
-            </p>
-            <div className="hw-stats-row">
-              <div className={`hw-stat${hasImportedExcel ? ' hw-stat--done' : ''}`}>
-                <div className="hw-stat-icon">
-                  <i className={hasImportedExcel ? 'fas fa-check' : 'fas fa-users'} />
+              <div>
+                <div className="wst-greeting">
+                  Hola, <span className="hw-name">{username}</span>
                 </div>
-                <div>
-                  <div className="hw-stat-label">Contactos</div>
-                  <div className="hw-stat-val">{hasImportedExcel ? 'Importados' : 'Pendientes'}</div>
-                </div>
-              </div>
-              <div className={`hw-stat${(subject?.trim() && body?.trim()) ? ' hw-stat--done' : ''}`}>
-                <div className="hw-stat-icon">
-                  <i className={(subject?.trim() && body?.trim()) ? 'fas fa-check' : 'fas fa-envelope'} />
-                </div>
-                <div>
-                  <div className="hw-stat-label">Campaña</div>
-                  <div className="hw-stat-val">{(subject?.trim() && body?.trim()) ? 'Lista' : 'Pendiente'}</div>
-                </div>
-              </div>
-              <div className={`hw-stat${hasSentCampaign ? ' hw-stat--done hw-stat--sent' : ''}`}>
-                <div className="hw-stat-icon">
-                  <i className={hasSentCampaign ? 'fas fa-check' : 'fas fa-rocket'} />
-                </div>
-                <div>
-                  <div className="hw-stat-label">Envío</div>
-                  <div className="hw-stat-val">{hasSentCampaign ? '¡Enviada!' : 'Por lanzar'}</div>
-                </div>
+                <div className="wst-sub">¿qué enviamos hoy?</div>
               </div>
             </div>
-          </div>
-
-          {/* Imagen derecha — reemplaza src con tu imagen */}
-          <div className="home-split-img">
-            <img
-              src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80"
-              className="home-split-photo"
-              alt="profesional"
-            />
-            <div className="home-split-img-fade" />
+            <div className="wst-pills">
+              <div className={`wst-pill${hasImportedExcel ? ' wst-pill--done' : ''}`}>
+                <i className={hasImportedExcel ? 'fas fa-check' : 'fas fa-users'} />
+                Contactos
+              </div>
+              <div className={`wst-pill${(subject?.trim() && body?.trim()) ? ' wst-pill--done' : ''}`}>
+                <i className={(subject?.trim() && body?.trim()) ? 'fas fa-check' : 'fas fa-envelope'} />
+                Campaña
+              </div>
+              <div className={`wst-pill${hasSentCampaign ? ' wst-pill--done wst-pill--sent' : ''}`}>
+                <i className={hasSentCampaign ? 'fas fa-check' : 'fas fa-rocket'} />
+                {hasSentCampaign ? 'Enviada' : 'Envío'}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -264,9 +236,9 @@ export function PanelPage() {
             FLUJO DE TRABAJO
         ══════════════════════════════════ */}
         <div className="workflow-root">
-
-          {/* ── TIMELINE ── */}
           <div className="wrap">
+
+            {/* Timeline */}
             <nav className="stl-nav" aria-label="Pasos de la campaña">
               <button type="button"
                 className={`stl-step${currentStep === 1 ? ' stl-step--active' : ''}${hasImportedExcel ? ' stl-step--done' : ''}`}
@@ -296,96 +268,41 @@ export function PanelPage() {
                 <span className="stl-label">Lanzar campaña</span>
               </button>
             </nav>
+
             <Message text={globalMsg.text} type={globalMsg.type} />
-          </div>
 
-          {/* ── PASO 1: Importar contactos — imagen izquierda ── */}
-          <div className="svb" id="step-1">
-            <div className="svb-img">
-              {/* Reemplaza src con tu imagen real */}
-              <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=700&q=80" alt="contactos" />
-              <div className="svb-img-overlay" />
-              <div className="svb-img-badge">
-                <span className="svb-step-num">01</span>
-                <div>
-                  <div className="svb-step-name">Importar</div>
-                  <div className="svb-step-desc">contactos</div>
-                </div>
-              </div>
+            {/* Paso 1 + Paso 2 — grid 2 columnas */}
+            <div className="wf-grid">
+              <section id="step-1" className="app-section">
+                <ExcelImport onImportSuccess={() => setHasImportedExcel(true)} />
+              </section>
+              <section id="step-2" className="app-section">
+                <CampaignForm
+                  campaigns={campaigns}
+                  selectedCampaignId={selectedCampaignId}
+                  onSelectedCampaignIdChange={setSelectedCampaignId}
+                  onCampaignCreated={addCampaign}
+                  onCampaignUpdated={updateCampaignInList}
+                  onCampaignDeleted={removeCampaign}
+                  subject={subject}
+                  body={body}
+                  onSubjectChange={setSubject}
+                  onBodyChange={setBody}
+                />
+              </section>
             </div>
-            <div className="svb-body">
-              <ExcelImport onImportSuccess={() => setHasImportedExcel(true)} />
-            </div>
-          </div>
 
-          {/* ── PASO 2: Diseñar campaña — imagen derecha ── */}
-          <div className="svb svb--rev" id="step-2">
-            <div className="svb-img">
-              {/* Reemplaza src con tu imagen real */}
-              <img src="https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?auto=format&fit=crop&w=700&q=80" alt="campaña" />
-              <div className="svb-img-overlay" />
-              <div className="svb-img-badge">
-                <span className="svb-step-num">02</span>
-                <div>
-                  <div className="svb-step-name">Diseñar</div>
-                  <div className="svb-step-desc">campaña</div>
-                </div>
-              </div>
-            </div>
-            <div className="svb-body">
-              <CampaignForm
-                campaigns={campaigns}
-                selectedCampaignId={selectedCampaignId}
-                onSelectedCampaignIdChange={setSelectedCampaignId}
-                onCampaignCreated={addCampaign}
-                onCampaignUpdated={updateCampaignInList}
-                onCampaignDeleted={removeCampaign}
-                subject={subject}
-                body={body}
-                onSubjectChange={setSubject}
-                onBodyChange={setBody}
-              />
-            </div>
-          </div>
-
-          {/* ── IA: Afinar con IA — sección especial oscura full-width ── */}
-          <div className="svb-ai" id="step-2b">
-            <div className="svb-ai-img">
-              {/* Reemplaza src con tu imagen real */}
-              <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?auto=format&fit=crop&w=1400&q=80" alt="inteligencia artificial" />
-              <div className="svb-ai-overlay" />
-              <div className="svb-ai-header">
-                <div className="svb-ai-eyebrow">
-                  <i className="fas fa-wand-magic-sparkles" /> Inteligencia Artificial
-                </div>
-                <h2 className="svb-ai-title">Afina tu mensaje<br />con IA</h2>
-                <p className="svb-ai-sub">Deja que la IA mejore tu campaña para maximizar conversiones.</p>
-              </div>
-            </div>
-            <div className="svb-ai-form wrap">
+            {/* IA — card oscura */}
+            <section id="step-2b" className="app-section wf-ai-section">
               <AIAssistant body={body} onBodyAppend={handleBodyAppend} onSubjectChange={setSubject} onSuggestionApplied={() => setHasUsedAI(true)} />
-            </div>
-          </div>
+            </section>
 
-          {/* ── PASO 3: Lanzar — imagen izquierda ── */}
-          <div className="svb" id="step-3">
-            <div className="svb-img">
-              {/* Reemplaza src con tu imagen real */}
-              <img src="https://images.unsplash.com/photo-1552581234-26160f608093?auto=format&fit=crop&w=700&q=80" alt="lanzar campaña" />
-              <div className="svb-img-overlay" />
-              <div className="svb-img-badge">
-                <span className="svb-step-num">03</span>
-                <div>
-                  <div className="svb-step-name">Lanzar</div>
-                  <div className="svb-step-desc">campaña</div>
-                </div>
-              </div>
-            </div>
-            <div className="svb-body">
+            {/* Lanzar */}
+            <section id="step-3" className="app-section">
               <SendCampaign subject={subject} message={body} hasImportedExcel={hasImportedExcel} onSendSuccess={() => setHasSentCampaign(true)} />
-            </div>
-          </div>
+            </section>
 
+          </div>
         </div>
       </div>
     </div>
