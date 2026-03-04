@@ -3509,12 +3509,14 @@ body {
 .stl-nav {
   display: flex;
   align-items: center;
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-radius: 16px;
   padding: 0.75rem 1.25rem;
   margin-bottom: 2rem;
-  box-shadow: 0 2px 8px rgba(11, 30, 51, 0.06);
-  border: 1px solid rgba(203, 213, 225, 0.5);
+  box-shadow: 0 2px 16px rgba(11, 30, 51, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   overflow-x: auto;
   gap: 0;
 }
@@ -3798,23 +3800,23 @@ body {
   min-width: 20px;
 }
 
-/* ── Área de cards — overlay claro sobre la imagen continua ── */
+/* ── Área de cards — imagen visible, sin overlay global ── */
 .wf-cards {
   position: relative;
-}
-
-.wf-cards::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(240, 245, 255, 0.82);
-  pointer-events: none;
-  z-index: 0;
 }
 
 .wf-cards .wrap {
   position: relative;
   z-index: 1;
+}
+
+/* Cards con efecto cristal sobre la imagen */
+.wf-cards .panel {
+  background: rgba(255, 255, 255, 0.62) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.55) !important;
+  box-shadow: 0 8px 32px rgba(11, 30, 51, 0.1) !important;
 }
 
 @media (max-width: 768px) {
