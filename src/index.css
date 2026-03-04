@@ -3886,25 +3886,27 @@ h4, h5, h6, button, input, select, textarea, label {
   text-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
 }
 
-/* Timeline sobre la imagen */
+/* Timeline sobre la imagen — siempre un solo renglón */
 .wf-stl {
   display: flex;
   align-items: center;
+  flex-wrap: nowrap;
   background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 16px;
-  padding: 0.625rem 1.25rem;
+  padding: 0.5rem 1rem;
   gap: 0;
   overflow-x: auto;
+  min-width: 0;
 }
 
 .wf-stl-step {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.875rem;
+  gap: 0.4rem;
+  padding: 0.4rem 0.6rem;
   border-radius: 10px;
   border: none;
   background: transparent;
@@ -3938,10 +3940,11 @@ h4, h5, h6, button, input, select, textarea, label {
 }
 
 .wf-stl-label {
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.7);
   transition: color 0.2s ease;
+  white-space: nowrap;
 }
 
 .wf-stl-step--active .wf-stl-num {
@@ -3962,9 +3965,10 @@ h4, h5, h6, button, input, select, textarea, label {
 
 .wf-stl-line {
   flex: 1;
+  min-width: 12px;
+  max-width: 40px;
   height: 1px;
   background: rgba(255, 255, 255, 0.2);
-  min-width: 20px;
 }
 
 /* ── Área de cards — imagen visible, sin overlay global ── */
@@ -3988,7 +3992,9 @@ h4, h5, h6, button, input, select, textarea, label {
 
 @media (max-width: 768px) {
   .wf-banner { height: 220px; }
-  .wf-stl-label { display: none; }
+  .wf-stl { padding: 0.4rem 0.75rem; }
+  .wf-stl-step { padding: 0.35rem 0.5rem; }
+  .wf-stl-label { font-size: 0.75rem; }
 }
 
 /* Bloque imagen + formulario */

@@ -260,7 +260,7 @@ export function PanelPage() {
                   className={`wf-stl-step${currentStep === 1 ? ' wf-stl-step--active' : ''}${hasImportedExcel ? ' wf-stl-step--done' : ''}`}
                   onClick={() => { setCurrentStep(1); document.getElementById('step-1')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}>
                   <span className="wf-stl-num">{hasImportedExcel ? <i className="fas fa-check" /> : '1'}</span>
-                  <span className="wf-stl-label">Importar contactos</span>
+                  <span className="wf-stl-label">Importar</span>
                 </button>
                 <div className="wf-stl-line" />
                 <button type="button"
@@ -274,7 +274,7 @@ export function PanelPage() {
                   className={`wf-stl-step${currentStep === 3 ? ' wf-stl-step--active' : ''}${hasSentCampaign ? ' wf-stl-step--done' : ''}`}
                   onClick={() => { setCurrentStep(3); document.getElementById('step-3')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}>
                   <span className="wf-stl-num">{hasSentCampaign ? <i className="fas fa-check" /> : '3'}</span>
-                  <span className="wf-stl-label">Lanzar campaña</span>
+                  <span className="wf-stl-label">Lanzar</span>
                 </button>
               </nav>
             </div>
