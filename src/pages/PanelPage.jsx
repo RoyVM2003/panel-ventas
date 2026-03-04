@@ -237,73 +237,88 @@ export function PanelPage() {
             FLUJO DE TRABAJO
         ══════════════════════════════════ */}
         <div className="workflow-root">
-          <div className="wrap">
 
-            {/* Timeline */}
-            <nav className="stl-nav" aria-label="Pasos de la campaña">
-              <button type="button"
-                className={`stl-step${currentStep === 1 ? ' stl-step--active' : ''}${hasImportedExcel ? ' stl-step--done' : ''}`}
-                onClick={() => { setCurrentStep(1); document.getElementById('step-1')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}>
-                <span className="stl-num">{hasImportedExcel ? <i className="fas fa-check" /> : '1'}</span>
-                <span className="stl-label">Importar contactos</span>
-              </button>
-              <div className="stl-line" />
-              <button type="button"
-                className={`stl-step${currentStep === 2 ? ' stl-step--active' : ''}${(subject?.trim() && body?.trim()) ? ' stl-step--done' : ''}`}
-                onClick={() => { setCurrentStep(2); document.getElementById('step-2')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}>
-                <span className="stl-num">{(subject?.trim() && body?.trim()) ? <i className="fas fa-check" /> : '2'}</span>
-                <span className="stl-label">Diseñar campaña</span>
-              </button>
-              <div className="stl-line" />
-              <button type="button"
-                className={`stl-step${currentStep === '2b' ? ' stl-step--active' : ''}${hasUsedAI ? ' stl-step--done' : ''}`}
-                onClick={() => { setCurrentStep('2b'); document.getElementById('step-2b')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}>
-                <span className="stl-num stl-num--ai">{hasUsedAI ? <i className="fas fa-check" /> : <i className="fas fa-wand-magic-sparkles" />}</span>
-                <span className="stl-label">Afinar con IA</span>
-              </button>
-              <div className="stl-line" />
-              <button type="button"
-                className={`stl-step${currentStep === 3 ? ' stl-step--active' : ''}${hasSentCampaign ? ' stl-step--done' : ''}`}
-                onClick={() => { setCurrentStep(3); document.getElementById('step-3')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}>
-                <span className="stl-num">{hasSentCampaign ? <i className="fas fa-check" /> : '3'}</span>
-                <span className="stl-label">Lanzar campaña</span>
-              </button>
-            </nav>
+          {/* ── Banner imagen + barra de progreso encima ── */}
+          {/* Reemplaza el src con tu imagen real */}
+          <div className="wf-banner">
+            <img
+              src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80"
+              className="wf-banner-img"
+              alt="flujo de trabajo"
+            />
+            <div className="wf-banner-overlay" />
+            <div className="wf-banner-content">
+              <div className="wf-banner-eyebrow">
+                <i className="fas fa-layer-group" /> Flujo de campaña
+              </div>
+              <h2 className="wf-banner-title">Tu campaña, paso a paso</h2>
+              <nav className="wf-stl" aria-label="Pasos de la campaña">
+                <button type="button"
+                  className={`wf-stl-step${currentStep === 1 ? ' wf-stl-step--active' : ''}${hasImportedExcel ? ' wf-stl-step--done' : ''}`}
+                  onClick={() => { setCurrentStep(1); document.getElementById('step-1')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}>
+                  <span className="wf-stl-num">{hasImportedExcel ? <i className="fas fa-check" /> : '1'}</span>
+                  <span className="wf-stl-label">Importar contactos</span>
+                </button>
+                <div className="wf-stl-line" />
+                <button type="button"
+                  className={`wf-stl-step${currentStep === 2 ? ' wf-stl-step--active' : ''}${(subject?.trim() && body?.trim()) ? ' wf-stl-step--done' : ''}`}
+                  onClick={() => { setCurrentStep(2); document.getElementById('step-2')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}>
+                  <span className="wf-stl-num">{(subject?.trim() && body?.trim()) ? <i className="fas fa-check" /> : '2'}</span>
+                  <span className="wf-stl-label">Diseñar campaña</span>
+                </button>
+                <div className="wf-stl-line" />
+                <button type="button"
+                  className={`wf-stl-step${currentStep === '2b' ? ' wf-stl-step--active' : ''}${hasUsedAI ? ' wf-stl-step--done' : ''}`}
+                  onClick={() => { setCurrentStep('2b'); document.getElementById('step-2b')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}>
+                  <span className="wf-stl-num wf-stl-num--ai">{hasUsedAI ? <i className="fas fa-check" /> : <i className="fas fa-wand-magic-sparkles" />}</span>
+                  <span className="wf-stl-label">Afinar con IA</span>
+                </button>
+                <div className="wf-stl-line" />
+                <button type="button"
+                  className={`wf-stl-step${currentStep === 3 ? ' wf-stl-step--active' : ''}${hasSentCampaign ? ' wf-stl-step--done' : ''}`}
+                  onClick={() => { setCurrentStep(3); document.getElementById('step-3')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}>
+                  <span className="wf-stl-num">{hasSentCampaign ? <i className="fas fa-check" /> : '3'}</span>
+                  <span className="wf-stl-label">Lanzar campaña</span>
+                </button>
+              </nav>
+            </div>
+          </div>
 
-            <Message text={globalMsg.text} type={globalMsg.type} />
+          {/* ── Cards de trabajo ── */}
+          <div className="wf-cards">
+            <div className="wrap">
+              <Message text={globalMsg.text} type={globalMsg.type} />
 
-            {/* Paso 1 + Paso 2 — grid 2 columnas */}
-            <div className="wf-grid">
-              <section id="step-1" className="app-section">
-                <ExcelImport onImportSuccess={() => setHasImportedExcel(true)} />
+              <div className="wf-grid">
+                <section id="step-1" className="app-section">
+                  <ExcelImport onImportSuccess={() => setHasImportedExcel(true)} />
+                </section>
+                <section id="step-2" className="app-section">
+                  <CampaignForm
+                    campaigns={campaigns}
+                    selectedCampaignId={selectedCampaignId}
+                    onSelectedCampaignIdChange={setSelectedCampaignId}
+                    onCampaignCreated={addCampaign}
+                    onCampaignUpdated={updateCampaignInList}
+                    onCampaignDeleted={removeCampaign}
+                    subject={subject}
+                    body={body}
+                    onSubjectChange={setSubject}
+                    onBodyChange={setBody}
+                  />
+                </section>
+              </div>
+
+              <section id="step-2b" className="app-section wf-ai-section">
+                <AIAssistant body={body} onBodyAppend={handleBodyAppend} onSubjectChange={setSubject} onSuggestionApplied={() => setHasUsedAI(true)} />
               </section>
-              <section id="step-2" className="app-section">
-                <CampaignForm
-                  campaigns={campaigns}
-                  selectedCampaignId={selectedCampaignId}
-                  onSelectedCampaignIdChange={setSelectedCampaignId}
-                  onCampaignCreated={addCampaign}
-                  onCampaignUpdated={updateCampaignInList}
-                  onCampaignDeleted={removeCampaign}
-                  subject={subject}
-                  body={body}
-                  onSubjectChange={setSubject}
-                  onBodyChange={setBody}
-                />
+
+              <section id="step-3" className="app-section">
+                <SendCampaign subject={subject} message={body} hasImportedExcel={hasImportedExcel} onSendSuccess={() => setHasSentCampaign(true)} />
               </section>
             </div>
-
-            {/* IA — card oscura */}
-            <section id="step-2b" className="app-section wf-ai-section">
-              <AIAssistant body={body} onBodyAppend={handleBodyAppend} onSubjectChange={setSubject} onSuggestionApplied={() => setHasUsedAI(true)} />
-            </section>
-
-            {/* Lanzar */}
-            <section id="step-3" className="app-section">
-              <SendCampaign subject={subject} message={body} hasImportedExcel={hasImportedExcel} onSendSuccess={() => setHasSentCampaign(true)} />
-            </section>
-
           </div>
+
         </div>
       </div>
     </div>

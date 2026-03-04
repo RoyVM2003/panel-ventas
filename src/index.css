@@ -3640,14 +3640,159 @@ body {
 
 .workflow-root {
   position: relative;
+}
+
+/* ── Banner imagen con barra de progreso encima ── */
+.wf-banner {
+  position: relative;
+  width: 100%;
+  height: clamp(260px, 32vw, 380px);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+.wf-banner-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 60%;
+}
+
+.wf-banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(11, 30, 51, 0.35) 0%,
+    rgba(11, 30, 51, 0.72) 100%
+  );
+}
+
+.wf-banner-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 1.5rem 2rem;
+}
+
+.wf-banner-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 0.4rem;
+}
+
+.wf-banner-title {
+  font-size: clamp(1.2rem, 2.5vw, 1.75rem);
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.03em;
+  margin: 0 0 1.1rem;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Timeline sobre la imagen */
+.wf-stl {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  padding: 0.625rem 1.25rem;
+  gap: 0;
+  overflow-x: auto;
+}
+
+.wf-stl-step {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.wf-stl-step:hover { background: rgba(255, 255, 255, 0.1); }
+
+.wf-stl-num {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.wf-stl-num--ai {
+  background: rgba(201, 162, 39, 0.3);
+  color: #f0cf6a;
+}
+
+.wf-stl-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.2s ease;
+}
+
+.wf-stl-step--active .wf-stl-num {
+  background: linear-gradient(135deg, #c9a227, #e0b44a);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(201, 162, 39, 0.5);
+}
+
+.wf-stl-step--active .wf-stl-label { color: #fff; font-weight: 700; }
+
+.wf-stl-step--done .wf-stl-num {
+  background: linear-gradient(135deg, #059669, #10b981);
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4);
+}
+
+.wf-stl-step--done .wf-stl-label { color: #6ee7b7; }
+
+.wf-stl-line {
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  min-width: 20px;
+}
+
+/* ── Área de cards — fondo animado ── */
+.wf-cards {
+  position: relative;
   overflow: hidden;
   background: linear-gradient(-45deg, #eef2fb, #e8f0fe, #f5f0ff, #f0f7ff, #fdf8ed, #eef2fb);
   background-size: 500% 500%;
   animation: wf-gradient 18s ease infinite;
 }
 
-.workflow-root::before,
-.workflow-root::after {
+.wf-cards::before,
+.wf-cards::after {
   content: '';
   position: absolute;
   border-radius: 50%;
@@ -3655,27 +3800,32 @@ body {
   z-index: 0;
 }
 
-.workflow-root::before {
+.wf-cards::before {
   width: 700px;
   height: 700px;
-  background: radial-gradient(circle, rgba(201, 162, 39, 0.1) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(201, 162, 39, 0.08) 0%, transparent 65%);
   top: -100px;
   right: -150px;
   animation: wf-blob-float 14s ease-in-out infinite;
 }
 
-.workflow-root::after {
+.wf-cards::after {
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.07) 0%, transparent 65%);
   bottom: -50px;
   left: -100px;
   animation: wf-blob-float2 18s ease-in-out infinite;
 }
 
-.workflow-root .wrap {
+.wf-cards .wrap {
   position: relative;
   z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .wf-banner { height: 220px; }
+  .wf-stl-label { display: none; }
 }
 
 /* Bloque imagen + formulario */
