@@ -98,42 +98,39 @@ export function LoginPage() {
   return (
     <div id="loginPage" className="login-page">
 
-      {/* ── Lado izquierdo: hero ── */}
+      {/* ── Lado izquierdo: hero con foto ── */}
       <div className="login-hero">
-        <img
-          src="https://osdemsdigital.com/wp-content/uploads/2025/04/Logo-os-group.jpg"
-          alt="OSDEMS"
-          className="login-hero-logo"
-        />
-        <div className="login-hero-tag">
-          <i className="fas fa-bolt"></i>
-          Email Marketing Profesional
+        <div className="login-hero-content">
+          <div className="login-hero-tag">
+            <i className="fas fa-bolt"></i>
+            Email Marketing Profesional
+          </div>
+          <h1>
+            Envía campañas que<br />
+            <span>venden más</span>
+          </h1>
+          <p className="login-hero-desc">
+            Conecta con tus clientes, gestiona tus listas y lanza campañas de correo personalizadas en minutos — todo desde un mismo lugar.
+          </p>
+          <ul className="login-hero-features">
+            <li>
+              <span className="feat-icon"><i className="fas fa-file-excel"></i></span>
+              Importa contactos desde Excel en segundos
+            </li>
+            <li>
+              <span className="feat-icon"><i className="fas fa-pen-fancy"></i></span>
+              Diseña campañas de correo personalizadas
+            </li>
+            <li>
+              <span className="feat-icon"><i className="fas fa-robot"></i></span>
+              Asistente de inteligencia artificial incluido
+            </li>
+            <li>
+              <span className="feat-icon"><i className="fas fa-paper-plane"></i></span>
+              Envía a toda tu lista con un solo clic
+            </li>
+          </ul>
         </div>
-        <h1>
-          Envía campañas que<br />
-          <span>venden más</span>
-        </h1>
-        <p className="login-hero-desc">
-          Conecta con tus clientes, gestiona tus listas y lanza campañas de correo personalizadas en minutos — todo desde un mismo lugar.
-        </p>
-        <ul className="login-hero-features">
-          <li>
-            <span className="feat-icon"><i className="fas fa-file-excel"></i></span>
-            Importa contactos desde Excel en segundos
-          </li>
-          <li>
-            <span className="feat-icon"><i className="fas fa-pen-fancy"></i></span>
-            Diseña campañas de correo personalizadas
-          </li>
-          <li>
-            <span className="feat-icon"><i className="fas fa-robot"></i></span>
-            Asistente de inteligencia artificial incluido
-          </li>
-          <li>
-            <span className="feat-icon"><i className="fas fa-paper-plane"></i></span>
-            Envía a toda tu lista con un solo clic
-          </li>
-        </ul>
       </div>
 
       {/* ── Lado derecho: formulario ── */}
@@ -141,14 +138,15 @@ export function LoginPage() {
         <div className="login-form-inner">
           <div className="login-section">
             <div className="login-header">
-              <img
-                src="https://osdemsdigital.com/wp-content/uploads/2025/04/Logo-os-group.jpg"
-                alt="OSDEMS"
-                className="login-logo"
-              />
-              <h2>Accede a tu panel</h2>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
+                <div style={{ width: '2.5rem', height: '2.5rem', borderRadius: '10px', background: 'linear-gradient(135deg, #0b1e33, #123765)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <i className="fas fa-paper-plane" style={{ color: '#d4a83a', fontSize: '1rem' }}></i>
+                </div>
+                <span style={{ fontWeight: 700, fontSize: '1rem', color: '#0b1e33', letterSpacing: '-0.01em' }}>OSDEMS Ventas</span>
+              </div>
+              <h2>Bienvenido de vuelta</h2>
               <p className="login-subtitle">
-                Conecta con tus clientes: gestiona contactos, campañas y envíos desde un solo panel.
+                Accede a tu panel para gestionar contactos, diseñar campañas y enviar correos a tus clientes.
               </p>
             </div>
 

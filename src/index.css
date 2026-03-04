@@ -313,94 +313,95 @@ body {
 /* ── Hero (izquierda) ── */
 .login-hero {
   flex: 1;
-  background: linear-gradient(160deg, #060f1d 0%, #0b1e33 40%, #0f2744 75%, #123765 100%);
-  padding: 3.5rem 4rem;
+  /* === FOTO: reemplaza esta URL con la imagen de la chica cuando la tengas === */
+  background-image: url('https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=1200&q=80');
+  background-size: cover;
+  background-position: center top;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   position: relative;
   overflow: hidden;
+  padding: 0;
 }
 
+/* Overlay oscuro degradado sobre la foto para que el texto sea legible */
 .login-hero::before {
   content: '';
   position: absolute;
-  width: 700px;
-  height: 700px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(201, 162, 39, 0.08) 0%, transparent 65%);
-  top: -250px;
-  right: -200px;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(6, 15, 29, 0.15) 0%,
+    rgba(6, 15, 29, 0.25) 35%,
+    rgba(6, 15, 29, 0.75) 70%,
+    rgba(6, 15, 29, 0.95) 100%
+  );
   pointer-events: none;
+  z-index: 1;
 }
 
+/* Acento dorado superior izquierdo */
 .login-hero::after {
   content: '';
   position: absolute;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(30, 74, 118, 0.45) 0%, transparent 70%);
-  bottom: -180px;
-  left: -150px;
-  pointer-events: none;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #c9a227, #e8c05a, #c9a227);
+  z-index: 3;
 }
 
-.login-hero-logo {
-  height: 3.25rem;
-  width: auto;
-  object-fit: contain;
-  border-radius: 10px;
-  margin-bottom: 2.5rem;
+/* Contenido dentro del hero — encima del overlay */
+.login-hero-content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
+  padding: 3rem 3.5rem;
 }
 
 .login-hero-tag {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(201, 162, 39, 0.14);
-  border: 1px solid rgba(201, 162, 39, 0.3);
-  color: #d4a83a;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.07em;
+  background: rgba(201, 162, 39, 0.18);
+  border: 1px solid rgba(201, 162, 39, 0.45);
+  color: #e8c05a;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
-  padding: 0.375rem 0.875rem;
+  padding: 0.4rem 0.9rem;
   border-radius: 100px;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   width: fit-content;
-  position: relative;
-  z-index: 1;
+  backdrop-filter: blur(6px);
 }
 
 .login-hero h1 {
-  font-size: 2.875rem;
+  font-size: 3.25rem;
   font-weight: 800;
   color: #fff;
-  margin: 0 0 1.25rem;
-  line-height: 1.15;
-  letter-spacing: -0.035em;
-  position: relative;
-  z-index: 1;
+  margin: 0 0 1rem;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.5);
 }
 
 .login-hero h1 span {
-  background: linear-gradient(135deg, #d4a83a 0%, #e8c05a 100%);
+  background: linear-gradient(135deg, #d4a83a 0%, #f0cf6a 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .login-hero-desc {
-  font-size: 1.0625rem;
-  color: rgba(226, 239, 255, 0.72);
-  margin: 0 0 2.5rem;
-  max-width: 420px;
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.78);
+  margin: 0 0 2rem;
+  max-width: 400px;
   line-height: 1.65;
-  position: relative;
-  z-index: 1;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
 }
 
 .login-hero-features {
@@ -409,44 +410,55 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.875rem;
-  position: relative;
-  z-index: 1;
+  gap: 0.75rem;
 }
 
 .login-hero-features li {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  color: rgba(226, 239, 255, 0.88);
+  color: rgba(255, 255, 255, 0.9);
   font-size: 0.9375rem;
   font-weight: 500;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
 }
 
 .login-hero-features li .feat-icon {
-  width: 2rem;
-  height: 2rem;
+  width: 1.875rem;
+  height: 1.875rem;
   border-radius: 8px;
-  background: rgba(201, 162, 39, 0.14);
-  border: 1px solid rgba(201, 162, 39, 0.25);
+  background: rgba(201, 162, 39, 0.2);
+  border: 1px solid rgba(201, 162, 39, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #d4a83a;
-  font-size: 0.875rem;
+  color: #e8c05a;
+  font-size: 0.8rem;
   flex-shrink: 0;
+  backdrop-filter: blur(4px);
 }
 
 /* ── Panel formulario (derecha) ── */
 .login-form-panel {
-  width: 500px;
+  width: 480px;
   flex-shrink: 0;
   background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 3rem 3.25rem;
-  box-shadow: -4px 0 48px rgba(11, 30, 51, 0.12);
+  box-shadow: -4px 0 48px rgba(11, 30, 51, 0.14);
+  position: relative;
+}
+
+.login-form-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #c9a227, #e8c05a, #c9a227);
 }
 
 .login-form-inner {
