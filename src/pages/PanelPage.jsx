@@ -179,7 +179,6 @@ export function PanelPage() {
       <div className="app-dark-ring app-dark-ring--sm" />
 
       <div className="app-dark-content">
-        <HeaderBar />
 
         {/* ══════════════════════════════════
             HERO — imagen completa con texto
@@ -192,6 +191,11 @@ export function PanelPage() {
             alt="equipo de trabajo"
           />
           <div className="home-hero-overlay" />
+
+          {/* Header flotante sobre la imagen */}
+          <div className="home-hero-nav">
+            <HeaderBar />
+          </div>
 
           {/* Saludo personal — esquina inferior izquierda */}
           <div className="home-hero-greeting">
