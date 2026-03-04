@@ -1066,6 +1066,150 @@ body {
   z-index: 3;
 }
 
+/* ═══════════════════════════════════════
+   HERO — IMAGEN COMPLETA (estilo Ferrari/Rolex)
+═══════════════════════════════════════ */
+
+/* La imagen llena todo el lp-hero */
+.lp-hero-img-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Imagen real cuando la tengas:
+   <img src="URL" className="lp-hero-img" alt="..." /> */
+.lp-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Placeholder mientras no hay imagen — gradiente elegante */
+.lp-hero-img-ph {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    160deg,
+    #06101f 0%,
+    #0b1e33 30%,
+    #123765 60%,
+    #0d2545 80%,
+    #060f1d 100%
+  );
+}
+
+/* Overlay gradiente para legibilidad del texto sobre la foto */
+.lp-hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    160deg,
+    rgba(4, 10, 24, 0.45) 0%,
+    rgba(6, 15, 29, 0.55) 40%,
+    rgba(4, 10, 20, 0.72) 100%
+  );
+}
+
+/* Todo el contenido flota encima */
+.lp-hero-over {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding: 2.25rem 2.75rem 2.5rem;
+  color: #fff;
+}
+
+/* Bloque de texto centrado en la imagen */
+.lp-hero-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0;
+}
+
+/* Texto outline sobre imagen — blanco */
+.lp-h1-outline-light {
+  -webkit-text-stroke: 2.5px rgba(255, 255, 255, 0.65);
+  -webkit-text-fill-color: transparent;
+}
+
+/* Overrides de color para texto sobre imagen */
+.lp-hero-over .lp-brand-name        { color: #fff; }
+.lp-hero-over .lp-brand-sub         { color: rgba(255,255,255,0.55); }
+.lp-hero-over .lp-live-pill         { background: rgba(16,185,129,0.15); border-color: rgba(16,185,129,0.35); color: #6ee7b7; }
+.lp-hero-over .lp-badge-pill        { background: rgba(201,162,39,0.15); border-color: rgba(201,162,39,0.35); color: #e8c05a; }
+.lp-hero-over .lp-h1                { color: #fff; }
+.lp-hero-over .lp-hero-desc         { color: rgba(255,255,255,0.7); }
+.lp-hero-over .lp-big-stat strong   { color: #fff; }
+.lp-hero-over .lp-big-stat span     { color: rgba(255,255,255,0.5); }
+.lp-hero-over .lp-big-stat-sep      { background: rgba(255,255,255,0.18); }
+.lp-hero-over .lp-trust span        { color: rgba(255,255,255,0.6); margin-left: 0.75rem; }
+.lp-hero-over .lp-ta                { border-color: rgba(4,10,24,0.7); }
+.lp-hero-over .lp-big-stats         { justify-content: center; margin: 1.5rem 0 1.25rem; }
+.lp-hero-over .lp-trust             { justify-content: center; margin-bottom: 0; }
+
+/* Feature pills sobre imagen */
+.lp-feat-pills--over {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.lp-feat-pill--over {
+  background: rgba(255,255,255,0.1) !important;
+  border-color: rgba(255,255,255,0.2) !important;
+  color: rgba(255,255,255,0.85) !important;
+  backdrop-filter: blur(8px);
+}
+
+.lp-feat-pill--over i {
+  color: #e0b44a !important;
+}
+
+/* ── Banner del home — imagen completa sin recuadro ── */
+.home-banner {
+  width: 100%;
+  height: 220px;
+  border-radius: 22px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 32px rgba(11, 30, 51, 0.12);
+}
+
+/* Imagen real del home:
+   <img src="URL" className="home-banner-img" alt="..." /> */
+.home-banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Placeholder del banner mientras no hay imagen */
+.home-banner-ph {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    #0b1e33 0%,
+    #123765 40%,
+    #1e4a76 70%,
+    #0b1e33 100%
+  );
+}
+
 /* ── Hero body: titular + stats ── */
 .lp-hero-body {
   flex: 0 0 auto;

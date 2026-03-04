@@ -181,10 +181,9 @@ export function PanelPage() {
       <div className="app-dark-content wrap">
       <HeaderBar />
 
-      {/* ── Banner de imagen (reemplaza con tu foto/banner real) ── */}
-      {/* PARA USAR: sustituye por <img src="URL" alt="..." style={{width:'100%',height:'210px',objectFit:'cover',borderRadius:'20px',marginBottom:'2rem'}} /> */}
-      <div className="img-slot img-slot--banner">
-        <i className="fas fa-image"></i>
+      {/* ── Banner imagen completa — reemplaza con: <img src="URL" className="home-banner-img" alt="..." /> ── */}
+      <div className="home-banner">
+        <div className="home-banner-ph" />
       </div>
 
       {/* ── Welcome strip ── */}
