@@ -13,6 +13,7 @@ export function PanelPage() {
   useScrollReveal()
   const { email } = useAuth()
   const username = email ? email.split('@')[0] : 'Usuario'
+  const [designAiTab, setDesignAiTab] = useState('design')
   const [campaigns, setCampaigns] = useState([])
   const [selectedCampaignId, setSelectedCampaignId] = useState('')
   const [subject, setSubject] = useState('')
@@ -200,7 +201,7 @@ export function PanelPage() {
           </div>
 
           {/* Saludo personal — esquina inferior izquierda */}
-          <div className="home-hero-greeting reveal reveal-from-left">
+          <div className="home-hero-greeting reveal reveal-slow reveal-from-left">
             <div className="home-hero-greeting-top">
               <span className="hw-dot" />
               <span className="home-hero-greeting-label">Panel activo</span>
@@ -226,7 +227,7 @@ export function PanelPage() {
           </div>
 
           {/* Texto central */}
-          <div className="home-hero-text reveal reveal-delay-1">
+          <div className="home-hero-text reveal reveal-slow reveal-delay-1">
             <div className="home-hero-eyebrow">OSDEMS · Email Marketing con IA</div>
             <h1 className="home-hero-h1">Lanza campañas<br />que convierten</h1>
             <p className="home-hero-desc">
@@ -263,17 +264,10 @@ export function PanelPage() {
                 </button>
                 <div className="wf-stl-line" />
                 <button type="button"
-                  className={`wf-stl-step${currentStep === 2 ? ' wf-stl-step--active' : ''}${(subject?.trim() && body?.trim()) ? ' wf-stl-step--done' : ''}`}
+                  className={`wf-stl-step${(currentStep === 2 || currentStep === '2b') ? ' wf-stl-step--active' : ''}${(subject?.trim() && body?.trim()) ? ' wf-stl-step--done' : ''}`}
                   onClick={() => { setCurrentStep(2); document.getElementById('step-2')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}>
                   <span className="wf-stl-num">{(subject?.trim() && body?.trim()) ? <i className="fas fa-check" /> : '2'}</span>
-                  <span className="wf-stl-label">Diseñar campaña</span>
-                </button>
-                <div className="wf-stl-line" />
-                <button type="button"
-                  className={`wf-stl-step${currentStep === '2b' ? ' wf-stl-step--active' : ''}${hasUsedAI ? ' wf-stl-step--done' : ''}`}
-                  onClick={() => { setCurrentStep('2b'); document.getElementById('step-2b')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}>
-                  <span className="wf-stl-num wf-stl-num--ai">{hasUsedAI ? <i className="fas fa-check" /> : <i className="fas fa-wand-magic-sparkles" />}</span>
-                  <span className="wf-stl-label">Afinar con IA</span>
+                  <span className="wf-stl-label">Diseñar + IA</span>
                 </button>
                 <div className="wf-stl-line" />
                 <button type="button"
@@ -292,28 +286,46 @@ export function PanelPage() {
               <Message text={globalMsg.text} type={globalMsg.type} />
 
               <div className="wf-grid">
+                {/* Paso 1 */}
                 <section id="step-1" className="app-section reveal reveal-delay-1">
                   <ExcelImport onImportSuccess={() => setHasImportedExcel(true)} />
                 </section>
+
+                {/* Paso 2 + 2b — tarjeta con tabs */}
                 <section id="step-2" className="app-section reveal reveal-delay-2">
-                  <CampaignForm
-                    campaigns={campaigns}
-                    selectedCampaignId={selectedCampaignId}
-                    onSelectedCampaignIdChange={setSelectedCampaignId}
-                    onCampaignCreated={addCampaign}
-                    onCampaignUpdated={updateCampaignInList}
-                    onCampaignDeleted={removeCampaign}
-                    subject={subject}
-                    body={body}
-                    onSubjectChange={setSubject}
-                    onBodyChange={setBody}
-                  />
+                  <div className="cstab-root">
+                    <div className="cstab-bar">
+                      <button type="button"
+                        className={`cstab${designAiTab === 'design' ? ' cstab--active' : ''}`}
+                        onClick={() => setDesignAiTab('design')}>
+                        <i className="fas fa-envelope-open-text" /> Diseñar campaña
+                      </button>
+                      <button type="button"
+                        className={`cstab${designAiTab === 'ai' ? ' cstab--active' : ''}`}
+                        onClick={() => setDesignAiTab('ai')}>
+                        <i className="fas fa-wand-magic-sparkles" /> Afinar con IA
+                      </button>
+                    </div>
+                    <div className={`cstab-pane${designAiTab === 'design' ? ' cstab-pane--active' : ''}`}>
+                      <CampaignForm
+                        campaigns={campaigns}
+                        selectedCampaignId={selectedCampaignId}
+                        onSelectedCampaignIdChange={setSelectedCampaignId}
+                        onCampaignCreated={addCampaign}
+                        onCampaignUpdated={updateCampaignInList}
+                        onCampaignDeleted={removeCampaign}
+                        subject={subject}
+                        body={body}
+                        onSubjectChange={setSubject}
+                        onBodyChange={setBody}
+                      />
+                    </div>
+                    <div className={`cstab-pane${designAiTab === 'ai' ? ' cstab-pane--active' : ''}`}>
+                      <AIAssistant body={body} onBodyAppend={handleBodyAppend} onSubjectChange={setSubject} onSuggestionApplied={() => setHasUsedAI(true)} />
+                    </div>
+                  </div>
                 </section>
               </div>
-
-              <section id="step-2b" className="app-section wf-ai-section reveal">
-                <AIAssistant body={body} onBodyAppend={handleBodyAppend} onSubjectChange={setSubject} onSuggestionApplied={() => setHasUsedAI(true)} />
-              </section>
 
               <section id="step-3" className="app-section reveal">
                 <SendCampaign subject={subject} message={body} hasImportedExcel={hasImportedExcel} onSendSuccess={() => setHasSentCampaign(true)} />

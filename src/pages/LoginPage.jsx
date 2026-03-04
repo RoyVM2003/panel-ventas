@@ -112,9 +112,13 @@ export function LoginPage() {
       {/* ══════════════ HERO — IMAGEN COMPLETA ══════════════ */}
       <div className="lp-hero">
 
-        {/* IMAGEN DE FONDO — reemplaza este div con: <img src="URL" className="lp-hero-img" alt="..." /> */}
+        {/* IMAGEN DE FONDO — reemplaza el src con tu foto real */}
         <div className="lp-hero-img-wrap">
-          <div className="lp-hero-img-ph" />
+          <img
+            src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=900&q=80"
+            className="lp-hero-img"
+            alt=""
+          />
         </div>
 
         {/* Overlay de gradiente para legibilidad */}
