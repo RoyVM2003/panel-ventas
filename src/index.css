@@ -4319,7 +4319,7 @@ h4, h5, h6, button, input, select, textarea, label {
   flex-direction: column;
   min-height: 0;
   position: relative;
-  padding-top: 5rem;
+  padding-top: 7rem;
 }
 
 .app-section--faded {
@@ -4358,7 +4358,7 @@ h4, h5, h6, button, input, select, textarea, label {
 #step-3 {
   margin-top: 2.5rem;
   position: relative;
-  padding-top: 5rem;
+  padding-top: 7rem;
 }
 
 /* Bloque "¿Qué formato debe tener el Excel?" — fondo oscuro para que no se pierda */
