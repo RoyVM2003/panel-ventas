@@ -25,6 +25,16 @@ export function PanelPage() {
   const [hasSentCampaign, setHasSentCampaign] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
 
+  const hasSubjectAndBody = !!(subject && subject.trim() && body && body.trim())
+  let mascotStep = 1
+  if (!hasImportedExcel) {
+    mascotStep = 1
+  } else if (!hasSubjectAndBody) {
+    mascotStep = 2
+  } else {
+    mascotStep = 3
+  }
+
   const addCampaign = useCallback((campaign) => {
     setCampaigns((prev) => {
       const id =
@@ -259,16 +269,16 @@ export function PanelPage() {
               <div className="wf-grid">
                 {/* Paso 1 */}
                 <div className="step-with-mascot step-with-mascot--1">
-                  <section id="step-1" className="app-section reveal reveal-delay-1">
-                    <ExcelImport onImportSuccess={() => setHasImportedExcel(true)} />
-                  </section>
-                  {currentStep === 1 && (
+                  {mascotStep === 1 && (
                     <MascotAssistant
                       size="sm"
                       variant="inline"
                       message="Empieza aquí: este Excel define a quién vas a escribir."
                     />
                   )}
+                  <section id="step-1" className="app-section reveal reveal-delay-1">
+                    <ExcelImport onImportSuccess={() => setHasImportedExcel(true)} />
+                  </section>
                 </div>
 
                 {/* Paso 2 + 2b — tarjeta con tabs */}
@@ -306,7 +316,7 @@ export function PanelPage() {
                       </div>
                     </div>
                   </section>
-                  {(currentStep === 2 || currentStep === '2b') && (
+                  {mascotStep === 2 && (
                     <MascotAssistant
                       size="sm"
                       variant="inline"
@@ -317,10 +327,7 @@ export function PanelPage() {
               </div>
 
               <div className="step-with-mascot step-with-mascot--3">
-                <section id="step-3" className="app-section reveal">
-                  <SendCampaign subject={subject} message={body} hasImportedExcel={hasImportedExcel} onSendSuccess={() => setHasSentCampaign(true)} />
-                </section>
-                {currentStep === 3 && (
+                {mascotStep === 3 && (
                   <MascotAssistant
                     size="sm"
                     variant="warning"
@@ -329,6 +336,9 @@ export function PanelPage() {
                       : 'Importa tu Excel en el Paso 1 para desbloquear el envío.'}
                   />
                 )}
+                <section id="step-3" className="app-section reveal">
+                  <SendCampaign subject={subject} message={body} hasImportedExcel={hasImportedExcel} onSendSuccess={() => setHasSentCampaign(true)} />
+                </section>
               </div>
 
               {/* CTA final (estilo Ciklum) */}
