@@ -284,7 +284,10 @@ export function PanelPage() {
 
               <div className="wf-grid">
                 {/* Paso 1 */}
-                <section id="step-1" className="app-section reveal reveal-delay-1">
+                <section
+                  id="step-1"
+                  className={`app-section reveal reveal-delay-1${currentStep !== 1 ? ' app-section--faded' : ''}`}
+                >
                   {mascotStep === 1 && (
                     <div className="mascot-step mascot-step--1">
                       <MascotAssistant
@@ -298,7 +301,10 @@ export function PanelPage() {
                 </section>
 
                 {/* Paso 2 + 2b — tarjeta con tabs */}
-                <section id="step-2" className="app-section reveal reveal-delay-2">
+                <section
+                  id="step-2"
+                  className={`app-section reveal reveal-delay-2${(currentStep !== 2 && currentStep !== '2b') ? ' app-section--faded' : ''}`}
+                >
                   {mascotStep === 2 && (
                     <div className="mascot-step mascot-step--2">
                       <MascotAssistant
@@ -342,7 +348,10 @@ export function PanelPage() {
                 </section>
               </div>
 
-              <section id="step-3" className="app-section reveal">
+              <section
+                id="step-3"
+                className={`app-section reveal${currentStep !== 3 ? ' app-section--faded' : ''}`}
+              >
                 {mascotStep === 3 && (
                   <div className="mascot-step mascot-step--3">
                     <MascotAssistant

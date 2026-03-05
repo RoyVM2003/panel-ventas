@@ -3765,8 +3765,8 @@ h4, h5, h6, button, input, select, textarea, label {
 }
 
 .mascot-image-wrap {
-  width: 88px;
-  height: 112px;
+  width: 96px;
+  height: 122px;
   border-radius: 16px;
   overflow: hidden;
   background: radial-gradient(circle at top, rgba(240, 207, 106, 0.3), transparent 55%);
@@ -3778,8 +3778,8 @@ h4, h5, h6, button, input, select, textarea, label {
 }
 
 .mascot--sm .mascot-image-wrap {
-  width: 80px;
-  height: 104px;
+  width: 96px;
+  height: 122px;
 }
 
 .mascot-image {
@@ -3803,7 +3803,21 @@ h4, h5, h6, button, input, select, textarea, label {
 }
 
 .mascot-bubble-text {
-  display: block;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 1px solid rgba(249, 250, 251, 0.85);
+  animation: mascot-typing 2.4s steps(32, end) 0.3s 1 forwards;
+}
+
+@keyframes mascot-typing {
+  from {
+    max-width: 0;
+  }
+  to {
+    max-width: 100%;
+    border-right-color: transparent;
+  }
 }
 
 .mascot--inline .mascot-bubble,
@@ -4313,6 +4327,16 @@ h4, h5, h6, button, input, select, textarea, label {
   min-height: 0;
   position: relative;
   padding-top: 5rem;
+}
+
+.app-section--faded {
+  opacity: 0.45;
+  filter: grayscale(0.1);
+  transition: opacity 0.25s ease, filter 0.25s ease, transform 0.25s ease;
+}
+
+.app-section:not(.app-section--faded) {
+  transform: translateY(-2px);
 }
 
 .wf-grid .app-section > .panel,
