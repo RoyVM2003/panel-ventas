@@ -2810,16 +2810,25 @@ h4, h5, h6, button, input, select, textarea, label {
 
 .upload-format-hint {
   font-size: 0.875rem;
-  color: var(--gray-500);
+  color: rgba(255, 255, 255, 0.9);
   margin-bottom: 1.25rem;
   line-height: 1.5;
+  background: var(--navy-900);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
 }
 
 .upload-format-hint summary {
   cursor: pointer;
   font-weight: 600;
-  color: var(--navy-700);
-  padding: 0.3rem 0;
+  color: #fff;
+  padding: 0.25rem 0;
+  list-style: none;
+}
+
+.upload-format-hint summary::-webkit-details-marker {
+  display: none;
 }
 
 .upload-format-hint ul {
@@ -2829,6 +2838,10 @@ h4, h5, h6, button, input, select, textarea, label {
 
 .upload-format-hint li {
   margin-bottom: 0.25rem;
+}
+
+.upload-format-hint strong {
+  color: var(--gold-300);
 }
 
 .form-hint-text {
@@ -3865,7 +3878,6 @@ h4, h5, h6, button, input, select, textarea, label {
   background: #ffffff;
   border: 1px solid rgba(203, 213, 225, 0.5);
   box-shadow: 0 4px 24px rgba(11, 30, 51, 0.08);
-  height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -3915,11 +3927,13 @@ h4, h5, h6, button, input, select, textarea, label {
 .cstab-pane {
   display: none;
   flex: 1;
+  min-height: 0;
 }
 
 .cstab-pane--active {
   display: flex;
   flex-direction: column;
+  min-height: 0;
 }
 
 /* Sin fondo doble — el panel dentro del tab hereda el root */
@@ -4150,10 +4164,43 @@ h4, h5, h6, button, input, select, textarea, label {
 .wf-grid .app-section {
   display: flex;
   flex-direction: column;
+  min-height: 0;
+}
+
+.wf-grid .app-section > .panel,
+.wf-grid .app-section > .cstab-root {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .wf-grid .app-section .panel {
   flex: 1;
+  margin-bottom: 0;
+}
+
+/* Paso 2: mismo tamaño que paso 1, sin espacio de más */
+.wf-grid .app-section .cstab-root {
+  padding: 0;
+}
+
+.wf-grid .cstab-pane .panel {
+  margin-bottom: 0 !important;
+  padding-bottom: 2rem !important;
+}
+
+/* Bloque "¿Qué formato debe tener el Excel?" — fondo oscuro para que no se pierda */
+.wf-cards .upload-format-hint {
+  background: var(--navy-900) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+.wf-cards .upload-format-hint summary {
+  color: #fff !important;
+}
+.wf-cards .upload-format-hint strong {
+  color: var(--gold-300) !important;
 }
 
 /* Sección IA — sin fondo azul, igual que el resto */
@@ -4415,6 +4462,10 @@ h4, h5, h6, button, input, select, textarea, label {
   border-radius: 14px !important;
   padding: 2rem 2.25rem !important;
   overflow: hidden;
+}
+
+.wf-grid .app-section .panel {
+  margin-bottom: 0 !important;
 }
 
 /* Línea amarilla sigue el contorno de la tarjeta */
