@@ -4434,10 +4434,18 @@ h4, h5, h6, button, input, select, textarea, label {
   position: relative;
   margin-right: 340px;
   min-height: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .wf-carousel-pane {
   width: 100%;
+  display: none;
+}
+
+.wf-carousel-pane--active {
+  display: block;
   animation: wf-pane-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
@@ -4453,6 +4461,16 @@ h4, h5, h6, button, input, select, textarea, label {
 .wf-carousel-pane .cstab-root {
   flex: 1;
   min-height: 320px;
+}
+
+/* Paso 3 alineado arriba como el resto (sin bajar la tarjeta) */
+#step-3.wf-carousel-pane--active {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+#step-3.wf-carousel-pane--active .panel {
+  margin-top: 0;
 }
 
 .wf-carousel-nav {

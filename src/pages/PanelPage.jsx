@@ -338,52 +338,46 @@ export function PanelPage() {
                 </div>
 
                 <div className="wf-carousel-slide">
-                  {currentStep === 1 && (
-                    <section id="step-1" className="wf-carousel-pane">
-                      <ExcelImport onImportSuccess={() => setHasImportedExcel(true)} />
-                    </section>
-                  )}
-                  {currentStep === 2 && (
-                    <section id="step-2" className="wf-carousel-pane">
-                      <div className="cstab-root">
-                        <div className="cstab-bar">
-                          <button type="button"
-                            className={`cstab${designAiTab === 'design' ? ' cstab--active' : ''}`}
-                            onClick={() => setDesignAiTab('design')}>
-                            <i className="fas fa-envelope-open-text" /> Diseñar campaña
-                          </button>
-                          <button type="button"
-                            className={`cstab${designAiTab === 'ai' ? ' cstab--active' : ''}`}
-                            onClick={() => setDesignAiTab('ai')}>
-                            <i className="fas fa-wand-magic-sparkles" /> Afinar con IA
-                          </button>
-                        </div>
-                        <div className={`cstab-pane${designAiTab === 'design' ? ' cstab-pane--active' : ''}`}>
-                          <CampaignForm
-                            campaigns={campaigns}
-                            selectedCampaignId={selectedCampaignId}
-                            onSelectedCampaignIdChange={setSelectedCampaignId}
-                            onCampaignCreated={addCampaign}
-                            onCampaignUpdated={updateCampaignInList}
-                            onCampaignDeleted={removeCampaign}
-                            subject={subject}
-                            body={body}
-                            onSubjectChange={setSubject}
-                            onBodyChange={setBody}
-                            disabled={!hasImportedExcel}
-                          />
-                        </div>
-                        <div className={`cstab-pane${designAiTab === 'ai' ? ' cstab-pane--active' : ''}`}>
-                          <AIAssistant body={body} onBodyAppend={handleBodyAppend} onSubjectChange={setSubject} onSuggestionApplied={() => setHasUsedAI(true)} />
-                        </div>
+                  <section id="step-1" className={`wf-carousel-pane${currentStep === 1 ? ' wf-carousel-pane--active' : ''}`} aria-hidden={currentStep !== 1}>
+                    <ExcelImport onImportSuccess={() => setHasImportedExcel(true)} />
+                  </section>
+                  <section id="step-2" className={`wf-carousel-pane${currentStep === 2 ? ' wf-carousel-pane--active' : ''}`} aria-hidden={currentStep !== 2}>
+                    <div className="cstab-root">
+                      <div className="cstab-bar">
+                        <button type="button"
+                          className={`cstab${designAiTab === 'design' ? ' cstab--active' : ''}`}
+                          onClick={() => setDesignAiTab('design')}>
+                          <i className="fas fa-envelope-open-text" /> Diseñar campaña
+                        </button>
+                        <button type="button"
+                          className={`cstab${designAiTab === 'ai' ? ' cstab--active' : ''}`}
+                          onClick={() => setDesignAiTab('ai')}>
+                          <i className="fas fa-wand-magic-sparkles" /> Afinar con IA
+                        </button>
                       </div>
-                    </section>
-                  )}
-                  {currentStep === 3 && (
-                    <section id="step-3" className="wf-carousel-pane">
-                      <SendCampaign subject={subject} message={body} hasImportedExcel={hasImportedExcel} onSendSuccess={() => { setHasSentCampaign(true); setShowSentOverlay(true) }} />
-                    </section>
-                  )}
+                      <div className={`cstab-pane${designAiTab === 'design' ? ' cstab-pane--active' : ''}`}>
+                        <CampaignForm
+                          campaigns={campaigns}
+                          selectedCampaignId={selectedCampaignId}
+                          onSelectedCampaignIdChange={setSelectedCampaignId}
+                          onCampaignCreated={addCampaign}
+                          onCampaignUpdated={updateCampaignInList}
+                          onCampaignDeleted={removeCampaign}
+                          subject={subject}
+                          body={body}
+                          onSubjectChange={setSubject}
+                          onBodyChange={setBody}
+                          disabled={!hasImportedExcel}
+                        />
+                      </div>
+                      <div className={`cstab-pane${designAiTab === 'ai' ? ' cstab-pane--active' : ''}`}>
+                        <AIAssistant body={body} onBodyAppend={handleBodyAppend} onSubjectChange={setSubject} onSuggestionApplied={() => setHasUsedAI(true)} />
+                      </div>
+                    </div>
+                  </section>
+                  <section id="step-3" className={`wf-carousel-pane${currentStep === 3 ? ' wf-carousel-pane--active' : ''}`} aria-hidden={currentStep !== 3}>
+                    <SendCampaign subject={subject} message={body} hasImportedExcel={hasImportedExcel} onSendSuccess={() => { setHasSentCampaign(true); setShowSentOverlay(true) }} />
+                  </section>
                 </div>
 
                 {/* Navegación inferior: puntos + Anterior / Siguiente */}
