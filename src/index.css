@@ -3804,7 +3804,6 @@ h4, h5, h6, button, input, select, textarea, label {
 
 .mascot-bubble-text {
   display: inline-block;
-  white-space: nowrap;
   overflow: hidden;
   border-right: 1px solid rgba(249, 250, 251, 0.85);
   animation: mascot-typing 2.4s steps(32, end) 0.3s 1 forwards;
