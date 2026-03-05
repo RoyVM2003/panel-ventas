@@ -204,7 +204,6 @@ export function PanelPage() {
           {/* Saludo personal — esquina inferior izquierda */}
           <div className="home-hero-greeting reveal reveal-slow reveal-from-left">
             <div className="home-hero-greeting-top">
-              <span className="hw-dot" />
               <span className="home-hero-greeting-label">Panel activo</span>
             </div>
             <div className="home-hero-greeting-name">

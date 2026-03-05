@@ -122,28 +122,19 @@ export function LoginPage() {
           <div className="lp-topbar">
             <div className="lp-brand">
               <img
-                src="https://osdemsdigital.com/wp-content/uploads/2026/03/logo-ventas.jpeg"
+                src="https://osdemsdigital.com/wp-content/uploads/2026/03/loogo-app.png"
                 alt="OSDEMS"
-                className="lp-brand-img"
+                className="lp-brand-img lp-logo-no-bg"
               />
               <div>
                 <div className="lp-brand-name">OSDEMS Ventas</div>
                 <div className="lp-brand-sub">Panel de Email Marketing</div>
               </div>
             </div>
-            <div className="lp-live-pill">
-              <span className="lp-live-dot" />
-              En línea
-            </div>
           </div>
 
           {/* Texto principal — centrado en la imagen */}
           <div className="lp-hero-center">
-
-            <div className="lp-badge-pill">
-              <i className="fas fa-rocket"></i>
-              Plataforma de Email Marketing con IA
-            </div>
 
             <h1 className="lp-h1">
               Campañas que<br />
@@ -155,52 +146,6 @@ export function LoginPage() {
               Importa contactos, diseña con IA y lanza correos masivos en minutos.
             </p>
 
-            {/* Stats grandes */}
-            <div className="lp-big-stats">
-              <div className="lp-big-stat">
-                <strong>12k+</strong>
-                <span>Emails al mes</span>
-              </div>
-              <div className="lp-big-stat-sep" />
-              <div className="lp-big-stat">
-                <strong>100%</strong>
-                <span>Entregados</span>
-              </div>
-              <div className="lp-big-stat-sep" />
-              <div className="lp-big-stat">
-                <strong>IA</strong>
-                <span>Incluida</span>
-              </div>
-            </div>
-
-            {/* Trust */}
-            <div className="lp-trust">
-              <div className="lp-trust-avatars">
-                <div className="lp-ta lp-ta--1" />
-                <div className="lp-ta lp-ta--2" />
-                <div className="lp-ta lp-ta--3" />
-                <div className="lp-ta lp-ta--4" />
-                <div className="lp-ta lp-ta--5" />
-              </div>
-              <span>+500 empresas confían en OSDEMS</span>
-            </div>
-
-          </div>
-
-          {/* Feature pills — pie de la imagen */}
-          <div className="lp-feat-pills lp-feat-pills--over">
-            <div className="lp-feat-pill lp-feat-pill--over">
-              <i className="fas fa-file-excel"></i> Excel
-            </div>
-            <div className="lp-feat-pill lp-feat-pill--over">
-              <i className="fas fa-robot"></i> IA
-            </div>
-            <div className="lp-feat-pill lp-feat-pill--over">
-              <i className="fas fa-shield-halved"></i> Seguro
-            </div>
-            <div className="lp-feat-pill lp-feat-pill--over">
-              <i className="fas fa-paper-plane"></i> Envío masivo
-            </div>
           </div>
 
         </div>
@@ -217,9 +162,9 @@ export function LoginPage() {
           {/* Logo en el panel */}
           <div className="lp-panel-logo">
             <img
-              src="https://osdemsdigital.com/wp-content/uploads/2026/03/logo-ventas.jpeg"
+              src="https://osdemsdigital.com/wp-content/uploads/2026/03/loogo-app.png"
               alt="OSDEMS"
-              className="lp-panel-logo-img"
+              className="lp-panel-logo-img lp-logo-no-bg"
             />
           </div>
 
