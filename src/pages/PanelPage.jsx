@@ -25,6 +25,10 @@ export function PanelPage() {
   const [hasSentCampaign, setHasSentCampaign] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
 
+  const scrollToSteps = useCallback(() => {
+    document.getElementById('step-1')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [])
+
   const hasSubjectAndBody = !!(subject && subject.trim() && body && body.trim())
   let mascotStep = 1
   if (!hasImportedExcel) {
@@ -227,7 +231,19 @@ export function PanelPage() {
           <MascotAssistant
             size="lg"
             variant="hero"
-            message="Te acompaño en cada paso del panel."
+            message={
+              <>
+                Te acompaño en cada paso del panel.
+                {' '}
+                <button
+                  type="button"
+                  className="mascot-cta-link"
+                  onClick={scrollToSteps}
+                >
+                  Ver instrucciones ↓
+                </button>
+              </>
+            }
           />
         </div>
 

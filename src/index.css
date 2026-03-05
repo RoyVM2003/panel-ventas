@@ -3833,23 +3833,39 @@ h4, h5, h6, button, input, select, textarea, label {
 
 .mascot-step--1 {
   left: -220px;
-  top: 1.5rem;
+  top: -0.75rem;
 }
 
 .mascot-step--2 {
   right: -240px;
-  top: 1.5rem;
+  top: -0.75rem;
 }
 
 .mascot-step--3 {
   left: -220px;
-  top: 1.5rem;
+  top: -0.75rem;
 }
 
 @media (max-width: 1024px) {
   .mascot-step {
     display: none;
   }
+}
+
+.mascot-cta-link {
+  background: none;
+  border: none;
+  color: #f0cf6a;
+  font-weight: 600;
+  font-size: 0.78rem;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  padding: 0;
+}
+
+.mascot-cta-link:hover {
+  color: #ffffff;
 }
 
 @media (max-width: 768px) {
@@ -4586,7 +4602,7 @@ h4, h5, h6, button, input, select, textarea, label {
 /* ── Área de cards del panel ── */
 .wf-cards {
   position: relative;
-  padding: 2.5rem 0 3.5rem;
+  padding: 3rem 0 3.5rem;
 }
 
 .wf-cards .wrap {
