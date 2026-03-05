@@ -277,7 +277,7 @@ export function PanelPage() {
               <nav className="wf-stl" aria-label="Pasos de la campaña">
                 <button type="button"
                   className={`wf-stl-step${currentStep === 1 ? ' wf-stl-step--active' : ''}${hasImportedExcel ? ' wf-stl-step--done' : ''}`}
-                  onClick={() => { setCurrentStep(1); document.getElementById('step-1')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}>
+                  onClick={() => setCurrentStep(1)}>
                   <span className="wf-stl-num">{hasImportedExcel ? <i className="fas fa-check" /> : '1'}</span>
                   <span className="wf-stl-label">Importar</span>
                 </button>
@@ -287,11 +287,9 @@ export function PanelPage() {
                   onClick={() => {
                     if (!canUseStep2) {
                       setGlobalMsg({ text: 'Primero completa el Paso 1 — Importar contactos.', type: 'err' })
-                      document.getElementById('step-1')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
                       return
                     }
                     setCurrentStep(2)
-                    document.getElementById('step-2')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
                   }}>
                   <span className="wf-stl-num">{(subject?.trim() && body?.trim()) ? <i className="fas fa-check" /> : '2'}</span>
                   <span className="wf-stl-label">Diseñar + IA</span>
@@ -305,12 +303,9 @@ export function PanelPage() {
                         ? 'Primero completa el Paso 1 — Importar contactos.'
                         : 'Completa asunto y mensaje en el Paso 2 antes de enviar.'
                       setGlobalMsg({ text: msg, type: 'err' })
-                      const targetId = !canUseStep2 ? 'step-1' : 'step-2'
-                      document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
                       return
                     }
                     setCurrentStep(3)
-                    document.getElementById('step-3')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
                   }}>
                   <span className="wf-stl-num">{hasSentCampaign ? <i className="fas fa-check" /> : '3'}</span>
                   <span className="wf-stl-label">Lanzar</span>
@@ -319,96 +314,133 @@ export function PanelPage() {
             </div>
           </div>
 
-          {/* ── Cards de trabajo ── */}
-          <div className={`wf-cards${hasSentCampaign ? ' wf-cards--faded' : ''}`}>
+          {/* ── Carrusel: un paso a la vez ── */}
+          <div className={`wf-cards wf-cards--carousel${hasSentCampaign ? ' wf-cards--faded' : ''}`}>
             <div className="wrap">
               <Message text={globalMsg.text} type={globalMsg.type} />
 
-              <div className="wf-grid">
-                {/* Paso 1 */}
-                <section
-                  id="step-1"
-                  className={`app-section reveal reveal-delay-1${currentStep !== 1 ? ' app-section--faded' : ''}`}
-                >
-                  {mascotStep === 1 && (
-                    <div className="mascot-step mascot-step--1">
-                      <MascotAssistant
-                        size="sm"
-                        variant="inline"
-                        message="Empieza aquí: este Excel define a quién vas a escribir."
-                      />
-                    </div>
-                  )}
-                  <ExcelImport onImportSuccess={() => setHasImportedExcel(true)} />
-                </section>
+              <div className="wf-carousel">
+                {/* Asistente fijo (grande), mensaje según paso */}
+                <div className="wf-carousel-mascot">
+                  <MascotAssistant
+                    size="lg"
+                    variant="inline"
+                    message={
+                      currentStep === 1
+                        ? 'Empieza aquí: sube tu Excel y define a quién vas a escribir.'
+                        : currentStep === 2
+                          ? 'Diseña tu mensaje y, si quieres, afínalo con IA.'
+                          : hasImportedExcel
+                            ? 'Revisa asunto y mensaje. Cuando estés listo, lanza tu campaña.'
+                            : 'Importa tu Excel en el Paso 1 para poder enviar.'
+                    }
+                  />
+                </div>
 
-                {/* Paso 2 + 2b — tarjeta con tabs */}
-                <section
-                  id="step-2"
-                  className={`app-section reveal reveal-delay-2${(currentStep !== 2 && currentStep !== '2b') ? ' app-section--faded' : ''}`}
-                >
-                  {mascotStep === 2 && (
-                    <div className="mascot-step mascot-step--2">
-                      <MascotAssistant
-                        size="sm"
-                        variant="inline"
-                        message="Estamos en el Paso 2: diseña tu mensaje y, si quieres, afínalo con IA."
-                      />
-                    </div>
+                <div className="wf-carousel-slide">
+                  {currentStep === 1 && (
+                    <section id="step-1" className="wf-carousel-pane reveal">
+                      <ExcelImport onImportSuccess={() => setHasImportedExcel(true)} />
+                    </section>
                   )}
-                  <div className="cstab-root">
-                    <div className="cstab-bar">
-                      <button type="button"
-                        className={`cstab${designAiTab === 'design' ? ' cstab--active' : ''}`}
-                        onClick={() => setDesignAiTab('design')}>
-                        <i className="fas fa-envelope-open-text" /> Diseñar campaña
+                  {currentStep === 2 && (
+                    <section id="step-2" className="wf-carousel-pane reveal">
+                      <div className="cstab-root">
+                        <div className="cstab-bar">
+                          <button type="button"
+                            className={`cstab${designAiTab === 'design' ? ' cstab--active' : ''}`}
+                            onClick={() => setDesignAiTab('design')}>
+                            <i className="fas fa-envelope-open-text" /> Diseñar campaña
+                          </button>
+                          <button type="button"
+                            className={`cstab${designAiTab === 'ai' ? ' cstab--active' : ''}`}
+                            onClick={() => setDesignAiTab('ai')}>
+                            <i className="fas fa-wand-magic-sparkles" /> Afinar con IA
+                          </button>
+                        </div>
+                        <div className={`cstab-pane${designAiTab === 'design' ? ' cstab-pane--active' : ''}`}>
+                          <CampaignForm
+                            campaigns={campaigns}
+                            selectedCampaignId={selectedCampaignId}
+                            onSelectedCampaignIdChange={setSelectedCampaignId}
+                            onCampaignCreated={addCampaign}
+                            onCampaignUpdated={updateCampaignInList}
+                            onCampaignDeleted={removeCampaign}
+                            subject={subject}
+                            body={body}
+                            onSubjectChange={setSubject}
+                            onBodyChange={setBody}
+                            disabled={!hasImportedExcel}
+                          />
+                        </div>
+                        <div className={`cstab-pane${designAiTab === 'ai' ? ' cstab-pane--active' : ''}`}>
+                          <AIAssistant body={body} onBodyAppend={handleBodyAppend} onSubjectChange={setSubject} onSuggestionApplied={() => setHasUsedAI(true)} />
+                        </div>
+                      </div>
+                    </section>
+                  )}
+                  {currentStep === 3 && (
+                    <section id="step-3" className="wf-carousel-pane reveal">
+                      <SendCampaign subject={subject} message={body} hasImportedExcel={hasImportedExcel} onSendSuccess={() => { setHasSentCampaign(true); setShowSentOverlay(true) }} />
+                    </section>
+                  )}
+                </div>
+
+                {/* Navegación inferior: puntos + Anterior / Siguiente */}
+                <nav className="wf-carousel-nav" aria-label="Navegación entre pasos">
+                  <div className="wf-carousel-dots">
+                    {[1, 2, 3].map((step) => (
+                      <button
+                        key={step}
+                        type="button"
+                        className={`wf-carousel-dot${currentStep === step ? ' wf-carousel-dot--active' : ''}${step === 1 ? (hasImportedExcel ? ' wf-carousel-dot--done' : '') : step === 2 ? (hasSubjectAndBody ? ' wf-carousel-dot--done' : '') : (hasSentCampaign ? ' wf-carousel-dot--done' : '')}`}
+                        onClick={() => {
+                          if (step === 1) { setCurrentStep(1); return }
+                          if (step === 2 && !canUseStep2) {
+                            setGlobalMsg({ text: 'Primero completa el Paso 1 — Importar contactos.', type: 'err' })
+                            return
+                          }
+                          if (step === 3 && !canUseStep3) {
+                            setGlobalMsg({ text: !canUseStep2 ? 'Primero completa el Paso 1.' : 'Completa asunto y mensaje en el Paso 2.', type: 'err' })
+                            return
+                          }
+                          setCurrentStep(step)
+                        }}
+                        aria-label={`Paso ${step}`}
+                        aria-current={currentStep === step ? 'step' : undefined}
+                      >
+                        {step === 1 && hasImportedExcel ? <i className="fas fa-check" /> : step === 2 && hasSubjectAndBody ? <i className="fas fa-check" /> : step === 3 && hasSentCampaign ? <i className="fas fa-check" /> : step}
                       </button>
-                      <button type="button"
-                        className={`cstab${designAiTab === 'ai' ? ' cstab--active' : ''}`}
-                        onClick={() => setDesignAiTab('ai')}>
-                        <i className="fas fa-wand-magic-sparkles" /> Afinar con IA
-                      </button>
-                    </div>
-                    <div className={`cstab-pane${designAiTab === 'design' ? ' cstab-pane--active' : ''}`}>
-                      <CampaignForm
-                        campaigns={campaigns}
-                        selectedCampaignId={selectedCampaignId}
-                        onSelectedCampaignIdChange={setSelectedCampaignId}
-                        onCampaignCreated={addCampaign}
-                        onCampaignUpdated={updateCampaignInList}
-                        onCampaignDeleted={removeCampaign}
-                        subject={subject}
-                        body={body}
-                        onSubjectChange={setSubject}
-                        onBodyChange={setBody}
-                        disabled={!hasImportedExcel}
-                      />
-                    </div>
-                    <div className={`cstab-pane${designAiTab === 'ai' ? ' cstab-pane--active' : ''}`}>
-                      <AIAssistant body={body} onBodyAppend={handleBodyAppend} onSubjectChange={setSubject} onSuggestionApplied={() => setHasUsedAI(true)} />
-                    </div>
+                    ))}
                   </div>
-                </section>
+                  <div className="wf-carousel-buttons">
+                    <button
+                      type="button"
+                      className="btn btn-secondary wf-carousel-prev"
+                      onClick={() => setCurrentStep((s) => Math.max(1, s - 1))}
+                      disabled={currentStep === 1}
+                    >
+                      <i className="fas fa-arrow-left" /> Anterior
+                    </button>
+                    <button
+                      type="button"
+                      className="btn wf-carousel-next"
+                      onClick={() => {
+                        if (currentStep === 1 && !canUseStep2) return
+                        if (currentStep === 2 && !canUseStep3) return
+                        setCurrentStep((s) => Math.min(3, s + 1))
+                      }}
+                      disabled={
+                        (currentStep === 1 && !canUseStep2) ||
+                        (currentStep === 2 && !canUseStep3) ||
+                        currentStep === 3
+                      }
+                    >
+                      Siguiente <i className="fas fa-arrow-right" />
+                    </button>
+                  </div>
+                </nav>
               </div>
-
-              <section
-                id="step-3"
-                className={`app-section reveal${currentStep !== 3 ? ' app-section--faded' : ''}`}
-              >
-                {mascotStep === 3 && (
-                  <div className="mascot-step mascot-step--3">
-                    <MascotAssistant
-                      size="sm"
-                      variant="inline"
-                      message={hasImportedExcel
-                        ? 'Revisa asunto y mensaje. Cuando estés listo, lanza tu campaña premium.'
-                        : 'Importa tu Excel en el Paso 1 para desbloquear el envío.'}
-                    />
-                  </div>
-                )}
-                <SendCampaign subject={subject} message={body} hasImportedExcel={hasImportedExcel} onSendSuccess={() => { setHasSentCampaign(true); setShowSentOverlay(true) }} />
-              </section>
-
             </div>
           </div>
 

@@ -4361,6 +4361,169 @@ h4, h5, h6, button, input, select, textarea, label {
   padding-top: 8.5rem;
 }
 
+/* ═══════════════════════════════════════
+   CARRUSEL — un paso a la vez
+═══════════════════════════════════════ */
+.wf-cards--carousel .wf-carousel {
+  position: relative;
+  min-height: 420px;
+  padding-bottom: 4rem;
+}
+
+.wf-carousel-mascot {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  max-width: 280px;
+}
+
+.wf-carousel-mascot .mascot {
+  position: static;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.wf-carousel-mascot .mascot-image-wrap {
+  width: 140px;
+  height: 176px;
+  border-radius: 18px;
+}
+
+.wf-carousel-mascot .mascot-bubble {
+  max-width: 260px;
+  padding: 0.65rem 1rem;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.wf-carousel-slide {
+  position: relative;
+  margin-right: 300px;
+  min-height: 380px;
+}
+
+.wf-carousel-pane {
+  width: 100%;
+}
+
+.wf-carousel-pane .panel,
+.wf-carousel-pane .cstab-root {
+  margin-bottom: 0;
+}
+
+.wf-carousel-pane .cstab-root {
+  flex: 1;
+  min-height: 320px;
+}
+
+.wf-carousel-nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.wf-carousel-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.wf-carousel-dot {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.wf-carousel-dot:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #fff;
+}
+
+.wf-carousel-dot--active {
+  background: linear-gradient(135deg, #c9a227, #e0b44a);
+  border-color: transparent;
+  color: #0b1e33;
+  box-shadow: 0 4px 14px rgba(201, 162, 39, 0.45);
+}
+
+.wf-carousel-dot--done {
+  background: rgba(16, 185, 129, 0.25);
+  border-color: rgba(16, 185, 129, 0.5);
+  color: #6ee7b7;
+}
+
+.wf-carousel-dot--done.wf-carousel-dot--active {
+  background: linear-gradient(135deg, #059669, #10b981);
+  color: #fff;
+}
+
+.wf-carousel-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.wf-carousel-prev,
+.wf-carousel-next {
+  min-width: 120px;
+}
+
+.wf-carousel-next:disabled,
+.wf-carousel-prev:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 900px) {
+  .wf-carousel-mascot {
+    position: static;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .wf-carousel-mascot .mascot {
+    flex-direction: row;
+    justify-content: center;
+  }
+  .wf-carousel-mascot .mascot-image-wrap {
+    width: 100px;
+    height: 128px;
+  }
+  .wf-carousel-slide {
+    margin-right: 0;
+  }
+  .wf-carousel-nav {
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .wf-carousel-buttons {
+    justify-content: center;
+  }
+}
+
 /* Bloque "¿Qué formato debe tener el Excel?" — fondo oscuro para que no se pierda */
 .wf-cards .upload-format-hint {
   background: var(--navy-900) !important;
