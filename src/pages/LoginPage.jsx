@@ -127,19 +127,18 @@ export function LoginPage() {
           </div>
 
           {/* Texto principal — centrado en la imagen */}
-          <div className="lp-hero-center">
+            <div className="lp-hero-center">
 
-            <h1 className="lp-h1">
-              Campañas que<br />
-              <span className="lp-h1-grad">conectan</span><br />
-              y <span className="lp-h1-outline-light">venden</span>
-            </h1>
+              <h1 className="lp-h1">
+                CONFIGURA TU SUEÑO
+              </h1>
 
-            <p className="lp-hero-desc">
-              Importa contactos, diseña con IA y lanza correos masivos en minutos.
-            </p>
+              <p className="lp-hero-desc">
+                Email marketing con IA para empresarios que piensan en ventas,
+                ahorro de tiempo y clientes premium, no en cupones.
+              </p>
 
-          </div>
+            </div>
 
         </div>
       </div>
