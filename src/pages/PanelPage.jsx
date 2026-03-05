@@ -39,6 +39,32 @@ export function PanelPage() {
     mascotStep = 3
   }
 
+  useEffect(() => {
+    if (!('IntersectionObserver' in window)) return
+    const root = document.querySelector('.workflow-root')
+    if (!root) return
+
+    const texts = Array.from(root.querySelectorAll('.mascot-bubble-text'))
+    if (!texts.length) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('mascot-typing-active')
+          }
+        })
+      },
+      { threshold: 0.4 }
+    )
+
+    texts.forEach((el) => observer.observe(el))
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [])
+
   const addCampaign = useCallback((campaign) => {
     setCampaigns((prev) => {
       const id =

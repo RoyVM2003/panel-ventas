@@ -3810,6 +3810,9 @@ h4, h5, h6, button, input, select, textarea, label {
 /* Animación de escritura solo en las instrucciones de los pasos (no en el hero) */
 .workflow-root .mascot-bubble-text {
   border-right: 1px solid rgba(249, 250, 251, 0.85);
+}
+
+.workflow-root .mascot-bubble-text.mascot-typing-active {
   animation: mascot-typing 2.4s steps(32, end) 0.3s 1 forwards;
 }
 
@@ -3851,16 +3854,22 @@ h4, h5, h6, button, input, select, textarea, label {
   gap: 0.75rem;
 }
 
+/* Monito de los pasos más grande que el del hero */
+.workflow-root .mascot--sm .mascot-image-wrap {
+  width: 120px;
+  height: 150px;
+}
+
 .mascot-step--1 {
-  left: 50%;
-  transform: translateX(-50%);
-  top: 0.25rem;
+  left: 1.25rem;
+  transform: none;
+  top: -0.5rem;
 }
 
 .mascot-step--2 {
-  left: 50%;
-  transform: translateX(-50%);
-  top: 0.25rem;
+  left: 1.25rem;
+  transform: none;
+  top: -0.5rem;
 }
 
 .mascot-step--3 {
