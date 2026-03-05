@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Panel } from './Panel'
 import { FormGroup } from './FormGroup'
 import { Message } from './Message'
-import { MascotAssistant } from './MascotAssistant'
 import { generateText, getSubjectAndBodyFromAIResponse } from '../services/aiService'
 
 export function AIAssistant({ body, onBodyAppend, onSubjectChange, onSuggestionApplied }) {
@@ -73,12 +72,6 @@ export function AIAssistant({ body, onBodyAppend, onSubjectChange, onSuggestionA
           onChange={(e) => setPrompt(e.target.value)}
         />
       </FormGroup>
-
-      <MascotAssistant
-        size="sm"
-        variant="inline"
-        message="Cuéntame de qué va tu promo y te ayudo con el texto."
-      />
       <button
         type="button"
         className="btn btn-secondary"

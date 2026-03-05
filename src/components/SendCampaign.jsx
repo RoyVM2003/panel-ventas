@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Panel } from './Panel'
 import { Message } from './Message'
-import { MascotAssistant } from './MascotAssistant'
 import { sendCampaign } from '../services/campaignService'
 
 export function SendCampaign({ subject, message: body, hasImportedExcel, onSendSuccess }) {
@@ -50,13 +49,6 @@ export function SendCampaign({ subject, message: body, hasImportedExcel, onSendS
         <div className="msg err send-blocked-msg" role="alert" style={{ marginBottom: '1rem' }}>
           <strong className="send-blocked-title">No puedes enviar todavía.</strong> Primero importa un archivo Excel en el Paso 1 (Importar contactos). El envío solo irá a los correos de ese archivo.
         </div>
-      )}
-      {!canSend && (
-        <MascotAssistant
-          size="sm"
-          variant="warning"
-          message="Importa tu Excel en el Paso 1 para desbloquear el envío."
-        />
       )}
       <p className="form-group hint">
         Se enviará el asunto y el mensaje del Paso 2 solo a los contactos del Excel que importaste en el Paso 1. Sin Excel importado no se puede enviar. Revisa el contenido antes de confirmar.

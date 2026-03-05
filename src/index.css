@@ -3774,8 +3774,8 @@ h4, h5, h6, button, input, select, textarea, label {
 }
 
 .mascot--lg .mascot-image-wrap {
-  width: 120px;
-  height: 152px;
+  width: 135px;
+  height: 170px;
 }
 
 .mascot--sm .mascot-image-wrap {
@@ -4283,6 +4283,21 @@ h4, h5, h6, button, input, select, textarea, label {
 .wf-grid .cstab-pane .panel {
   margin-bottom: 0 !important;
   padding-bottom: 2rem !important;
+}
+
+/* Contenedor paso + mascota lateral (monito fuera de la tarjeta) */
+.step-with-mascot {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+.step-with-mascot .app-section {
+  flex: 1;
+}
+
+.step-with-mascot .mascot {
+  position: static;
 }
 
 /* Más espacio entre las dos tarjetas de arriba (Paso 1 y 2) y la tarjeta del Paso 3 */

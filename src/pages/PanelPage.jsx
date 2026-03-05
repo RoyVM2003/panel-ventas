@@ -258,49 +258,78 @@ export function PanelPage() {
 
               <div className="wf-grid">
                 {/* Paso 1 */}
-                <section id="step-1" className="app-section reveal reveal-delay-1">
-                  <ExcelImport onImportSuccess={() => setHasImportedExcel(true)} />
-                </section>
+                <div className="step-with-mascot step-with-mascot--1">
+                  <section id="step-1" className="app-section reveal reveal-delay-1">
+                    <ExcelImport onImportSuccess={() => setHasImportedExcel(true)} />
+                  </section>
+                  {currentStep === 1 && (
+                    <MascotAssistant
+                      size="sm"
+                      variant="inline"
+                      message="Empieza aquí: este Excel define a quién vas a escribir."
+                    />
+                  )}
+                </div>
 
                 {/* Paso 2 + 2b — tarjeta con tabs */}
-                <section id="step-2" className="app-section reveal reveal-delay-2">
-                  <div className="cstab-root">
-                    <div className="cstab-bar">
-                      <button type="button"
-                        className={`cstab${designAiTab === 'design' ? ' cstab--active' : ''}`}
-                        onClick={() => setDesignAiTab('design')}>
-                        <i className="fas fa-envelope-open-text" /> Diseñar campaña
-                      </button>
-                      <button type="button"
-                        className={`cstab${designAiTab === 'ai' ? ' cstab--active' : ''}`}
-                        onClick={() => setDesignAiTab('ai')}>
-                        <i className="fas fa-wand-magic-sparkles" /> Afinar con IA
-                      </button>
+                <div className="step-with-mascot step-with-mascot--2">
+                  <section id="step-2" className="app-section reveal reveal-delay-2">
+                    <div className="cstab-root">
+                      <div className="cstab-bar">
+                        <button type="button"
+                          className={`cstab${designAiTab === 'design' ? ' cstab--active' : ''}`}
+                          onClick={() => setDesignAiTab('design')}>
+                          <i className="fas fa-envelope-open-text" /> Diseñar campaña
+                        </button>
+                        <button type="button"
+                          className={`cstab${designAiTab === 'ai' ? ' cstab--active' : ''}`}
+                          onClick={() => setDesignAiTab('ai')}>
+                          <i className="fas fa-wand-magic-sparkles" /> Afinar con IA
+                        </button>
+                      </div>
+                      <div className={`cstab-pane${designAiTab === 'design' ? ' cstab-pane--active' : ''}`}>
+                        <CampaignForm
+                          campaigns={campaigns}
+                          selectedCampaignId={selectedCampaignId}
+                          onSelectedCampaignIdChange={setSelectedCampaignId}
+                          onCampaignCreated={addCampaign}
+                          onCampaignUpdated={updateCampaignInList}
+                          onCampaignDeleted={removeCampaign}
+                          subject={subject}
+                          body={body}
+                          onSubjectChange={setSubject}
+                          onBodyChange={setBody}
+                        />
+                      </div>
+                      <div className={`cstab-pane${designAiTab === 'ai' ? ' cstab-pane--active' : ''}`}>
+                        <AIAssistant body={body} onBodyAppend={handleBodyAppend} onSubjectChange={setSubject} onSuggestionApplied={() => setHasUsedAI(true)} />
+                      </div>
                     </div>
-                    <div className={`cstab-pane${designAiTab === 'design' ? ' cstab-pane--active' : ''}`}>
-                      <CampaignForm
-                        campaigns={campaigns}
-                        selectedCampaignId={selectedCampaignId}
-                        onSelectedCampaignIdChange={setSelectedCampaignId}
-                        onCampaignCreated={addCampaign}
-                        onCampaignUpdated={updateCampaignInList}
-                        onCampaignDeleted={removeCampaign}
-                        subject={subject}
-                        body={body}
-                        onSubjectChange={setSubject}
-                        onBodyChange={setBody}
-                      />
-                    </div>
-                    <div className={`cstab-pane${designAiTab === 'ai' ? ' cstab-pane--active' : ''}`}>
-                      <AIAssistant body={body} onBodyAppend={handleBodyAppend} onSubjectChange={setSubject} onSuggestionApplied={() => setHasUsedAI(true)} />
-                    </div>
-                  </div>
-                </section>
+                  </section>
+                  {(currentStep === 2 || currentStep === '2b') && (
+                    <MascotAssistant
+                      size="sm"
+                      variant="inline"
+                      message="Estamos en el Paso 2: diseña tu mensaje y, si quieres, afínalo con IA."
+                    />
+                  )}
+                </div>
               </div>
 
-              <section id="step-3" className="app-section reveal">
-                <SendCampaign subject={subject} message={body} hasImportedExcel={hasImportedExcel} onSendSuccess={() => setHasSentCampaign(true)} />
-              </section>
+              <div className="step-with-mascot step-with-mascot--3">
+                <section id="step-3" className="app-section reveal">
+                  <SendCampaign subject={subject} message={body} hasImportedExcel={hasImportedExcel} onSendSuccess={() => setHasSentCampaign(true)} />
+                </section>
+                {currentStep === 3 && (
+                  <MascotAssistant
+                    size="sm"
+                    variant="warning"
+                    message={hasImportedExcel
+                      ? 'Revisa asunto y mensaje. Cuando estés listo, lanza tu campaña premium.'
+                      : 'Importa tu Excel en el Paso 1 para desbloquear el envío.'}
+                  />
+                )}
+              </div>
 
               {/* CTA final (estilo Ciklum) */}
               <div className="wf-panel-cta reveal">
