@@ -66,6 +66,7 @@ export function AIAssistant({ body, onBodyAppend, onSubjectChange, onSuggestionA
       >
         <textarea
           id="aiPrompt"
+          className="ai-prompt-input"
           placeholder="Ej: Promoción de renovación anual con descuento para clientes actuales, tono cercano y profesional."
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}

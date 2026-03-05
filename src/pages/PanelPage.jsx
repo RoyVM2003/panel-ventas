@@ -195,7 +195,7 @@ export function PanelPage() {
               <span className="home-hero-greeting-label">Panel activo</span>
             </div>
             <div className="home-hero-greeting-name">
-              <span className="hw-name-light">Hola, {username}</span>
+              Hola, <span className="hw-name-light">{username}</span>
             </div>
             <div className="home-hero-greeting-sub">preparado para la próxima campaña</div>
           </div>
@@ -218,13 +218,7 @@ export function PanelPage() {
         <div className="workflow-root">
           <div className="wf-strip reveal">
             <div className="wf-strip-inner">
-              <div className="wf-strip-head">
-                <h2 className="wf-strip-title">Tu campaña, paso a paso</h2>
-                <div className="wf-strip-kpi">
-                  <span className="wf-strip-kpi-val">{campaigns.length}</span>
-                  <span className="wf-strip-kpi-label">campañas guardadas</span>
-                </div>
-              </div>
+              <h2 className="wf-strip-title">Tu campaña, paso a paso</h2>
               <nav className="wf-stl" aria-label="Pasos de la campaña">
                 <button type="button"
                   className={`wf-stl-step${currentStep === 1 ? ' wf-stl-step--active' : ''}${hasImportedExcel ? ' wf-stl-step--done' : ''}`}
