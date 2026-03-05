@@ -175,11 +175,11 @@ export function PanelPage() {
 
       <div className="app-dark-content">
 
-        {/* Una sola imagen hero — misma línea visual que el login, profesional */}
+        {/* Hero: imagen de fondo — referencia Unsplash "Modern office" (uso libre) https://unsplash.com/photos/6870744d04b2 */}
         <div className="home-hero">
           <div className="home-hero-bg">
             <img
-              src="https://images.unsplash.com/photo-1557804506-669a67965ba3?auto=format&fit=crop&w=1600&q=80"
+              src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1920&q=90"
               className="home-hero-img"
               alt=""
             />
