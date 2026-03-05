@@ -195,7 +195,7 @@ export function PanelPage() {
               <span className="home-hero-greeting-label">Panel activo</span>
             </div>
             <div className="home-hero-greeting-name">
-              Hola, <span className="hw-name-light">{username}</span>
+              <span className="hw-name-light">Hola, {username}</span>
             </div>
             <div className="home-hero-greeting-sub">preparado para la próxima campaña</div>
           </div>

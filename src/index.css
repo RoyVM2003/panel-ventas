@@ -3760,10 +3760,13 @@ h4, h5, h6, button, input, select, textarea, label {
   font-family: var(--font-ui);
   font-size: clamp(1rem, 1.6vw, 1.15rem);
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.95);
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3), 0 0 24px rgba(255, 255, 255, 0.1);
   line-height: 1.75;
   margin: 0;
+  background: linear-gradient(135deg, #f0cf6a 0%, #e0b44a 50%, #c9a227 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
 }
 
 /* Saludo personal dentro del hero */
@@ -3795,10 +3798,8 @@ h4, h5, h6, button, input, select, textarea, label {
   font-family: var(--font-ui);
   font-size: 1.5rem;
   font-weight: 800;
-  color: #fff;
   line-height: 1.2;
   letter-spacing: -0.03em;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.08);
 }
 
 .hw-name-light {
