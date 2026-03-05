@@ -3,18 +3,11 @@ import { createPortal } from 'react-dom'
 import { useAuth } from '../context/AuthContext'
 import { FormGroup } from '../components/FormGroup'
 import { Message } from '../components/Message'
-import { forgotPassword, verifyEmail, resendVerification, register } from '../services/authService'
+import { forgotPassword, verifyEmail, resendVerification } from '../services/authService'
 
 export function LoginPage() {
   const { login } = useAuth()
   const [showForgot, setShowForgot] = useState(false)
-  const [showRegister, setShowRegister] = useState(false)
-  const [regEmail, setRegEmail] = useState('')
-  const [regPassword, setRegPassword] = useState('')
-  const [regFirstName, setRegFirstName] = useState('')
-  const [regLastName, setRegLastName] = useState('')
-  const [regLoading, setRegLoading] = useState(false)
-  const [regMsg, setRegMsg] = useState({ text: '', type: 'info' })
 
   const [loginEmail, setLoginEmail] = useState('')
   const [loginPassword, setLoginPassword] = useState('')
@@ -103,40 +96,6 @@ export function LoginPage() {
     }
   }
 
-  const handleRegister = async (e) => {
-    e.preventDefault()
-    const email = regEmail.trim()
-    const password = regPassword
-    const first_name = regFirstName.trim()
-    const last_name = regLastName.trim()
-    if (!email || !password || !first_name || !last_name) return
-    setRegLoading(true)
-    setRegMsg({ text: 'Creando cuenta...', type: 'info' })
-    try {
-      await register({ email, password, first_name, last_name })
-      setRegMsg({ text: 'Cuenta creada. Revisa tu correo para verificar y luego inicia sesión.', type: 'ok' })
-      setLoginEmail(email)
-      setTimeout(() => {
-        setShowRegister(false)
-        setRegEmail('')
-        setRegPassword('')
-        setRegFirstName('')
-        setRegLastName('')
-        setRegMsg({ text: '', type: 'info' })
-        setLoginMsg({ text: 'Verifica tu correo con el código que te enviamos y luego inicia sesión.', type: 'ok' })
-        setShowVerify(true)
-      }, 2000)
-    } catch (err) {
-      const msg =
-        err.data?.message ||
-        err.data?.error ||
-        (err.data && typeof err.data === 'object' ? JSON.stringify(err.data) : err.message)
-      setRegMsg({ text: 'No se pudo crear la cuenta. ' + (msg || err.message), type: 'err' })
-    } finally {
-      setRegLoading(false)
-    }
-  }
-
   const background = (
     <>
       <div className="login-screen-bg">
@@ -190,29 +149,17 @@ export function LoginPage() {
           </button>
         </form>
 
-        <div className="login-extra">
-          <button
-            type="button"
-            className="login-forgot"
-            onClick={() => {
-              setForgotEmail(loginEmail)
-              setForgotMsg({ text: '', type: 'info' })
-              setShowForgot(true)
-            }}
-          >
-            ¿Olvidaste tu contraseña?
-          </button>
-          <button
-            type="button"
-            className="register-cta"
-            onClick={() => {
-              setRegMsg({ text: '', type: 'info' })
-              setShowRegister(true)
-            }}
-          >
-            Crear cuenta
-          </button>
-        </div>
+        <button
+          type="button"
+          className="login-forgot"
+          onClick={() => {
+            setForgotEmail(loginEmail)
+            setForgotMsg({ text: '', type: 'info' })
+            setShowForgot(true)
+          }}
+        >
+          ¿Olvidaste tu contraseña?
+        </button>
 
         {showVerify && (
           <div className="login-verify">
@@ -249,93 +196,6 @@ export function LoginPage() {
           </div>
         )}
       </div>
-
-      {/* ── Modal: crear cuenta ── */}
-      {showRegister && (
-        <div className="modal-overlay" onClick={() => setShowRegister(false)}>
-          <div className="modal-box" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <h2>
-                <i className="fas fa-user-plus"></i> Crear cuenta
-              </h2>
-              <button
-                type="button"
-                className="modal-close"
-                onClick={() => setShowRegister(false)}
-                aria-label="Cerrar"
-              >
-                <i className="fas fa-times"></i>
-              </button>
-            </div>
-            <p className="msg info">
-              Completa los datos. Después deberás verificar tu correo con el código que te enviemos.
-            </p>
-            <Message text={regMsg.text} type={regMsg.type} />
-            <form id="formRegister" onSubmit={handleRegister}>
-              <FormGroup label="Nombre" id="regFirstName">
-                <input
-                  type="text"
-                  id="regFirstName"
-                  value={regFirstName}
-                  onChange={(e) => setRegFirstName(e.target.value)}
-                  required
-                  placeholder="Tu nombre"
-                  className="login-input"
-                  autoComplete="given-name"
-                />
-              </FormGroup>
-              <FormGroup label="Apellidos" id="regLastName">
-                <input
-                  type="text"
-                  id="regLastName"
-                  value={regLastName}
-                  onChange={(e) => setRegLastName(e.target.value)}
-                  required
-                  placeholder="Tus apellidos"
-                  className="login-input"
-                  autoComplete="family-name"
-                />
-              </FormGroup>
-              <FormGroup label="Correo electrónico" id="regEmail">
-                <input
-                  type="email"
-                  id="regEmail"
-                  value={regEmail}
-                  onChange={(e) => setRegEmail(e.target.value)}
-                  required
-                  placeholder="tucorreo@ejemplo.com"
-                  className="login-input"
-                  autoComplete="email"
-                />
-              </FormGroup>
-              <FormGroup label="Contraseña" id="regPassword">
-                <input
-                  type="password"
-                  id="regPassword"
-                  value={regPassword}
-                  onChange={(e) => setRegPassword(e.target.value)}
-                  required
-                  minLength={6}
-                  placeholder="Mínimo 6 caracteres"
-                  className="login-input"
-                  autoComplete="new-password"
-                />
-              </FormGroup>
-              <button type="submit" className="login-cta" disabled={regLoading} style={{ width: '100%' }}>
-                {regLoading ? <span className="btn-spinner" aria-hidden="true" /> : null}
-                {regLoading ? 'Creando cuenta...' : 'Crear cuenta'}
-              </button>
-            </form>
-            <button
-              type="button"
-              className="btn btn-secondary modal-back"
-              onClick={() => setShowRegister(false)}
-            >
-              Volver a iniciar sesión
-            </button>
-          </div>
-        </div>
-      )}
 
       {/* ── Modal: olvidé contraseña ── */}
       {showForgot && (
