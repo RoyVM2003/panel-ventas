@@ -3834,13 +3834,13 @@ h4, h5, h6, button, input, select, textarea, label {
 .mascot-step--1 {
   left: 50%;
   transform: translateX(-50%);
-  top: -4.25rem;
+  top: 0.25rem;
 }
 
 .mascot-step--2 {
   left: 50%;
   transform: translateX(-50%);
-  top: -4.25rem;
+  top: 0.25rem;
 }
 
 .mascot-step--3 {
@@ -4309,6 +4309,7 @@ h4, h5, h6, button, input, select, textarea, label {
   flex-direction: column;
   min-height: 0;
   position: relative;
+  padding-top: 3.5rem;
 }
 
 .wf-grid .app-section > .panel,
