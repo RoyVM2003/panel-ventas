@@ -214,11 +214,17 @@ export function PanelPage() {
           </div>
         </div>
 
-        {/* Strip de pasos — sin segunda imagen, más profesional */}
+        {/* Strip de pasos + KPI (estilo Gleeds/Ciklum) */}
         <div className="workflow-root">
           <div className="wf-strip reveal">
             <div className="wf-strip-inner">
-              <h2 className="wf-strip-title">Tu campaña, paso a paso</h2>
+              <div className="wf-strip-head">
+                <h2 className="wf-strip-title">Tu campaña, paso a paso</h2>
+                <div className="wf-strip-kpi">
+                  <span className="wf-strip-kpi-val">{campaigns.length}</span>
+                  <span className="wf-strip-kpi-label">campañas guardadas</span>
+                </div>
+              </div>
               <nav className="wf-stl" aria-label="Pasos de la campaña">
                 <button type="button"
                   className={`wf-stl-step${currentStep === 1 ? ' wf-stl-step--active' : ''}${hasImportedExcel ? ' wf-stl-step--done' : ''}`}
@@ -294,6 +300,18 @@ export function PanelPage() {
               <section id="step-3" className="app-section reveal">
                 <SendCampaign subject={subject} message={body} hasImportedExcel={hasImportedExcel} onSendSuccess={() => setHasSentCampaign(true)} />
               </section>
+
+              {/* CTA final (estilo Ciklum) */}
+              <div className="wf-panel-cta reveal">
+                <p className="wf-panel-cta-text">¿Listo para la siguiente campaña?</p>
+                <button
+                  type="button"
+                  className="btn wf-panel-cta-btn"
+                  onClick={() => { setCurrentStep(1); document.getElementById('step-1')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}
+                >
+                  Comenzar de nuevo
+                </button>
+              </div>
             </div>
           </div>
 
