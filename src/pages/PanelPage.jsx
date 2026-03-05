@@ -188,10 +188,11 @@ export function PanelPage() {
             Reemplaza el src con tu imagen real
         ══════════════════════════════════ */}
         <div className="home-hero">
+          {/* Imagen: profesional con laptop — refleja email marketing, campañas que convierten */}
           <img
-            src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1600&q=80"
+            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1600&q=80"
             className="home-hero-img"
-            alt="equipo de trabajo"
+            alt="Profesional trabajando en campañas"
           />
           <div className="home-hero-overlay" />
 
@@ -244,10 +245,11 @@ export function PanelPage() {
           {/* ── Banner imagen + barra de progreso encima ── */}
           {/* Reemplaza el src con tu imagen real */}
           <div className="wf-banner reveal">
+            {/* Imagen: oficina moderna, flujo de trabajo — paso a paso campaña */}
             <img
-              src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80"
+              src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1600&q=80"
               className="wf-banner-img"
-              alt="flujo de trabajo"
+              alt="Flujo de trabajo profesional"
             />
             <div className="wf-banner-overlay" />
             <div className="wf-banner-content">
