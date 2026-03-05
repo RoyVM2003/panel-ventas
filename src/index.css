@@ -3807,25 +3807,6 @@ h4, h5, h6, button, input, select, textarea, label {
   overflow: hidden;
 }
 
-/* Animación de escritura solo en las instrucciones de los pasos (no en el hero) */
-.workflow-root .mascot-bubble-text {
-  border-right: 1px solid rgba(249, 250, 251, 0.85);
-}
-
-.workflow-root .mascot-bubble-text.mascot-typing-active {
-  animation: mascot-typing 2.4s steps(32, end) 0.3s 1 forwards;
-}
-
-@keyframes mascot-typing {
-  from {
-    max-width: 0;
-  }
-  to {
-    max-width: 100%;
-    border-right-color: transparent;
-  }
-}
-
 .mascot--inline .mascot-bubble,
 .mascot--warning .mascot-bubble {
   background: #0b1e33;
@@ -3863,13 +3844,13 @@ h4, h5, h6, button, input, select, textarea, label {
 .mascot-step--1 {
   left: 1.25rem;
   transform: none;
-  top: -0.5rem;
+  top: -1.25rem;
 }
 
 .mascot-step--2 {
   left: 1.25rem;
   transform: none;
-  top: -0.5rem;
+  top: -1.25rem;
 }
 
 .mascot-step--3 {
