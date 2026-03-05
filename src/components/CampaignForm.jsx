@@ -126,11 +126,6 @@ export function CampaignForm({
 
   return (
     <Panel title="Paso 2 · Contenido de la campaña" icon="fas fa-envelope">
-      {disabled && (
-        <p className="form-group hint step-locked-msg" role="alert">
-          Primero importa un archivo Excel en el <strong>Paso 1 — Importar contactos</strong> para poder elegir o crear campañas aquí.
-        </p>
-      )}
       <FormGroup
         label="Campañas guardadas"
         id="selCampaign"

@@ -257,7 +257,7 @@ export function PanelPage() {
               <button
                 type="button"
                 className="wf-sent-close"
-                onClick={() => setShowSentOverlay(false)}
+                onClick={() => { setShowSentOverlay(false); setHasSentCampaign(false) }}
                 aria-label="Cerrar mensaje de campaña enviada"
               >
                 <i className="fas fa-times" />
