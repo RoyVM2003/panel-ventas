@@ -4445,6 +4445,31 @@ h4, h5, h6, button, input, select, textarea, label {
   padding: 2rem;
 }
 
+.wf-sent-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  background: rgba(15, 23, 42, 0.9);
+  color: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.7);
+}
+
+.wf-sent-close i {
+  font-size: 0.8rem;
+}
+
+.wf-sent-close:hover {
+  background: rgba(15, 23, 42, 1);
+}
+
 .wf-sent-mascot {
   display: flex;
   align-items: center;

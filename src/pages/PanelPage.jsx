@@ -23,6 +23,7 @@ export function PanelPage() {
   const [hasImportedExcel, setHasImportedExcel] = useState(false)
   const [hasUsedAI, setHasUsedAI] = useState(false)
   const [hasSentCampaign, setHasSentCampaign] = useState(false)
+  const [showSentOverlay, setShowSentOverlay] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
 
   const scrollToSteps = useCallback(() => {
@@ -30,6 +31,8 @@ export function PanelPage() {
   }, [])
 
   const hasSubjectAndBody = !!(subject && subject.trim() && body && body.trim())
+  const canUseStep2 = hasImportedExcel
+  const canUseStep3 = hasImportedExcel && hasSubjectAndBody
   let mascotStep = 1
   if (!hasImportedExcel) {
     mascotStep = 1
@@ -249,8 +252,16 @@ export function PanelPage() {
 
         {/* Strip de pasos + KPI (estilo Gleeds/Ciklum) */}
         <div className={`workflow-root${hasSentCampaign ? ' workflow-root--sent' : ''}`}>
-          {hasSentCampaign && (
+          {hasSentCampaign && showSentOverlay && (
             <div className="wf-sent-overlay" aria-live="polite">
+              <button
+                type="button"
+                className="wf-sent-close"
+                onClick={() => setShowSentOverlay(false)}
+                aria-label="Cerrar mensaje de campaña enviada"
+              >
+                <i className="fas fa-times" />
+              </button>
               <div className="wf-sent-mascot">
                 <MascotAssistant
                   size="lg"
@@ -273,14 +284,34 @@ export function PanelPage() {
                 <div className="wf-stl-line" />
                 <button type="button"
                   className={`wf-stl-step${(currentStep === 2 || currentStep === '2b') ? ' wf-stl-step--active' : ''}${(subject?.trim() && body?.trim()) ? ' wf-stl-step--done' : ''}`}
-                  onClick={() => { setCurrentStep(2); document.getElementById('step-2')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}>
+                  onClick={() => {
+                    if (!canUseStep2) {
+                      setGlobalMsg({ text: 'Primero completa el Paso 1 — Importar contactos.', type: 'err' })
+                      document.getElementById('step-1')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                      return
+                    }
+                    setCurrentStep(2)
+                    document.getElementById('step-2')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  }}>
                   <span className="wf-stl-num">{(subject?.trim() && body?.trim()) ? <i className="fas fa-check" /> : '2'}</span>
                   <span className="wf-stl-label">Diseñar + IA</span>
                 </button>
                 <div className="wf-stl-line" />
                 <button type="button"
                   className={`wf-stl-step${currentStep === 3 ? ' wf-stl-step--active' : ''}${hasSentCampaign ? ' wf-stl-step--done' : ''}`}
-                  onClick={() => { setCurrentStep(3); document.getElementById('step-3')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}>
+                  onClick={() => {
+                    if (!canUseStep3) {
+                      const msg = !canUseStep2
+                        ? 'Primero completa el Paso 1 — Importar contactos.'
+                        : 'Completa asunto y mensaje en el Paso 2 antes de enviar.'
+                      setGlobalMsg({ text: msg, type: 'err' })
+                      const targetId = !canUseStep2 ? 'step-1' : 'step-2'
+                      document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                      return
+                    }
+                    setCurrentStep(3)
+                    document.getElementById('step-3')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  }}>
                   <span className="wf-stl-num">{hasSentCampaign ? <i className="fas fa-check" /> : '3'}</span>
                   <span className="wf-stl-label">Lanzar</span>
                 </button>
@@ -367,7 +398,7 @@ export function PanelPage() {
                   <div className="mascot-step mascot-step--3">
                     <MascotAssistant
                       size="sm"
-                      variant="warning"
+                      variant="inline"
                       message={hasImportedExcel
                         ? 'Revisa asunto y mensaje. Cuando estés listo, lanza tu campaña premium.'
                         : 'Importa tu Excel en el Paso 1 para desbloquear el envío.'}
