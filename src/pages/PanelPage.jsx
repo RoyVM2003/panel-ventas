@@ -339,12 +339,12 @@ export function PanelPage() {
 
                 <div className="wf-carousel-slide">
                   {currentStep === 1 && (
-                    <section id="step-1" className="wf-carousel-pane reveal">
+                    <section id="step-1" className="wf-carousel-pane">
                       <ExcelImport onImportSuccess={() => setHasImportedExcel(true)} />
                     </section>
                   )}
                   {currentStep === 2 && (
-                    <section id="step-2" className="wf-carousel-pane reveal">
+                    <section id="step-2" className="wf-carousel-pane">
                       <div className="cstab-root">
                         <div className="cstab-bar">
                           <button type="button"
@@ -380,7 +380,7 @@ export function PanelPage() {
                     </section>
                   )}
                   {currentStep === 3 && (
-                    <section id="step-3" className="wf-carousel-pane reveal">
+                    <section id="step-3" className="wf-carousel-pane">
                       <SendCampaign subject={subject} message={body} hasImportedExcel={hasImportedExcel} onSendSuccess={() => { setHasSentCampaign(true); setShowSentOverlay(true) }} />
                     </section>
                   )}
