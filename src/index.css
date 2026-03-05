@@ -304,10 +304,11 @@ h4, h5, h6, button, input, select, textarea, label {
 .nav-bar {
   position: relative;
   width: 100%;
-  background: rgba(6, 15, 29, 0.92);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(180deg, rgba(8, 18, 32, 0.97) 0%, rgba(6, 15, 29, 0.94) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
 }
 
 .nav-bar-accent {
@@ -315,69 +316,101 @@ h4, h5, h6, button, input, select, textarea, label {
   top: 0;
   left: 0;
   right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent 0%, var(--gold-500) 20%, var(--gold-400) 50%, var(--gold-500) 80%, transparent 100%);
-  opacity: 0.9;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, var(--gold-600) 15%, var(--gold-400) 50%, var(--gold-600) 85%, transparent 100%);
+  opacity: 0.95;
+  box-shadow: 0 0 20px rgba(201, 162, 39, 0.25);
 }
 
 .nav-bar-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  padding: 0.875rem 1.5rem;
+  gap: 1.25rem;
+  padding: 1rem 1.75rem;
   max-width: 1280px;
   margin: 0 auto;
 }
 
 .nav-bar-brand {
   display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-bar-logo {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid rgba(212, 168, 58, 0.35);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.nav-bar-brand-text {
+  display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.12rem;
 }
 
 .nav-bar-name {
   font-family: var(--font-display);
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 400;
   color: #fff;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+  line-height: 1.2;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .nav-bar-tag {
-  font-size: 0.65rem;
+  font-size: 0.625rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.5);
-  letter-spacing: 0.15em;
+  color: rgba(212, 168, 58, 0.9);
+  letter-spacing: 0.2em;
   text-transform: uppercase;
 }
 
 .nav-bar-right {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .nav-bar-user {
   font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.02em;
+}
+
+.nav-bar-divider {
+  width: 1px;
+  height: 20px;
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  flex-shrink: 0;
 }
 
 .nav-bar-logout {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  color: #fff;
-  padding: 0.4rem 0.875rem;
+  border: 1px solid rgba(212, 168, 58, 0.4);
+  color: var(--gold-300);
+  padding: 0.5rem 1rem;
   border-radius: 8px;
   font-size: 0.8125rem;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .nav-bar-logout:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(212, 168, 58, 0.12);
+  border-color: var(--gold-400);
+  color: #fff;
+  box-shadow: 0 0 0 1px rgba(212, 168, 58, 0.2);
 }
 
 /* Legacy dash-header (por si se usa en algún layout) */
@@ -3232,10 +3265,14 @@ h4, h5, h6, button, input, select, textarea, label {
     font-size: 1.25rem;
   }
 
-  .nav-bar-inner { padding: 0.75rem 1rem; flex-wrap: wrap; }
-  .nav-bar-name { font-size: 0.875rem; }
+  .nav-bar-inner { padding: 0.75rem 1rem; gap: 0.75rem; }
+  .nav-bar-logo { width: 36px; height: 36px; }
+  .nav-bar-brand { gap: 0.65rem; }
+  .nav-bar-name { font-size: 0.9rem; letter-spacing: 0.08em; }
   .nav-bar-tag { display: none; }
-  .nav-bar-user { font-size: 0.75rem; max-width: 120px; overflow: hidden; text-overflow: ellipsis; }
+  .nav-bar-divider { display: none; }
+  .nav-bar-user { font-size: 0.75rem; max-width: 100px; overflow: hidden; text-overflow: ellipsis; }
+  .nav-bar-logout { padding: 0.4rem 0.75rem; font-size: 0.75rem; }
 
   .dash-header-inner {
     flex-direction: column;
