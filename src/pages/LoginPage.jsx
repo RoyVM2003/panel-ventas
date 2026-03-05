@@ -96,73 +96,35 @@ export function LoginPage() {
   }
 
   return (
-    <div id="loginPage" className="lp-root">
+    <div id="loginPage" className="lp-single">
 
-      {/* ══════════════ HERO — VIDEO PAUSADO (primer frame como imagen) ══════════════ */}
-      <div className="lp-hero">
-
-        {/* Video de fondo pausado (solo se ve el primer frame como imagen) */}
-        <div className="lp-hero-img-wrap">
-          <video
-            src="https://osdemsdigital.com/wp-content/uploads/2026/03/video-fondo.mp4"
-            className="lp-hero-img"
-            muted
-            playsInline
-            preload="metadata"
-          />
-        </div>
-
-        {/* Overlay de gradiente para legibilidad */}
-        <div className="lp-hero-overlay" />
-
-        {/* Todo el contenido flota encima de la imagen */}
-        <div className="lp-hero-over">
-
-          {/* Logo + live pill — arriba */}
-          <div className="lp-topbar">
-            <div className="lp-brand">
-              <div className="lp-brand-name">OSDEMS Ventas</div>
-              <div className="lp-brand-sub">Panel de Email Marketing</div>
-            </div>
-          </div>
-
-          {/* Texto principal — centrado en la imagen */}
-            <div className="lp-hero-center">
-
-              <h1 className="lp-h1">
-                CONFIGURA TU SUEÑO
-              </h1>
-
-              <p className="lp-hero-desc">
-                Email marketing con IA para empresarios que piensan en ventas,
-                ahorro de tiempo y clientes premium, no en cupones.
-              </p>
-
-            </div>
-
-        </div>
+      {/* Fondo a pantalla completa */}
+      <div className="lp-single-bg">
+        <video
+          src="https://osdemsdigital.com/wp-content/uploads/2026/03/video-fondo.mp4"
+          className="lp-single-bg-media"
+          muted
+          playsInline
+          preload="metadata"
+        />
       </div>
+      <div className="lp-single-overlay" />
 
-      {/* ══════════════ PANEL FORMULARIO (derecha) ══════════════ */}
-      <div className="lp-panel">
+      {/* Una sola columna centrada: título + form encima del fondo */}
+      <div className="lp-single-content">
+        <div className="lp-single-card">
 
-        {/* Acento superior */}
-        <div className="lp-panel-accent" />
-
-        <div className="lp-panel-inner">
-
-          <h2 className="lp-panel-title">Bienvenido de vuelta</h2>
-          <p className="lp-panel-subtitle">
-            Accede para gestionar tus campañas de email
+          <div className="lp-single-brand">OSDEMS Ventas</div>
+          <h1 className="lp-single-title">CONFIGURA TU SUEÑO</h1>
+          <p className="lp-single-desc">
+            Email marketing con IA. Ahorra tiempo y lanza campañas que venden.
           </p>
 
           <Message text={loginMsg.text} type={loginMsg.type} />
 
           <form id="formLogin" onSubmit={handleLogin} className="lp-form">
             <div className="lp-field">
-              <label htmlFor="loginEmail" className="lp-label">
-                Correo electrónico
-              </label>
+              <label htmlFor="loginEmail" className="lp-label">Correo</label>
               <input
                 type="email"
                 id="loginEmail"
@@ -174,9 +136,7 @@ export function LoginPage() {
               />
             </div>
             <div className="lp-field">
-              <label htmlFor="loginPassword" className="lp-label">
-                Contraseña
-              </label>
+              <label htmlFor="loginPassword" className="lp-label">Contraseña</label>
               <input
                 type="password"
                 id="loginPassword"
@@ -190,14 +150,14 @@ export function LoginPage() {
             <button type="submit" className="lp-btn-primary" id="btnLogin" disabled={loginLoading}>
               {loginLoading
                 ? <><span className="btn-spinner" aria-hidden="true" /> Conectando...</>
-                : <><i className="fas fa-arrow-right-to-bracket"></i> Entrar al panel</>
+                : <>Entrar al panel</>
               }
             </button>
           </form>
 
           <button
             type="button"
-            className="btn-link forgot-link"
+            className="lp-forgot-link"
             onClick={() => {
               setForgotEmail(loginEmail)
               setForgotMsg({ text: '', type: 'info' })
@@ -209,16 +169,13 @@ export function LoginPage() {
 
           {showVerify && (
             <div className="lp-verify-box">
-              <div className="lp-verify-header">
-                <i className="fas fa-envelope-open-text"></i>
-                Verificar correo
-              </div>
+              <div className="lp-verify-header">Verificar correo</div>
               <p className="lp-verify-info">
                 Código de 6 dígitos enviado a <strong>{loginEmail}</strong>
               </p>
               <Message text={verifyMsg.text} type={verifyMsg.type} />
               <form onSubmit={handleVerify}>
-                <FormGroup label="Código de verificación" id="verifyCode">
+                <FormGroup label="Código" id="verifyCode">
                   <input
                     type="text"
                     id="verifyCode"
@@ -231,7 +188,7 @@ export function LoginPage() {
                 </FormGroup>
                 <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
                   <button type="submit" className="btn btn-secondary" disabled={verifyLoading || verifyCode.length < 6}>
-                    {verifyLoading ? 'Verificando...' : 'Verificar cuenta'}
+                    {verifyLoading ? 'Verificando...' : 'Verificar'}
                   </button>
                   <button
                     type="button"
@@ -254,22 +211,6 @@ export function LoginPage() {
               </form>
             </div>
           )}
-
-          {/* Features mini */}
-          <div className="lp-panel-features">
-            <div className="lp-pf-item">
-              <i className="fas fa-file-excel"></i>
-              <span>Importa desde Excel</span>
-            </div>
-            <div className="lp-pf-item">
-              <i className="fas fa-robot"></i>
-              <span>IA incluida</span>
-            </div>
-            <div className="lp-pf-item">
-              <i className="fas fa-rocket"></i>
-              <span>Envío masivo</span>
-            </div>
-          </div>
 
         </div>
       </div>
