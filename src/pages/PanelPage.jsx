@@ -248,8 +248,19 @@ export function PanelPage() {
         </div>
 
         {/* Strip de pasos + KPI (estilo Gleeds/Ciklum) */}
-        <div className="workflow-root">
-          <div className="wf-strip reveal">
+        <div className={`workflow-root${hasSentCampaign ? ' workflow-root--sent' : ''}`}>
+          {hasSentCampaign && (
+            <div className="wf-sent-overlay" aria-live="polite">
+              <div className="wf-sent-mascot">
+                <MascotAssistant
+                  size="lg"
+                  variant="inline"
+                  message="¡Listo! Tu campaña se ha enviado. Los correos llegarán a los contactos de tu Excel."
+                />
+              </div>
+            </div>
+          )}
+          <div className={`wf-strip reveal${hasSentCampaign ? ' wf-strip--faded' : ''}`}>
             <div className="wf-strip-inner">
               <h2 className="wf-strip-title">Tu campaña, paso a paso</h2>
               <nav className="wf-stl" aria-label="Pasos de la campaña">
@@ -278,7 +289,7 @@ export function PanelPage() {
           </div>
 
           {/* ── Cards de trabajo ── */}
-          <div className="wf-cards">
+          <div className={`wf-cards${hasSentCampaign ? ' wf-cards--faded' : ''}`}>
             <div className="wrap">
               <Message text={globalMsg.text} type={globalMsg.type} />
 
@@ -366,17 +377,6 @@ export function PanelPage() {
                 <SendCampaign subject={subject} message={body} hasImportedExcel={hasImportedExcel} onSendSuccess={() => setHasSentCampaign(true)} />
               </section>
 
-              {/* CTA final (estilo Ciklum) */}
-              <div className="wf-panel-cta reveal">
-                <p className="wf-panel-cta-text">¿Listo para la siguiente campaña?</p>
-                <button
-                  type="button"
-                  className="btn wf-panel-cta-btn"
-                  onClick={() => { setCurrentStep(1); document.getElementById('step-1')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}
-                >
-                  Comenzar de nuevo
-                </button>
-              </div>
             </div>
           </div>
 

@@ -4358,7 +4358,7 @@ h4, h5, h6, button, input, select, textarea, label {
 #step-3 {
   margin-top: 2.5rem;
   position: relative;
-  padding-top: 7rem;
+  padding-top: 8.5rem;
 }
 
 /* Bloque "¿Qué formato debe tener el Excel?" — fondo oscuro para que no se pierda */
@@ -4425,6 +4425,50 @@ h4, h5, h6, button, input, select, textarea, label {
 .workflow-root {
   position: relative;
   background: linear-gradient(180deg, var(--navy-950) 0%, #071428 50%, var(--navy-950) 100%);
+}
+
+/* Cuando se envió la campaña: contenido desvanecido y robot en grande */
+.workflow-root--sent .wf-strip--faded,
+.workflow-root--sent .wf-cards--faded {
+  opacity: 0.35;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.wf-sent-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.wf-sent-mascot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wf-sent-mascot .mascot {
+  position: static;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.wf-sent-mascot .mascot-image-wrap {
+  width: 160px;
+  height: 200px;
+  border-radius: 20px;
+}
+
+.wf-sent-mascot .mascot-bubble {
+  max-width: 320px;
+  padding: 0.875rem 1.25rem;
+  font-size: 0.95rem;
+  text-align: center;
 }
 
 /* ── Strip de pasos (panel) ── */
