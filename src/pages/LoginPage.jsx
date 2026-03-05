@@ -96,123 +96,99 @@ export function LoginPage() {
   }
 
   return (
-    <div id="loginPage" className="lp-single">
+    <div id="loginPage" className="login-screen">
 
-      {/* Fondo a pantalla completa */}
-      <div className="lp-single-bg">
+      <div className="login-screen-bg">
         <video
           src="https://osdemsdigital.com/wp-content/uploads/2026/03/video-fondo.mp4"
-          className="lp-single-bg-media"
+          className="login-screen-bg-video"
           muted
           playsInline
           preload="metadata"
         />
       </div>
-      <div className="lp-single-overlay" />
+      <div className="login-screen-overlay" />
 
-      {/* Una sola columna centrada: título + form encima del fondo */}
-      <div className="lp-single-content">
-        <div className="lp-single-card">
+      <div className="login-screen-inner">
+        <p className="login-screen-eyebrow">OSDEMS Ventas</p>
+        <h1 className="login-screen-headline">CONFIGURA TU SUEÑO</h1>
+        <p className="login-screen-tagline">
+          Email marketing con IA. Para quien piensa en ventas, no en cupones.
+        </p>
 
-          <div className="lp-single-brand">OSDEMS Ventas</div>
-          <h1 className="lp-single-title">CONFIGURA TU SUEÑO</h1>
-          <p className="lp-single-desc">
-            Email marketing con IA. Ahorra tiempo y lanza campañas que venden.
-          </p>
+        <Message text={loginMsg.text} type={loginMsg.type} />
 
-          <Message text={loginMsg.text} type={loginMsg.type} />
-
-          <form id="formLogin" onSubmit={handleLogin} className="lp-form">
-            <div className="lp-field">
-              <label htmlFor="loginEmail" className="lp-label">Correo</label>
-              <input
-                type="email"
-                id="loginEmail"
-                className="lp-input"
-                value={loginEmail}
-                onChange={(e) => setLoginEmail(e.target.value)}
-                required
-                placeholder="tu@email.com"
-              />
-            </div>
-            <div className="lp-field">
-              <label htmlFor="loginPassword" className="lp-label">Contraseña</label>
-              <input
-                type="password"
-                id="loginPassword"
-                className="lp-input"
-                value={loginPassword}
-                onChange={(e) => setLoginPassword(e.target.value)}
-                required
-                placeholder="••••••••"
-              />
-            </div>
-            <button type="submit" className="lp-btn-primary" id="btnLogin" disabled={loginLoading}>
-              {loginLoading
-                ? <><span className="btn-spinner" aria-hidden="true" /> Conectando...</>
-                : <>Entrar al panel</>
-              }
-            </button>
-          </form>
-
-          <button
-            type="button"
-            className="lp-forgot-link"
-            onClick={() => {
-              setForgotEmail(loginEmail)
-              setForgotMsg({ text: '', type: 'info' })
-              setShowForgot(true)
-            }}
-          >
-            ¿Olvidaste tu contraseña?
+        <form id="formLogin" onSubmit={handleLogin} className="login-form">
+          <input
+            type="email"
+            id="loginEmail"
+            className="login-input"
+            value={loginEmail}
+            onChange={(e) => setLoginEmail(e.target.value)}
+            required
+            placeholder="Correo electrónico"
+          />
+          <input
+            type="password"
+            id="loginPassword"
+            className="login-input"
+            value={loginPassword}
+            onChange={(e) => setLoginPassword(e.target.value)}
+            required
+            placeholder="Contraseña"
+          />
+          <button type="submit" className="login-cta" id="btnLogin" disabled={loginLoading}>
+            {loginLoading ? <span className="btn-spinner" aria-hidden="true" /> : null}
+            {loginLoading ? 'Conectando...' : 'Entrar'}
           </button>
+        </form>
 
-          {showVerify && (
-            <div className="lp-verify-box">
-              <div className="lp-verify-header">Verificar correo</div>
-              <p className="lp-verify-info">
-                Código de 6 dígitos enviado a <strong>{loginEmail}</strong>
+        <button
+          type="button"
+          className="login-forgot"
+          onClick={() => {
+            setForgotEmail(loginEmail)
+            setForgotMsg({ text: '', type: 'info' })
+            setShowForgot(true)
+          }}
+        >
+          ¿Olvidaste tu contraseña?
+        </button>
+
+        {showVerify && (
+          <div className="login-verify">
+            <div className="login-verify-title">Verificar correo</div>
+            <p className="login-verify-info">Código enviado a <strong>{loginEmail}</strong></p>
+            <Message text={verifyMsg.text} type={verifyMsg.type} />
+            <form onSubmit={handleVerify}>
+              <FormGroup label="Código" id="verifyCode">
+                <input
+                  type="text"
+                  id="verifyCode"
+                  value={verifyCode}
+                  onChange={(e) => setVerifyCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                  placeholder="000000"
+                  maxLength={6}
+                  autoComplete="one-time-code"
+                  className="login-input"
+                />
+              </FormGroup>
+              <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                <button type="submit" className="login-cta login-cta--secondary" disabled={verifyLoading || verifyCode.length < 6}>
+                  {verifyLoading ? 'Verificando...' : 'Verificar'}
+                </button>
+                <button type="button" className="login-forgot" onClick={() => { setShowVerify(false); setVerifyCode(''); setVerifyMsg({ text: '', type: 'info' }); }}>
+                  Cancelar
+                </button>
+              </div>
+              <p style={{ marginTop: '0.75rem' }}>
+                <button type="button" className="login-forgot" onClick={handleResendCode} disabled={resendLoading}>
+                  {resendLoading ? 'Enviando...' : 'Reenviar código'}
+                </button>
               </p>
-              <Message text={verifyMsg.text} type={verifyMsg.type} />
-              <form onSubmit={handleVerify}>
-                <FormGroup label="Código" id="verifyCode">
-                  <input
-                    type="text"
-                    id="verifyCode"
-                    value={verifyCode}
-                    onChange={(e) => setVerifyCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                    placeholder="337054"
-                    maxLength={6}
-                    autoComplete="one-time-code"
-                  />
-                </FormGroup>
-                <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
-                  <button type="submit" className="btn btn-secondary" disabled={verifyLoading || verifyCode.length < 6}>
-                    {verifyLoading ? 'Verificando...' : 'Verificar'}
-                  </button>
-                  <button
-                    type="button"
-                    className="btn-link"
-                    onClick={() => { setShowVerify(false); setVerifyCode(''); setVerifyMsg({ text: '', type: 'info' }); }}
-                  >
-                    Cancelar
-                  </button>
-                </div>
-                <p style={{ marginTop: '0.75rem', fontSize: '0.875rem' }}>
-                  <button
-                    type="button"
-                    className="btn-link"
-                    onClick={handleResendCode}
-                    disabled={resendLoading}
-                  >
-                    {resendLoading ? 'Enviando...' : 'Reenviar código'}
-                  </button>
-                </p>
-              </form>
-            </div>
-          )}
-
-        </div>
+            </form>
+          </div>
+        )}
       </div>
 
       {/* ── Modal: olvidé contraseña ── */}
