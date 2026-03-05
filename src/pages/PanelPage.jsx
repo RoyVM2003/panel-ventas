@@ -381,6 +381,7 @@ export function PanelPage() {
                         body={body}
                         onSubjectChange={setSubject}
                         onBodyChange={setBody}
+                        disabled={!hasImportedExcel}
                       />
                     </div>
                     <div className={`cstab-pane${designAiTab === 'ai' ? ' cstab-pane--active' : ''}`}>
@@ -405,7 +406,7 @@ export function PanelPage() {
                     />
                   </div>
                 )}
-                <SendCampaign subject={subject} message={body} hasImportedExcel={hasImportedExcel} onSendSuccess={() => setHasSentCampaign(true)} />
+                <SendCampaign subject={subject} message={body} hasImportedExcel={hasImportedExcel} onSendSuccess={() => { setHasSentCampaign(true); setShowSentOverlay(true) }} />
               </section>
 
             </div>

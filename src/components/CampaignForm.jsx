@@ -15,6 +15,7 @@ export function CampaignForm({
   body,
   onSubjectChange,
   onBodyChange,
+  disabled = false,
 }) {
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState({ text: '', type: 'info' })
@@ -125,6 +126,11 @@ export function CampaignForm({
 
   return (
     <Panel title="Paso 2 · Contenido de la campaña" icon="fas fa-envelope">
+      {disabled && (
+        <p className="form-group hint step-locked-msg" role="alert">
+          Primero importa un archivo Excel en el <strong>Paso 1 — Importar contactos</strong> para poder elegir o crear campañas aquí.
+        </p>
+      )}
       <FormGroup
         label="Campañas guardadas"
         id="selCampaign"
@@ -134,6 +140,7 @@ export function CampaignForm({
           id="selCampaign"
           value={selectedCampaignId || ''}
           onChange={(e) => {
+            if (disabled) return
             const value = e.target.value
             onSelectedCampaignIdChange?.(value)
             if (!value) {
@@ -141,6 +148,7 @@ export function CampaignForm({
               onBodyChange?.('')
             }
           }}
+          disabled={disabled}
         >
           <option value="">Crear nueva campaña</option>
           {list.map((c) => {
@@ -162,6 +170,7 @@ export function CampaignForm({
           value={subVal}
           autoComplete="off"
           onChange={(e) => onSubjectChange?.(e.target.value)}
+          disabled={disabled}
         />
       </FormGroup>
       <FormGroup label="Mensaje (cuerpo del correo)" id="campBody">
@@ -171,6 +180,7 @@ export function CampaignForm({
           value={bodyVal}
           autoComplete="off"
           onChange={(e) => onBodyChange?.(e.target.value)}
+          disabled={disabled}
         />
       </FormGroup>
       <p className="form-group hint">
@@ -181,7 +191,7 @@ export function CampaignForm({
           type="button"
           className="btn btn-secondary"
           onClick={handleSave}
-          disabled={loading}
+          disabled={loading || disabled}
         >
           <i className="fas fa-save"></i> {selectedCampaignId ? 'Actualizar campaña' : 'Crear campaña'}
         </button>
@@ -191,7 +201,7 @@ export function CampaignForm({
             className="btn"
             style={{ background: 'var(--err, #c00)', color: '#fff' }}
             onClick={handleDelete}
-            disabled={loading}
+            disabled={loading || disabled}
           >
             <i className="fas fa-trash"></i> Eliminar campaña
           </button>

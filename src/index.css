@@ -4436,13 +4436,15 @@ h4, h5, h6, button, input, select, textarea, label {
 }
 
 .wf-sent-overlay {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  z-index: 10;
+  z-index: 100;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  background: rgba(6, 15, 29, 0.75);
+  backdrop-filter: blur(8px);
 }
 
 .wf-sent-close {
@@ -4468,6 +4470,20 @@ h4, h5, h6, button, input, select, textarea, label {
 
 .wf-sent-close:hover {
   background: rgba(15, 23, 42, 1);
+}
+
+/* Mensaje cuando Paso 2 está bloqueado por no tener Excel */
+.step-locked-msg {
+  background: rgba(11, 30, 51, 0.9);
+  border: 1px solid rgba(240, 207, 106, 0.35);
+  color: #e2e8f0;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.step-locked-msg strong {
+  color: var(--gold-300);
 }
 
 .wf-sent-mascot {
