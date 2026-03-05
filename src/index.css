@@ -3016,6 +3016,7 @@ h4, h5, h6, button, input, select, textarea, label {
 .email-preview-subject span {
   font-weight: 600;
   margin-right: 0.35rem;
+  color: #111827;
 }
 
 .email-preview-message {
@@ -4216,6 +4217,18 @@ h4, h5, h6, button, input, select, textarea, label {
   color: var(--gold-300) !important;
 }
 
+/* Paso 3: "No puedes enviar todavía" en rojo bien visible */
+.send-blocked-msg {
+  background: #fef2f2 !important;
+  border-color: #f87171 !important;
+  color: #991b1b;
+}
+.send-blocked-title,
+.send-blocked-msg strong {
+  color: #dc2626 !important;
+  font-weight: 700;
+}
+
 /* Sección IA — sin fondo azul, igual que el resto */
 .wf-ai-section .panel {
   background: #ffffff !important;
@@ -5002,8 +5015,9 @@ h4, h5, h6, button, input, select, textarea, label {
 .app-dark-page .email-preview-body   { background: #fff !important; border-color: rgba(203,213,225,0.5) !important; }
 .app-dark-page .email-preview-label  { color: #0b1e33 !important; }
 .app-dark-page .email-preview-small  { color: #64748b !important; }
-.app-dark-page .email-preview-subject { color: #111827 !important; }
-.app-dark-page .email-preview-message pre { color: #374151 !important; }
+.app-dark-page .email-preview-subject       { color: #111827 !important; }
+.app-dark-page .email-preview-subject span { color: #111827 !important; }
+.app-dark-page .email-preview-message pre  { color: #374151 !important; }
 
 /* AI cards */
 .app-dark-page .ai-suggestion-card { background: #0f172a; border-color: rgba(255,255,255,0.08); }

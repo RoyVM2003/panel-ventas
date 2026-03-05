@@ -46,8 +46,8 @@ export function SendCampaign({ subject, message: body, hasImportedExcel, onSendS
   return (
     <Panel title="Paso 3 · Revisión final y envío" icon="fas fa-paper-plane">
       {!canSend && (
-        <div className="msg err" role="alert" style={{ marginBottom: '1rem' }}>
-          <strong>No puedes enviar todavía.</strong> Primero importa un archivo Excel en el Paso 1 (Importar contactos). El envío solo irá a los correos de ese archivo.
+        <div className="msg err send-blocked-msg" role="alert" style={{ marginBottom: '1rem' }}>
+          <strong className="send-blocked-title">No puedes enviar todavía.</strong> Primero importa un archivo Excel en el Paso 1 (Importar contactos). El envío solo irá a los correos de ese archivo.
         </div>
       )}
       <p className="form-group hint">
