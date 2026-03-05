@@ -98,26 +98,17 @@ export function LoginPage() {
   return (
     <div id="loginPage" className="lp-root">
 
-      {/* ── Capas de fondo decorativas ── */}
-      <div className="lp-bg-blob lp-bg-blob--gold" />
-      <div className="lp-bg-blob lp-bg-blob--teal" />
-      <div className="lp-bg-blob lp-bg-blob--purple" />
-      <div className="lp-bg-dots" />
-
-      {/* ── Formas geométricas decorativas ── */}
-      <div className="lp-geo lp-geo--ring-lg" />
-      <div className="lp-geo lp-geo--ring-sm" />
-      <div className="lp-geo lp-geo--arc" />
-
-      {/* ══════════════ HERO — IMAGEN COMPLETA ══════════════ */}
+      {/* ══════════════ HERO — VIDEO PAUSADO (primer frame como imagen) ══════════════ */}
       <div className="lp-hero">
 
-        {/* IMAGEN DE FONDO — reemplaza el src con tu foto real */}
+        {/* Video de fondo pausado (solo se ve el primer frame como imagen) */}
         <div className="lp-hero-img-wrap">
-          <img
-            src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=900&q=80"
+          <video
+            src="https://osdemsdigital.com/wp-content/uploads/2026/03/video-fondo.mp4"
             className="lp-hero-img"
-            alt=""
+            muted
+            playsInline
+            preload="metadata"
           />
         </div>
 
@@ -172,7 +163,7 @@ export function LoginPage() {
               </div>
               <div className="lp-big-stat-sep" />
               <div className="lp-big-stat">
-                <strong>98%</strong>
+                <strong>100%</strong>
                 <span>Entregados</span>
               </div>
               <div className="lp-big-stat-sep" />
