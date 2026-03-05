@@ -4362,8 +4362,30 @@ h4, h5, h6, button, input, select, textarea, label {
 }
 
 /* ═══════════════════════════════════════
-   CARRUSEL — un paso a la vez
+   CARRUSEL — un paso a la vez (estilo Rolex / Louis Vuitton)
 ═══════════════════════════════════════ */
+@keyframes wf-pane-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes wf-mascot-in {
+  from {
+    opacity: 0;
+    transform: translateX(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .wf-cards--carousel .wf-carousel {
   position: relative;
   min-height: 420px;
@@ -4375,40 +4397,55 @@ h4, h5, h6, button, input, select, textarea, label {
   top: 0;
   right: 0;
   z-index: 2;
-  max-width: 280px;
+  max-width: 320px;
+  animation: wf-mascot-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .wf-carousel-mascot .mascot {
   position: static;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.875rem;
 }
 
 .wf-carousel-mascot .mascot-image-wrap {
-  width: 140px;
-  height: 176px;
-  border-radius: 18px;
+  width: 180px;
+  height: 228px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.wf-carousel-mascot .mascot-image-wrap:hover {
+  transform: scale(1.02);
 }
 
 .wf-carousel-mascot .mascot-bubble {
-  max-width: 260px;
-  padding: 0.65rem 1rem;
-  font-size: 0.85rem;
+  max-width: 280px;
+  padding: 0.75rem 1.15rem;
+  font-size: 0.9rem;
   text-align: center;
+  letter-spacing: 0.02em;
+  transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
 .wf-carousel-slide {
   position: relative;
-  margin-right: 300px;
+  margin-right: 340px;
   min-height: 380px;
 }
 
 .wf-carousel-pane {
   width: 100%;
+  animation: wf-pane-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-.wf-carousel-pane .panel,
+.wf-carousel-pane .panel {
+  margin-bottom: 0;
+  transition: box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.5s ease;
+}
+
 .wf-carousel-pane .cstab-root {
   margin-bottom: 0;
 }
@@ -4422,7 +4459,7 @@ h4, h5, h6, button, input, select, textarea, label {
   position: absolute;
   bottom: 0;
   left: 0;
-  right: 300px;
+  right: 340px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -4451,7 +4488,7 @@ h4, h5, h6, button, input, select, textarea, label {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   font-family: inherit;
 }
 
@@ -4459,6 +4496,7 @@ h4, h5, h6, button, input, select, textarea, label {
   background: rgba(255, 255, 255, 0.15);
   border-color: rgba(255, 255, 255, 0.5);
   color: #fff;
+  transform: scale(1.08);
 }
 
 .wf-carousel-dot--active {
@@ -4488,6 +4526,12 @@ h4, h5, h6, button, input, select, textarea, label {
 .wf-carousel-prev,
 .wf-carousel-next {
   min-width: 120px;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease, opacity 0.3s ease;
+}
+
+.wf-carousel-prev:hover:not(:disabled),
+.wf-carousel-next:hover:not(:disabled) {
+  transform: translateY(-1px);
 }
 
 .wf-carousel-next:disabled,
@@ -4875,6 +4919,11 @@ h4, h5, h6, button, input, select, textarea, label {
 .wf-cards {
   position: relative;
   padding: 3rem 0 3.5rem;
+}
+
+.wf-cards--carousel {
+  padding-top: 0.75rem;
+  padding-bottom: 3rem;
 }
 
 .wf-cards .wrap {
