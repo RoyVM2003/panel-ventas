@@ -684,8 +684,9 @@ h4, h5, h6, button, input, select, textarea, label {
   font-weight: 600;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.85);
   margin: 0 0 1.25rem;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.25), 0 0 24px rgba(255, 255, 255, 0.12);
 }
 
 .login-screen-headline {
@@ -697,14 +698,16 @@ h4, h5, h6, button, input, select, textarea, label {
   line-height: 1.1;
   margin: 0 0 1rem;
   text-transform: uppercase;
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.4), 0 2px 12px rgba(255, 255, 255, 0.2), 0 0 40px rgba(255, 255, 255, 0.08);
 }
 
 .login-screen-tagline {
   font-size: 0.9375rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.92);
   line-height: 1.6;
   margin: 0 0 2.5rem;
   letter-spacing: 0.02em;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
 .login-form {
@@ -3733,7 +3736,7 @@ h4, h5, h6, button, input, select, textarea, label {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.95);
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(212, 168, 58, 0.4);
   border-radius: 100px;
   padding: 0.4rem 1rem;
@@ -3750,15 +3753,15 @@ h4, h5, h6, button, input, select, textarea, label {
   line-height: 1.08;
   letter-spacing: -0.02em;
   margin: 0 0 1.15rem;
-  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.35), 0 2px 12px rgba(255, 255, 255, 0.2), 0 0 48px rgba(255, 255, 255, 0.08);
 }
 
 .home-hero-desc {
   font-family: var(--font-ui);
   font-size: clamp(1rem, 1.6vw, 1.15rem);
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.92);
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6), 0 1px 4px rgba(0, 0, 0, 0.4);
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3), 0 0 24px rgba(255, 255, 255, 0.1);
   line-height: 1.75;
   margin: 0;
 }
@@ -3785,7 +3788,7 @@ h4, h5, h6, button, input, select, textarea, label {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #fff;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.25), 0 0 16px rgba(255, 255, 255, 0.08);
 }
 
 .home-hero-greeting-name {
@@ -3795,7 +3798,7 @@ h4, h5, h6, button, input, select, textarea, label {
   color: #fff;
   line-height: 1.2;
   letter-spacing: -0.03em;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.08);
 }
 
 .hw-name-light {
@@ -3810,7 +3813,7 @@ h4, h5, h6, button, input, select, textarea, label {
   font-size: 0.8125rem;
   font-weight: 400;
   color: #fff;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.25), 0 0 16px rgba(255, 255, 255, 0.06);
   margin-top: 0.1rem;
   margin-bottom: 0.875rem;
   letter-spacing: 0.01em;
