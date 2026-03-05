@@ -3761,7 +3761,6 @@ h4, h5, h6, button, input, select, textarea, label {
 
 .mascot--inline,
 .mascot--warning {
-  position: static;
   align-items: flex-start;
 }
 
@@ -3820,6 +3819,37 @@ h4, h5, h6, button, input, select, textarea, label {
   background: #7f1d1d;
   border-color: #fecaca;
   color: #fee2e2;
+}
+
+/* Posicionamiento lateral del monito junto a los pasos */
+.mascot-step {
+  position: absolute;
+  z-index: 3;
+}
+
+.mascot-step .mascot {
+  position: static;
+}
+
+.mascot-step--1 {
+  left: -220px;
+  top: 1.5rem;
+}
+
+.mascot-step--2 {
+  right: -240px;
+  top: 1.5rem;
+}
+
+.mascot-step--3 {
+  left: -220px;
+  top: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+  .mascot-step {
+    display: none;
+  }
 }
 
 @media (max-width: 768px) {
@@ -4260,6 +4290,7 @@ h4, h5, h6, button, input, select, textarea, label {
   display: flex;
   flex-direction: column;
   min-height: 0;
+  position: relative;
 }
 
 .wf-grid .app-section > .panel,
@@ -4283,28 +4314,6 @@ h4, h5, h6, button, input, select, textarea, label {
 .wf-grid .cstab-pane .panel {
   margin-bottom: 0 !important;
   padding-bottom: 2rem !important;
-}
-
-/* Contenedor paso + mascota lateral (monito fuera de la tarjeta) */
-.step-with-mascot {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.25rem;
-}
-
-.step-with-mascot .app-section {
-  flex: 1;
-}
-
-.step-with-mascot .mascot {
-  position: static;
-}
-
-@media (max-width: 768px) {
-  .step-with-mascot {
-    flex-direction: column;
-    align-items: stretch;
-  }
 }
 
 /* Más espacio entre las dos tarjetas de arriba (Paso 1 y 2) y la tarjeta del Paso 3 */
