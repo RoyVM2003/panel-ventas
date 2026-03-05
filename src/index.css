@@ -3378,7 +3378,8 @@ h4, h5, h6, button, input, select, textarea, label {
   font-family: var(--font-ui);
   font-size: clamp(0.95rem, 1.5vw, 1.1rem);
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.75);
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8), 0 2px 8px rgba(0, 0, 0, 0.5);
   line-height: 1.7;
   margin: 0;
 }
