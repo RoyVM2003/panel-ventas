@@ -3832,13 +3832,15 @@ h4, h5, h6, button, input, select, textarea, label {
 }
 
 .mascot-step--1 {
-  left: -220px;
-  top: -0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -4.25rem;
 }
 
 .mascot-step--2 {
-  right: -240px;
-  top: -0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -4.25rem;
 }
 
 .mascot-step--3 {
