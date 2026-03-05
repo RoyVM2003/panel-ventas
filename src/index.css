@@ -4198,6 +4198,11 @@ h4, h5, h6, button, input, select, textarea, label {
   padding-bottom: 2rem !important;
 }
 
+/* Más espacio entre las dos tarjetas de arriba (Paso 1 y 2) y la tarjeta del Paso 3 */
+#step-3 {
+  margin-top: 2.5rem;
+}
+
 /* Bloque "¿Qué formato debe tener el Excel?" — fondo oscuro para que no se pierda */
 .wf-cards .upload-format-hint {
   background: var(--navy-900) !important;
