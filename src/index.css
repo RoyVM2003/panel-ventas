@@ -793,6 +793,32 @@ h4, h5, h6, button, input, select, textarea, label {
 
 .login-forgot:hover { color: rgba(255, 255, 255, 0.9); }
 
+.login-extra {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.login-screen .register-cta {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.login-screen .register-cta:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #fff;
+}
+
 .login-verify {
   margin-top: 1.5rem;
   padding: 1.5rem;
