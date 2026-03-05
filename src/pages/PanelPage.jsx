@@ -6,6 +6,7 @@ import { CampaignForm } from '../components/CampaignForm'
 import { AIAssistant } from '../components/AIAssistant'
 import { SendCampaign } from '../components/SendCampaign'
 import { Message } from '../components/Message'
+import { MascotAssistant } from '../components/MascotAssistant'
 import { listCampaigns } from '../services/excelService'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 
@@ -212,6 +213,12 @@ export function PanelPage() {
               que venden como un auto premium, no como un cupón de comida rápida.
             </p>
           </div>
+
+          <MascotAssistant
+            size="lg"
+            variant="hero"
+            message="Te acompaño en cada paso del panel."
+          />
         </div>
 
         {/* Strip de pasos + KPI (estilo Gleeds/Ciklum) */}

@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 import { Panel } from './Panel'
 import { Message } from './Message'
+import { MascotAssistant } from './MascotAssistant'
 import { importExcel } from '../services/excelService'
 
 export function ExcelImport({ onImportSuccess }) {
@@ -117,6 +118,12 @@ export function ExcelImport({ onImportSuccess }) {
           <li>Correos válidos y sin duplicados.</li>
         </ul>
       </details>
+
+      <MascotAssistant
+        size="sm"
+        variant="inline"
+        message="Empieza aquí: este Excel define a quién vas a escribir."
+      />
 
       <button
         type="button"

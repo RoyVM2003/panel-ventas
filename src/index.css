@@ -3742,6 +3742,92 @@ h4, h5, h6, button, input, select, textarea, label {
   );
 }
 
+/* ═══════════════════════════════════════
+   MASCOTA ASISTENTE (monito OSDEMS)
+═══════════════════════════════════════ */
+.mascot {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mascot--hero {
+  bottom: 2.25rem;
+  right: 2.5rem;
+}
+
+.mascot--inline,
+.mascot--warning {
+  position: static;
+  align-items: flex-start;
+}
+
+.mascot-image-wrap {
+  width: 88px;
+  height: 112px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: radial-gradient(circle at top, rgba(240, 207, 106, 0.3), transparent 55%);
+}
+
+.mascot--lg .mascot-image-wrap {
+  width: 120px;
+  height: 152px;
+}
+
+.mascot--sm .mascot-image-wrap {
+  width: 64px;
+  height: 82px;
+}
+
+.mascot-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.mascot-bubble {
+  max-width: 260px;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(5, 13, 26, 0.9);
+  border: 1px solid rgba(240, 207, 106, 0.6);
+  color: #f9fafb;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.mascot-bubble-text {
+  display: block;
+}
+
+.mascot--inline .mascot-bubble,
+.mascot--warning .mascot-bubble {
+  background: #0b1e33;
+  border-color: rgba(240, 207, 106, 0.4);
+  text-transform: none;
+  letter-spacing: 0.01em;
+  font-size: 0.8rem;
+}
+
+.mascot--warning .mascot-bubble {
+  background: #7f1d1d;
+  border-color: #fecaca;
+  color: #fee2e2;
+}
+
+@media (max-width: 768px) {
+  .mascot--hero {
+    display: none;
+  }
+}
+
 .home-hero-text {
   position: relative;
   z-index: 2;
