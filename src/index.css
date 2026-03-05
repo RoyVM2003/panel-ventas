@@ -2687,7 +2687,7 @@ h4, h5, h6, button, input, select, textarea, label {
 .panel-accent-bar {
   height: 3px;
   background: linear-gradient(90deg, #c9a227 0%, #f0cf6a 55%, transparent 100%);
-  margin: -2rem -2.25rem 1.75rem;
+  margin: -2rem -2.25rem 1.75rem -2.25rem;
   border-radius: 20px 20px 0 0;
 }
 
@@ -3860,13 +3860,11 @@ h4, h5, h6, button, input, select, textarea, label {
    TABS — Paso 2 + 2b combinados
 ═══════════════════════════════════════ */
 .cstab-root {
-  border-radius: 16px;
+  border-radius: 14px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.42);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  box-shadow: 0 8px 32px rgba(11, 30, 51, 0.12);
+  background: #ffffff;
+  border: 1px solid rgba(203, 213, 225, 0.5);
+  box-shadow: 0 4px 24px rgba(11, 30, 51, 0.08);
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -4409,13 +4407,20 @@ h4, h5, h6, button, input, select, textarea, label {
 
 /* Cards con efecto cristal en el panel — fondo claro para legibilidad */
 .wf-cards .panel {
-  background: rgba(255, 255, 255, 0.94) !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.6) !important;
-  box-shadow: 0 4px 24px rgba(11, 30, 51, 0.1), 0 1px 0 rgba(255, 255, 255, 0.5) inset !important;
-  border-radius: 18px !important;
+  background: #ffffff !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid rgba(203, 213, 225, 0.5) !important;
+  box-shadow: 0 4px 24px rgba(11, 30, 51, 0.08), 0 1px 0 rgba(255, 255, 255, 0.5) inset !important;
+  border-radius: 14px !important;
   padding: 2rem 2.25rem !important;
+  overflow: hidden;
+}
+
+/* Línea amarilla sigue el contorno de la tarjeta */
+.wf-cards .panel .panel-accent-bar {
+  margin: -2rem -2.25rem 1.75rem -2.25rem;
+  border-radius: 14px 14px 0 0;
 }
 
 .wf-cards .panel h2,
