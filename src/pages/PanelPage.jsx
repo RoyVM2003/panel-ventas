@@ -173,35 +173,23 @@ export function PanelPage() {
   return (
     <div id="app" className="app-dark-page">
 
-      {/* Fondo decorativo — igual que el login */}
-      <div className="app-dark-blob app-dark-blob--gold" />
-      <div className="app-dark-blob app-dark-blob--teal" />
-      <div className="app-dark-blob app-dark-blob--purple" />
-      <div className="app-dark-dots" />
-      <div className="app-dark-ring app-dark-ring--lg" />
-      <div className="app-dark-ring app-dark-ring--sm" />
-
       <div className="app-dark-content">
 
-        {/* ══════════════════════════════════
-            HERO — imagen completa con texto
-            Reemplaza el src con tu imagen real
-        ══════════════════════════════════ */}
+        {/* Una sola imagen hero — misma línea visual que el login, profesional */}
         <div className="home-hero">
-          {/* Imagen: profesional con laptop — refleja email marketing, campañas que convierten */}
-          <img
-            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1600&q=80"
-            className="home-hero-img"
-            alt="Profesional trabajando en campañas"
-          />
+          <div className="home-hero-bg">
+            <img
+              src="https://images.unsplash.com/photo-1557804506-669a67965ba3?auto=format&fit=crop&w=1600&q=80"
+              className="home-hero-img"
+              alt=""
+            />
+          </div>
           <div className="home-hero-overlay" />
 
-          {/* Header flotante sobre la imagen */}
           <div className="home-hero-nav">
             <HeaderBar />
           </div>
 
-          {/* Saludo personal — discreto, estilo lujo */}
           <div className="home-hero-greeting reveal reveal-slow reveal-from-left">
             <div className="home-hero-greeting-top">
               <span className="home-hero-greeting-label">Panel activo</span>
@@ -212,7 +200,6 @@ export function PanelPage() {
             <div className="home-hero-greeting-sub">preparado para la próxima campaña</div>
           </div>
 
-          {/* Texto central — fusión Rolex + Ferrari + OSDEMS */}
           <div className="home-hero-text reveal reveal-slow reveal-delay-1">
             <div className="home-hero-eyebrow">CONFIGURA TU SUEÑO</div>
             <h1 className="home-hero-h1">
@@ -227,26 +214,11 @@ export function PanelPage() {
           </div>
         </div>
 
-        {/* ══════════════════════════════════
-            FLUJO DE TRABAJO
-        ══════════════════════════════════ */}
+        {/* Strip de pasos — sin segunda imagen, más profesional */}
         <div className="workflow-root">
-
-          {/* ── Banner imagen + barra de progreso encima ── */}
-          {/* Reemplaza el src con tu imagen real */}
-          <div className="wf-banner reveal">
-            {/* Imagen: oficina moderna, flujo de trabajo — paso a paso campaña */}
-            <img
-              src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1600&q=80"
-              className="wf-banner-img"
-              alt="Flujo de trabajo profesional"
-            />
-            <div className="wf-banner-overlay" />
-            <div className="wf-banner-content">
-              <div className="wf-banner-eyebrow">
-                <i className="fas fa-layer-group" /> Flujo de campaña
-              </div>
-              <h2 className="wf-banner-title">Tu campaña, paso a paso</h2>
+          <div className="wf-strip reveal">
+            <div className="wf-strip-inner">
+              <h2 className="wf-strip-title">Tu campaña, paso a paso</h2>
               <nav className="wf-stl" aria-label="Pasos de la campaña">
                 <button type="button"
                   className={`wf-stl-step${currentStep === 1 ? ' wf-stl-step--active' : ''}${hasImportedExcel ? ' wf-stl-step--done' : ''}`}

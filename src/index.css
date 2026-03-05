@@ -81,6 +81,7 @@ h4, h5, h6, button, input, select, textarea, label {
 /* Títulos serif — hero y secciones principales */
 .home-hero-h1,
 .wf-banner-title,
+.wf-strip-title,
 .svb-ai-title {
   font-family: var(--font-display) !important;
   font-weight: 400 !important;
@@ -299,13 +300,24 @@ h4, h5, h6, button, input, select, textarea, label {
 /* ═══════════════════════════════════════
    DASHBOARD HEADER
 ═══════════════════════════════════════ */
-/* ══════════════ MENÚ REDISEÑADO — barra superior minimalista ══════════════ */
+/* ══════════════ MENÚ REDISEÑADO — barra superior premium (Rolex/Ferrari) ══════════════ */
 .nav-bar {
+  position: relative;
   width: 100%;
-  background: rgba(11, 30, 51, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(6, 15, 29, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.nav-bar-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--gold-500) 20%, var(--gold-400) 50%, var(--gold-500) 80%, transparent 100%);
+  opacity: 0.9;
 }
 
 .nav-bar-inner {
@@ -321,14 +333,16 @@ h4, h5, h6, button, input, select, textarea, label {
 .nav-bar-brand {
   display: flex;
   flex-direction: column;
-  gap: 0.1rem;
+  gap: 0.15rem;
 }
 
 .nav-bar-name {
-  font-size: 0.95rem;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 400;
   color: #fff;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .nav-bar-tag {
@@ -3646,24 +3660,31 @@ h4, h5, h6, button, input, select, textarea, label {
 .hw-stat--done .hw-stat-val { color: #059669; }
 .hw-stat--sent .hw-stat-val { color: #c9a227; }
 
-/* ── HERO imagen completa ── */
+/* ── HERO una sola imagen (misma línea que login) ── */
 .home-hero {
   position: relative;
   width: 100%;
-  height: clamp(480px, 60vw, 680px);
+  height: clamp(520px, 62vw, 720px);
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.home-hero-img {
+.home-hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.home-hero-bg .home-hero-img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 28%;
+  object-position: center 35%;
 }
 
 .home-hero-overlay {
@@ -4150,13 +4171,42 @@ h4, h5, h6, button, input, select, textarea, label {
 /* Una sola imagen corre por todo el bloque workflow */
 .workflow-root {
   position: relative;
-  background-image: url('https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1600&q=80');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background: var(--navy-950);
 }
 
-/* ── Banner imagen con barra de progreso encima ── */
+/* ── Strip de pasos (sin segunda imagen, más profesional) ── */
+.wf-strip {
+  width: 100%;
+  background: linear-gradient(180deg, var(--navy-950) 0%, var(--navy-900) 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 1.5rem 1rem;
+}
+
+.wf-strip-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.wf-strip-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-weight: 400;
+  color: #fff;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.wf-strip .wf-stl {
+  width: 100%;
+  max-width: 480px;
+}
+
+/* ── Legacy: banner con imagen (ya no se usa en panel) ── */
 .wf-banner {
   position: relative;
   width: 100%;
@@ -4336,6 +4386,8 @@ h4, h5, h6, button, input, select, textarea, label {
 
 @media (max-width: 768px) {
   .wf-banner { height: 220px; }
+  .wf-strip { padding: 1rem 0.75rem; }
+  .wf-strip-title { font-size: 1.1rem; }
   .wf-stl { padding: 0.4rem 0.75rem; }
   .wf-stl-step { padding: 0.35rem 0.5rem; }
   .wf-stl-label { font-size: 0.75rem; }

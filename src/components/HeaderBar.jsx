@@ -6,6 +6,7 @@ export function HeaderBar() {
 
   return (
     <header className="nav-bar">
+      <div className="nav-bar-accent" />
       <div className="nav-bar-inner">
         <div className="nav-bar-brand">
           <span className="nav-bar-name">OSDEMS Ventas</span>
