@@ -645,11 +645,12 @@ h4, h5, h6, button, input, select, textarea, label {
 }
 
 .lp-brand-name {
-  font-size: 1.05rem;
-  font-weight: 800;
+  font-size: 1rem;
+  font-weight: 600;
   color: #fff;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.12em;
   line-height: 1.2;
+  text-transform: uppercase;
 }
 
 .lp-brand-sub {
@@ -1201,18 +1202,18 @@ h4, h5, h6, button, input, select, textarea, label {
   );
 }
 
-/* Todo el contenido flota encima */
+/* Todo el contenido flota encima — Rolex: mucho aire */
 .lp-hero-over {
   position: relative;
   z-index: 2;
   display: flex;
   flex-direction: column;
   min-height: 100%;
-  padding: 2.25rem 2.75rem 2.5rem;
+  padding: 2.5rem 3rem 3rem;
   color: #fff;
 }
 
-/* Bloque de texto centrado en la imagen */
+/* Bloque de texto centrado — una idea fuerte (Ferrari), elegante (Rolex) */
 .lp-hero-center {
   flex: 1;
   display: flex;
@@ -1319,22 +1320,22 @@ h4, h5, h6, button, input, select, textarea, label {
   backdrop-filter: blur(6px);
 }
 
+/* Fusión Rolex + Ferrari: serif elegante, una idea fuerte, sin dibujitos */
 .lp-h1 {
-  font-size: clamp(2.6rem, 4.5vw, 3.75rem);
-  font-weight: 800;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 4.2vw, 3.5rem);
+  font-weight: 400;
   color: #fff;
-  line-height: 1.08;
-  letter-spacing: -0.04em;
-  margin: 0 0 1.1rem;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  margin: 0 0 1.25rem;
 }
 
 .lp-h1-grad {
-  background: linear-gradient(135deg, #d4a83a 0%, #f5d97a 40%, #d4a83a 100%);
-  background-size: 200% auto;
+  background: linear-gradient(135deg, #d4a83a 0%, #e8c05a 50%, #c9a227 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: lp-shimmer 3s linear infinite;
 }
 
 .lp-h1-outline {
@@ -1343,11 +1344,12 @@ h4, h5, h6, button, input, select, textarea, label {
 }
 
 .lp-hero-desc {
-  font-size: 1.0625rem;
-  color: rgba(255, 255, 255, 0.62);
-  line-height: 1.65;
-  margin: 0 0 1.75rem;
-  max-width: 420px;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.7;
+  margin: 0;
+  max-width: 380px;
+  letter-spacing: 0.02em;
 }
 
 /* Stats pills row */
@@ -1612,8 +1614,8 @@ h4, h5, h6, button, input, select, textarea, label {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 2.5rem 3rem;
-  max-width: 420px;
+  padding: 3rem 3.25rem;
+  max-width: 400px;
   margin: 0 auto;
   width: 100%;
 }
@@ -1633,19 +1635,21 @@ h4, h5, h6, button, input, select, textarea, label {
 }
 
 .lp-panel-title {
+  font-family: var(--font-display);
   font-size: 1.75rem;
-  font-weight: 800;
+  font-weight: 400;
   color: var(--navy-900);
-  letter-spacing: -0.03em;
-  margin: 0 0 0.4rem;
-  line-height: 1.2;
+  letter-spacing: 0.02em;
+  margin: 0 0 0.5rem;
+  line-height: 1.25;
 }
 
 .lp-panel-subtitle {
   font-size: 0.9375rem;
   color: var(--gray-500);
-  margin: 0 0 1.75rem;
-  line-height: 1.5;
+  margin: 0 0 2rem;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
 }
 
 /* Formulario custom */
@@ -1676,35 +1680,41 @@ h4, h5, h6, button, input, select, textarea, label {
   font-size: 0.8rem;
 }
 
+/* Sin iconos en labels = más limpio (fusión Rolex) */
+.lp-form .lp-label i {
+  display: none;
+}
+
+/* Formulario: limpio, sin ruido (Rolex) */
 .lp-input {
   width: 100%;
-  padding: 0.875rem 1.125rem;
-  border-radius: 14px;
-  border: 2px solid var(--gray-200);
-  background: var(--gray-50);
+  padding: 0.9375rem 1.25rem;
+  border-radius: 8px;
+  border: 1px solid var(--gray-200);
+  background: #fff;
   font-size: 1rem;
   font-family: inherit;
   color: var(--gray-900);
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .lp-input:focus {
-  border-color: var(--gold-500);
-  background: #fff;
-  box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.14);
+  border-color: var(--navy-600);
+  box-shadow: 0 0 0 2px rgba(11, 30, 51, 0.08);
 }
 
 .lp-btn-primary {
   width: 100%;
-  background: linear-gradient(135deg, #0b1e33 0%, #123765 100%);
+  background: var(--navy-900);
   color: #fff;
   border: none;
   padding: 1rem 1.75rem;
-  border-radius: 14px;
-  font-weight: 700;
+  border-radius: 8px;
+  font-weight: 600;
   font-size: 1rem;
   font-family: inherit;
+  letter-spacing: 0.03em;
   cursor: pointer;
   display: flex;
   align-items: center;

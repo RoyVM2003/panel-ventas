@@ -121,15 +121,8 @@ export function LoginPage() {
           {/* Logo + live pill — arriba */}
           <div className="lp-topbar">
             <div className="lp-brand">
-              <img
-                src="https://osdemsdigital.com/wp-content/uploads/2026/03/loogo-app.png"
-                alt="OSDEMS"
-                className="lp-brand-img lp-logo-no-bg"
-              />
-              <div>
-                <div className="lp-brand-name">OSDEMS Ventas</div>
-                <div className="lp-brand-sub">Panel de Email Marketing</div>
-              </div>
+              <div className="lp-brand-name">OSDEMS Ventas</div>
+              <div className="lp-brand-sub">Panel de Email Marketing</div>
             </div>
           </div>
 
@@ -159,15 +152,6 @@ export function LoginPage() {
 
         <div className="lp-panel-inner">
 
-          {/* Logo en el panel */}
-          <div className="lp-panel-logo">
-            <img
-              src="https://osdemsdigital.com/wp-content/uploads/2026/03/loogo-app.png"
-              alt="OSDEMS"
-              className="lp-panel-logo-img lp-logo-no-bg"
-            />
-          </div>
-
           <h2 className="lp-panel-title">Bienvenido de vuelta</h2>
           <p className="lp-panel-subtitle">
             Accede para gestionar tus campañas de email
@@ -178,7 +162,7 @@ export function LoginPage() {
           <form id="formLogin" onSubmit={handleLogin} className="lp-form">
             <div className="lp-field">
               <label htmlFor="loginEmail" className="lp-label">
-                <i className="fas fa-envelope"></i> Correo electrónico
+                Correo electrónico
               </label>
               <input
                 type="email"
@@ -192,7 +176,7 @@ export function LoginPage() {
             </div>
             <div className="lp-field">
               <label htmlFor="loginPassword" className="lp-label">
-                <i className="fas fa-lock"></i> Contraseña
+                Contraseña
               </label>
               <input
                 type="password"
