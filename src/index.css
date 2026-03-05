@@ -61,6 +61,11 @@ body {
   min-height: 100vh;
 }
 
+/* En login, body con mismo tono que el overlay para no ver barras */
+body:has(#loginPage) {
+  background: #050d1a;
+}
+
 /* ── Tipografía mejorada ── */
 h1, h2, h3 {
   font-family: var(--font-ui);
@@ -593,38 +598,45 @@ h4, h5, h6, button, input, select, textarea, label {
   margin: 0;
 }
 
-/* Fondo a todo ancho: pegado a los bordes del viewport */
+/* Fondo a todo ancho: 100vw para eliminar barras laterales */
 .login-screen-bg {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  min-width: 100vw;
+  min-height: 100vh;
   z-index: 0;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 .login-screen-bg-video {
-  display: block;
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   min-width: 100%;
   min-height: 100%;
   object-fit: cover;
   object-position: center 30%;
+  display: block;
 }
 
 .login-screen-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  min-width: 100vw;
+  min-height: 100vh;
   z-index: 1;
+  margin: 0;
+  padding: 0;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(5, 13, 26, 0.92) 50%, rgba(5, 13, 26, 0.97) 100%);
 }
 

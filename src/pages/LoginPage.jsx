@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { createPortal } from 'react-dom'
 import { useAuth } from '../context/AuthContext'
 import { FormGroup } from '../components/FormGroup'
 import { Message } from '../components/Message'
@@ -95,9 +96,8 @@ export function LoginPage() {
     }
   }
 
-  return (
-    <div id="loginPage" className="login-screen">
-
+  const background = (
+    <>
       <div className="login-screen-bg">
         <video
           src="https://osdemsdigital.com/wp-content/uploads/2026/03/video-fondo.mp4"
@@ -108,6 +108,12 @@ export function LoginPage() {
         />
       </div>
       <div className="login-screen-overlay" />
+    </>
+  )
+
+  return (
+    <div id="loginPage" className="login-screen">
+      {createPortal(background, document.body)}
 
       <div className="login-screen-inner">
         <p className="login-screen-eyebrow">OSDEMS Ventas</p>
